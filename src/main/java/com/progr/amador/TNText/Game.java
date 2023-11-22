@@ -7,8 +7,13 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Game {
     Screen screen = null;
@@ -16,13 +21,30 @@ public class Game {
 
     public Game() {
         try {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
+            File fontFile = new File("/home/alex-uni/IdeaProjects/TNText/src/main/java/resources/square.ttf");
+            Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
+
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(font);
+
+            DefaultTerminalFactory factory = new DefaultTerminalFactory();
+
+            Font loadedFont = font.deriveFont(Font.PLAIN, 30);
+            AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
+            factory.setTerminalEmulatorFontConfiguration(fontConfig);
+            factory.setForceAWTOverSwing(true);
+            factory.setInitialTerminalSize(new TerminalSize(40, 20));
+
+            Terminal terminal = factory.createTerminal();
+
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
         }
     }
 
