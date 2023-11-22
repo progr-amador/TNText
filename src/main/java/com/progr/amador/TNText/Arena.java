@@ -10,6 +10,7 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width, height;
@@ -24,7 +25,7 @@ public class Arena {
         this.width = width;
         this.height = height;
         this.bricks = createBricks();
-        //this.woods = createWoods();
+        this.woods = createWoods();
     }
 
     private List<Brick> createBricks() {
@@ -46,9 +47,35 @@ public class Arena {
         return bricks;
     }
 
+    private static final Random random = new Random();
+    private List<Wood> createWoods() {
+        List<Wood> woods = new ArrayList<>();
+        for (int x = 1; x < width; x++) {
+            for (int y = 1; y < height; y++) {
+                if ((x%2!=0 || y%2!=0) &
+                        !(x==1 & y==1) & !(x==1 & y==2) & !(x==2 & y==1) &
+                        !(x==59 & y==19) & !(x==59 & y==18) & !(x==58 & y==19)) {
+                    if (shouldAddWood()) {
+                        woods.add(new Wood(x, y));
+                    }
+                }
+            }
+        }
+        return woods;
+    }
+    private boolean shouldAddWood() {
+        // Adjust the spawn rate by modifying the probability
+        double spawnRate = 0.3; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        return random.nextDouble() < spawnRate;
+    }
+
+
     private boolean canElementMove(Position position) {
         for (Brick brick : bricks) {
             if (brick.getPosition().equals(position)) return false;
+        }
+        for (Wood wood : woods) {
+            if (wood.getPosition().equals(position)) return false;
         }
         return true;
     }
@@ -61,10 +88,11 @@ public class Arena {
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-        player1.draw(graphics, "#FFFFFF", "☻");
-        player2.draw(graphics, "#F27379", "☻");
+        player1.draw(graphics, "#FFFFFF", "$");
+        player2.draw(graphics, "#F27379", "$");
 
-        for (Brick brick : bricks) brick.draw(graphics, "#6C91C2", "█");
+        for (Brick brick : bricks) brick.draw(graphics, "#6C91C2", "5");
+        for (Wood wood : woods) wood.draw(graphics, "#9C929A", "*");
     }
 
 

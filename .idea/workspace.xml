@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab82098d-587e-4052-a3b5-0a3e95fb7aa2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Arena.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Brick.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Element.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Position.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Wood.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/progr/amador/TNText/Arena.java" afterDir="false" />
     </list>
     <list id="bfca59f4-feb9-430e-828d-b48ec5fa6348" name="Changes by franciscoafonso" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +19,18 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -49,22 +51,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/home/alex-uni/IdeaProjects/TNText/src/main/java/com/progr/amador/TNText/Main.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/afons/Desktop/Python, Assembly and C++ and other stuff I dont know what is going on/2ºano/LDTS/project-l12gr04",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/home/alex-uni/IdeaProjects/TNText/src/main/java/com/progr/amador/TNText/Main.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -76,6 +79,7 @@
       <workItem from="1700220998109" duration="548000" />
       <workItem from="1700664167192" duration="2559000" />
       <workItem from="1700673809173" duration="7000" />
+      <workItem from="1700681038137" duration="2880000" />
     </task>
     <servers />
   </component>
