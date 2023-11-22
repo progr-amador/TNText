@@ -19,4 +19,6 @@ public class  Element {
         graphics.setForegroundColor(TextColor.Factory.fromString(color));
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), symbol);
     }
+
+
 }

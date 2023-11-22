@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Arena {
     private int width, height;
-    private Player player1 = new Player(50, 15);
-    private Player player2 = new Player(40, 5);
+    private Player player1 = new Player(1, 1);
+    private Player player2 = new Player(59, 19);
 
 
     private List<Brick> bricks;
@@ -27,24 +27,6 @@ public class Arena {
         //this.woods = createWoods();
     }
 
-    public int getHeight() {return height;}
-    public int getWidth() {return width;}
-
-    public void setHeight(int height) {this.height = height;}
-    public void setWidth(int width) {this.width = width;}
-
-    public Player getPlayer1() {return player1;}
-    public Player getPlayer2() {return player2;}
-
-    public void setPlayer1(Player player) {this.player1 = player;}
-    public void setPlayer2(Player player) {this.player2 = player;}
-
-    public List<Brick> getBricks() {return bricks;}
-    public void setBricks(List<Brick> bricks) {this.bricks = bricks;}
-
-    public List<Wood> getWoods() {return woods;}
-    public void setWoods(List<Wood> woods) {this.woods = woods;}
-
     private List<Brick> createBricks() {
         List<Brick> bricks = new ArrayList<>();
         for (int c = 0; c < width; c++) {
@@ -55,6 +37,12 @@ public class Arena {
             bricks.add(new Brick(0, r));
             bricks.add(new Brick(width - 1, r));
         }
+        for(int x = 2; x < width - 1; x=x+2){
+            for(int y = 2; y < height - 1; y=y+2){
+                bricks.add(new Brick(x, y));
+            }
+        }
+
         return bricks;
     }
 
@@ -76,7 +64,7 @@ public class Arena {
         player1.draw(graphics, "#FFFFFF", "☻");
         player2.draw(graphics, "#F27379", "☻");
 
-        for (Brick brick : bricks) brick.draw(graphics, "#6C91C2", "B");
+        for (Brick brick : bricks) brick.draw(graphics, "#6C91C2", "█");
     }
 
 

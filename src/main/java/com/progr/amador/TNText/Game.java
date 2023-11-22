@@ -1,23 +1,18 @@
 package com.progr.amador.TNText;
 
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-
-
 
 import java.io.IOException;
 
 public class Game {
     Screen screen = null;
-    Arena arena = new Arena(70, 30);
+    Arena arena = new Arena(61, 21);
 
     public Game() {
         try {
