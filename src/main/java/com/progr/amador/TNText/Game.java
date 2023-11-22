@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class Game {
     Screen screen = null;
-    Arena arena = new Arena(61, 21);
+    Arena arena = new Arena(15, 15);
 
     public Game() {
         try {
@@ -29,11 +29,11 @@ public class Game {
 
             DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
-            Font loadedFont = font.deriveFont(Font.PLAIN, 30);
+            Font loadedFont = font.deriveFont(Font.PLAIN, 50);
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
             factory.setTerminalEmulatorFontConfiguration(fontConfig);
             factory.setForceAWTOverSwing(true);
-            factory.setInitialTerminalSize(new TerminalSize(40, 20));
+            factory.setInitialTerminalSize(new TerminalSize(15, 15));
 
             Terminal terminal = factory.createTerminal();
 

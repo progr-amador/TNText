@@ -15,7 +15,7 @@ import java.util.Random;
 public class Arena {
     private int width, height;
     private Player player1 = new Player(1, 1);
-    private Player player2 = new Player(59, 19);
+    private Player player2 = new Player(13, 13);
 
 
     private List<Brick> bricks;
@@ -50,11 +50,11 @@ public class Arena {
     private static final Random random = new Random();
     private List<Wood> createWoods() {
         List<Wood> woods = new ArrayList<>();
-        for (int x = 1; x < width; x++) {
-            for (int y = 1; y < height; y++) {
+        for (int x = 1; x < width-1; x++) {
+            for (int y = 1; y < height-1; y++) {
                 if ((x%2!=0 || y%2!=0) &
                         !(x==1 & y==1) & !(x==1 & y==2) & !(x==2 & y==1) &
-                        !(x==59 & y==19) & !(x==59 & y==18) & !(x==58 & y==19)) {
+                        !(x==13 & y==13) & !(x==13 & y==12) & !(x==12 & y==13)) {
                     if (shouldAddWood()) {
                         woods.add(new Wood(x, y));
                     }
@@ -88,11 +88,11 @@ public class Arena {
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-        player1.draw(graphics, "#FFFFFF", "$");
-        player2.draw(graphics, "#F27379", "$");
+        player1.draw(graphics, "#FFFFFF", "1");
+        player2.draw(graphics, "#F27379", "2");
 
-        for (Brick brick : bricks) brick.draw(graphics, "#6C91C2", "5");
-        for (Wood wood : woods) wood.draw(graphics, "#9C929A", "*");
+        for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "█");
+        for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
     }
 
 
