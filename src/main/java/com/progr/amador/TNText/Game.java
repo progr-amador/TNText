@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 
 public class Game {
     Screen screen = null;
@@ -21,7 +22,7 @@ public class Game {
 
     public Game() {
         try {
-            File fontFile = new File("/home/alex-uni/IdeaProjects/TNText/src/main/java/resources/square.ttf");
+            File fontFile = new File("src/main/resources/Square-Regular.ttf");
             Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -34,6 +35,7 @@ public class Game {
             factory.setTerminalEmulatorFontConfiguration(fontConfig);
             factory.setForceAWTOverSwing(true);
             factory.setInitialTerminalSize(new TerminalSize(15, 15));
+            factory.setTerminalEmulatorTitle("TNText");
 
             Terminal terminal = factory.createTerminal();
 

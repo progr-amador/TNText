@@ -65,7 +65,7 @@ public class Arena {
     }
     private boolean shouldAddWood() {
         // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.3; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        double spawnRate = 0.0; // Adjust this value (0.0 to 1.0) for your desired spawn rate
         return random.nextDouble() < spawnRate;
     }
 
@@ -91,43 +91,33 @@ public class Arena {
         player1.draw(graphics, "#FFFFFF", "1");
         player2.draw(graphics, "#F27379", "2");
 
-        for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "█");
+//█
+        for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
     }
 
 
     public boolean processKey(KeyStroke key, Screen screen) throws IOException {
         switch (key.getKeyType()) {
-            case ArrowLeft -> {
-                moveHero(player2, player2.moveLeft());
-                break;
-            }
-            case ArrowRight -> {
-                moveHero(player2, player2.moveRight());
-                break;
-            }
-            case ArrowUp -> {
-                moveHero(player2, player2.moveUp());
-                break;
-            }
-            case ArrowDown -> {
-                moveHero(player2, player2.moveDown());
-                break;
-            }
             case Character -> {
-                if (key.getCharacter() == 'a' || key.getCharacter() == 'A') moveHero(player1, player1.moveLeft());
-                else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') moveHero(player1, player1.moveRight());
-                else if (key.getCharacter() == 'w' || key.getCharacter() == 'W') moveHero(player1, player1.moveUp());
+                if      (key.getCharacter() == 'w' || key.getCharacter() == 'W') moveHero(player1, player1.moveUp());
+                else if (key.getCharacter() == 'a' || key.getCharacter() == 'A') moveHero(player1, player1.moveLeft());
                 else if (key.getCharacter() == 's' || key.getCharacter() == 'S') moveHero(player1, player1.moveDown());
+                else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') moveHero(player1, player1.moveRight());
 
                 else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
-                break;
             }
+
+            case ArrowLeft -> moveHero(player2, player2.moveLeft());
+
+            case ArrowRight -> moveHero(player2, player2.moveRight());
+
+            case ArrowUp -> moveHero(player2, player2.moveUp());
+
+            case ArrowDown -> moveHero(player2, player2.moveDown());
+
             case EOF -> {
                 return true;
-            }
-            default -> {
-                break;
             }
         }
         return false;
