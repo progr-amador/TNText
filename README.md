@@ -1,4 +1,4 @@
-## LDTS_1204 - TNText
+## LDTS_1204 - TNText 💣
 
   In this exciting game, players must attemp to eliminate each other by placing bombs and avoiding them, and be the last one standing. 
   
