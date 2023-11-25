@@ -19,3 +19,5 @@
 - **Upgrades** - The players will be able to grab power-ups in order to upgrade bombs, or to gain an extra life. 
 - **Movement Sprites** - The player sprite will adapt to the players movement direction.
 
+
+![TNTextMapImage1](src/main/resources/TNTextMapImage1.png)
