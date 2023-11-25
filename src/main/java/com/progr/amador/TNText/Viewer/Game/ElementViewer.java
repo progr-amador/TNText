@@ -1,5 +1,7 @@
 package com.progr.amador.TNText.Viewer.Game;
 
-public interface ElementViewer {
+import com.progr.amador.TNText.Element;
+import com.progr.amador.TNText.Game;
 
+public interface ElementViewer<T extends Element> {
 }
