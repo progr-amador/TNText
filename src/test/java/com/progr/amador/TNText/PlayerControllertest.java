@@ -8,31 +8,50 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class PlayerControllertest {
     Arena testzone;
     PlayerController playerController;
     Position specific_brick_place;
     Player one;
-    Player two;
 
 
     @BeforeEach
     public void helper() {
-        testzone = new Arena(15,15);
+        testzone = new Arena(15, 15);
         playerController = new PlayerController(testzone);
-        specific_brick_place = new Position(0,1);
-        one = new Player(1,1);
-        two = new Player(13,13);
+
     }
 
     @Test
-    public void movePlayer() {
-        playerController.movePlayer(one,specific_brick_place);
-        Assertions.assertEquals(new Position(1,1),one.getPosition());
+    public void movePlayer1() {
+        one = new Player(1, 1);
+        specific_brick_place = new Position(0, 1);
+        playerController.movePlayer(one, specific_brick_place);
+        Assertions.assertEquals(new Position(1, 1), one.getPosition());
     }
 
+    @Test
+    public void movePlayer2() {
+        one = new Player(1, 1);
+        specific_brick_place = new Position(1, 2);
+        playerController.movePlayer(one, specific_brick_place);
+        Assertions.assertEquals(new Position(1, 2), one.getPosition());
+    }
 
+    @Test
+    public void movePlayer3() {
+        one = new Player(13, 13);
+        specific_brick_place = new Position(14, 13);
+        playerController.movePlayer(one, specific_brick_place);
+        Assertions.assertEquals(new Position(13, 13), one.getPosition());
+    }
 
+    @Test
+    public void movePlayer4() {
+        one = new Player(13, 13);
+        specific_brick_place = new Position(13, 12);
+        playerController.movePlayer(one, specific_brick_place);
+        Assertions.assertEquals(new Position(13, 12), one.getPosition());
+    }
 
 }
