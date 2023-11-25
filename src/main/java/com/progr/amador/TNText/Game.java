@@ -8,6 +8,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.progr.amador.TNText.Controller.Elements.ArenaController;
+import com.progr.amador.TNText.Controller.Elements.PlayerController;
 
 import java.awt.*;
 import java.io.File;
@@ -18,7 +20,7 @@ import java.nio.file.Paths;
 
 public class Game {
     Screen screen = null;
-    Arena arena = new Arena(15, 15);
+    ArenaController arenaController = new ArenaController(new Arena(15,15));
 
     public Game() {
         try {
@@ -50,9 +52,13 @@ public class Game {
         }
     }
 
+    public Screen getScreen() {return screen;}
+
+    public ArenaController getArenaController() {return arenaController;}
+
     private void draw() throws IOException {
         screen.clear();
-        arena.draw(screen.newTextGraphics());
+        arenaController.getPlayerController().getModel().draw(screen.newTextGraphics());
         screen.refresh();
     }
 
@@ -66,7 +72,7 @@ public class Game {
 
             boolean over = false;
             KeyStroke key = screen.readInput();
-            over = arena.processKey(key, screen);
+            over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, screen) ;
             if (over) break;
         }
     }

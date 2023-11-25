@@ -11,8 +11,8 @@ public class  Element {
 
     public Position getPosition() {return this.position;}
     public int getX() {return getPosition().getX();}
-
     public int getY() {return getPosition().getY();}
+
     public void setPosition(Position position) {this.position = position;}
 
     public void draw(TextGraphics graphics, String color, String symbol) {

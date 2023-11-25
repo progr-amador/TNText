@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Arena {
+
     private int width, height;
     private Player player1 = new Player(1, 1);
     private Player player2 = new Player(13, 13);
-
-
     private List<Brick> bricks;
     public List<Wood> woods;
 
@@ -26,6 +25,22 @@ public class Arena {
         this.height = height;
         this.bricks = createBricks();
         this.woods = createWoods();
+    }
+
+    public List<Brick> getBricks() {
+        return bricks;
+    }
+
+    public List<Wood> getWoods() {
+        return woods;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 
     private List<Brick> createBricks() {
@@ -47,7 +62,6 @@ public class Arena {
         return bricks;
     }
 
-    private static final Random random = new Random();
     private List<Wood> createWoods() {
         List<Wood> woods = new ArrayList<>();
         for (int x = 1; x < width-1; x++) {
@@ -64,25 +78,10 @@ public class Arena {
         return woods;
     }
     private boolean shouldAddWood() {
+        Random random = new Random();
         // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.0; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        double spawnRate = 0.3; // Adjust this value (0.0 to 1.0) for your desired spawn rate
         return random.nextDouble() < spawnRate;
-    }
-
-
-    private boolean canHeroMove(Position position) {
-        for (Brick brick : bricks) {
-            if (brick.getPosition().equals(position)) return false;
-        }
-        for (Wood wood : woods) {
-            if (wood.getPosition().equals(position)) return false;
-        }
-        return true;
-    }
-    private void moveHero(Player player,Position position) {
-        if (canHeroMove(position)) {
-            player.setPosition(position);
-        }
     }
 
     public void draw(TextGraphics graphics) {
@@ -91,35 +90,8 @@ public class Arena {
         player1.draw(graphics, "#FFFFFF", "1");
         player2.draw(graphics, "#F27379", "2");
 
-//█
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
     }
 
-
-    public boolean processKey(KeyStroke key, Screen screen) throws IOException {
-        switch (key.getKeyType()) {
-            case Character -> {
-                if      (key.getCharacter() == 'w' || key.getCharacter() == 'W') moveHero(player1, player1.moveUp());
-                else if (key.getCharacter() == 'a' || key.getCharacter() == 'A') moveHero(player1, player1.moveLeft());
-                else if (key.getCharacter() == 's' || key.getCharacter() == 'S') moveHero(player1, player1.moveDown());
-                else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') moveHero(player1, player1.moveRight());
-
-                else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
-            }
-
-            case ArrowLeft -> moveHero(player2, player2.moveLeft());
-
-            case ArrowRight -> moveHero(player2, player2.moveRight());
-
-            case ArrowUp -> moveHero(player2, player2.moveUp());
-
-            case ArrowDown -> moveHero(player2, player2.moveDown());
-
-            case EOF -> {
-                return true;
-            }
-        }
-        return false;
-    }
 }
