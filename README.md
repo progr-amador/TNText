@@ -51,6 +51,10 @@ The use of the State Pattern in the current design allows the following benefits
 - It allowed us to organize and catalog the user interface.
 - It allowed us to clean our code and "tidy up the place".
 
+### UML CLASS DIAGRAM
+
+![TNTextClassDiagram](src/main/resources/images/TNTextClassDiagram.png)
+
 ### SELF-EVALUATION
 
 - Afonso Castro: 32%
