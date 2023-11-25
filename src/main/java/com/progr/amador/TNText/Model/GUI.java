@@ -1,4 +1,4 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Model;
 
 
 import com.googlecode.lanterna.screen.Screen;
@@ -9,45 +9,56 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.progr.amador.TNText.Controller.Elements.ArenaController;
-import com.progr.amador.TNText.Controller.Elements.PlayerController;
+import com.progr.amador.TNText.Model.Arena;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 
-public class Game {
+public class GUI {
     Screen screen = null;
     ArenaController arenaController = new ArenaController(new Arena(15,15));
 
-    public Game() {
+    public GUI() {
         try {
-            File fontFile = new File("src/main/resources/Square-Regular.ttf");
-            Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(font);
-
-            DefaultTerminalFactory factory = new DefaultTerminalFactory();
-
-            Font loadedFont = font.deriveFont(Font.PLAIN, 50);
-            AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
-            factory.setTerminalEmulatorFontConfiguration(fontConfig);
-            factory.setForceAWTOverSwing(true);
-            factory.setInitialTerminalSize(new TerminalSize(15, 15));
-            factory.setTerminalEmulatorTitle("TNText");
-
-            Terminal terminal = factory.createTerminal();
-
-            screen = new TerminalScreen(terminal);
+            screen = new TerminalScreen(createTerminal());
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public Font loadFont(){
+        File fontFile = new File("src/main/resources/Square-Regular.ttf");
+        Font font = null;
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
         } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(font);
+
+        return font.deriveFont(Font.PLAIN, 50);
+    }
+
+    public Terminal createTerminal(){
+        DefaultTerminalFactory factory = new DefaultTerminalFactory();
+
+        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadFont());
+        factory.setTerminalEmulatorFontConfiguration(fontConfig);
+        factory.setForceAWTOverSwing(true);
+        factory.setInitialTerminalSize(new TerminalSize(15, 15));
+        factory.setTerminalEmulatorTitle("TNText");
+
+        try {
+            return factory.createTerminal();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

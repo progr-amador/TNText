@@ -1,9 +1,10 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Model.Elements;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Model.Elements.Element;
 
-public class Player extends Element{
+public class Player extends Element {
     private int lifes;
 
     public Player(int x, int y) {super(x,y); this.lifes=1;}

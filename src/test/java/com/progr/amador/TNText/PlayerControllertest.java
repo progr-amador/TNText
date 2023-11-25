@@ -1,11 +1,12 @@
 package com.progr.amador.TNText;
 
 import com.progr.amador.TNText.Controller.Elements.PlayerController;
+import com.progr.amador.TNText.Model.Arena;
+import com.progr.amador.TNText.Model.Elements.Player;
+import com.progr.amador.TNText.Model.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 
 public class PlayerControllertest {

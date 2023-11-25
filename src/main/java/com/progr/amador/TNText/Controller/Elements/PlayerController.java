@@ -2,7 +2,11 @@ package com.progr.amador.TNText.Controller.Elements;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
-import com.progr.amador.TNText.*;
+import com.progr.amador.TNText.Model.Arena;
+import com.progr.amador.TNText.Model.Elements.Brick;
+import com.progr.amador.TNText.Model.Elements.Player;
+import com.progr.amador.TNText.Model.Elements.Wood;
+import com.progr.amador.TNText.Model.Position;
 
 import java.io.IOException;
 
@@ -10,7 +14,7 @@ public class PlayerController extends GameController{
 
     public PlayerController(Arena arena) { super(arena);}
 
-    public void movePlayer(Player player,Position position) {
+    public void movePlayer(Player player, Position position) {
         for (Brick brick : this.getModel().getBricks()) {
             if (brick.getPosition().equals(position)) return;
         }
