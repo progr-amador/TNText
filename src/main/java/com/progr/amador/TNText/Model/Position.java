@@ -1,4 +1,4 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Model;
 
 public class Position {
     private int x, y;

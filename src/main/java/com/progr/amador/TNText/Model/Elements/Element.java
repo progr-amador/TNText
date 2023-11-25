@@ -1,8 +1,9 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Model.Elements;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Model.Position;
 
 public class  Element {
     private Position position;

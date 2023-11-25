@@ -1,7 +1,6 @@
 package com.progr.amador.TNText.Controller.Elements;
 
-import com.progr.amador.TNText.Arena;
-import com.progr.amador.TNText.Player;
+import com.progr.amador.TNText.Model.Arena;
 
 public class ArenaController extends GameController {
     private PlayerController playerController;

@@ -1,4 +1,4 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Model;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
