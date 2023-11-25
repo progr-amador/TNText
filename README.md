@@ -20,4 +20,39 @@
 - **Movement Sprites** - The player sprite will adapt to the players movement direction.
 
 
-![TNTextMapImage1](src/main/resources/TNTextMapImage1.png)
+![TNTextMapImage1](src/main/resources/images/TNTextMapImage1.png)
+
+### DESIGN
+
+**Problem in Context**
+
+The Arena class was violating the **Single Responsibility Principle** because it handled many features, such as the player movement.
+
+**The Pattern**
+
+To avoid this problem we started implementing part of the MVC Architectural Pattern, by already implementing the Controller and Model packages.
+
+**Implementation**
+
+The following image displays the new organization of our classes:
+
+![TNTextFolderDistribution](src/main/resources/images/TNTextFolderDistribution.png)
+
+These classes can be found in the following files:
+
+- [Arena](src/main/java/com/progr/amador/TNText/Model/Arena.java)
+- [PlayerController](src/main/java/com/progr/amador/TNText/Controller/Elements/PlayerController.java)
+- [ArenaController](src/main/java/com/progr/amador/TNText/Controller/Elements/ArenaController.java)
+
+**Consequences**
+
+The use of the State Pattern in the current design allows the following benefits:
+
+- It allowed us to organize and catalog the user interface.
+- It allowed us to clean our code and "tidy up the place".
+
+### SELF-EVALUATION
+
+- Afonso Castro: 32%
+- Alexandre Ramos: 34%
+- Francisco Afonso: 34%

@@ -31,7 +31,7 @@ public class GUI {
     }
 
     public Font loadFont(){
-        File fontFile = new File("src/main/resources/Square-Regular.ttf");
+        File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
         Font font = null;
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
