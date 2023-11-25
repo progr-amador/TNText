@@ -70,7 +70,7 @@ public class Arena {
     }
 
 
-    private boolean canElementMove(Position position) {
+    private boolean canHeroMove(Position position) {
         for (Brick brick : bricks) {
             if (brick.getPosition().equals(position)) return false;
         }
@@ -80,7 +80,7 @@ public class Arena {
         return true;
     }
     private void moveHero(Player player,Position position) {
-        if (canElementMove(position)) {
+        if (canHeroMove(position)) {
             player.setPosition(position);
         }
     }
