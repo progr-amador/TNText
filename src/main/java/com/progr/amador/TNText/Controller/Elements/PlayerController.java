@@ -10,21 +10,16 @@ public class PlayerController extends GameController{
 
     public PlayerController(Arena arena) { super(arena);}
 
-    public boolean canPlayerMove(Position position) {
+    public void movePlayer(Player player,Position position) {
         for (Brick brick : this.getModel().getBricks()) {
-            if (brick.getPosition().equals(position)) return false;
+            if (brick.getPosition().equals(position)) return;
         }
         for (Wood wood : this.getModel().getWoods()) {
-            if (wood.getPosition().equals(position)) return false;
+            if (wood.getPosition().equals(position)) return;
         }
-        return true;
+        player.setPosition(position);
     }
 
-    public void movePlayer(Player player,Position position) {
-        if (canPlayerMove(position)){
-            player.setPosition(position);
-        }
-    }
 
     public boolean processKey(Player player1, Player player2, KeyStroke key, Screen screen) throws IOException {
         switch (key.getKeyType()) {
