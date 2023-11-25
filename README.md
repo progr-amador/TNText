@@ -10,10 +10,10 @@
 
 - **Movement** - The players can move around the maze.
 - **Unique Maze** - Each time the game is loaded with a randomly generated maze.
-- **Options Menu** - The players will be able to define some characteristics of the game, such as block frequency or turning on/off some upgrades.
 
 ### PLANNED FEATURES
 
+- **Options Menu** - The players will be able to define some characteristics of the game, such as block frequency or turning on/off some upgrades.
 - **Bombs** - The players will be able to place their bombs on the maze in order to open new ground, find collectables/power-ups or to eliminate their enemy.
 - **Live Stats** - Information updated in real-time for the players to know their active upgrades, time since the beginning of the match, number of available bombs and remaining lifes.
 - **Upgrades** - The players will be able to grab power-ups in order to upgrade bombs, or to gain an extra life. 
