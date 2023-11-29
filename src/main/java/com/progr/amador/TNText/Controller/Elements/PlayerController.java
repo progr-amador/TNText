@@ -34,6 +34,7 @@ public class PlayerController extends GameController{
                 else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') movePlayer(player1, player1.getPosition().getRight());
 
                 else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
+                // m should go back to menu.
             }
 
             case ArrowLeft -> movePlayer(player2, player2.getPosition().getLeft());
