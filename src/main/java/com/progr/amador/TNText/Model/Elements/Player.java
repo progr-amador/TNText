@@ -13,9 +13,4 @@ public class Player extends Element {
     public void earnLife(){this.lifes++;}
     public int getLifes() {return lifes;}
 
-    public void draw(TextGraphics graphics, String color, String symbol) {
-        super.draw(graphics, color, symbol);
-        graphics.enableModifiers(SGR.BOLD);
-    }
-
 }

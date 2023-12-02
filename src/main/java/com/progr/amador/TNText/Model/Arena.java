@@ -4,9 +4,12 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Wood;
+import com.progr.amador.TNText.Model.Elements.Explosion;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,9 @@ public class Arena {
     private Player player1 = new Player(1, 1);
     private Player player2 = new Player(13, 13);
     private List<Brick> bricks;
-    public List<Wood> woods;
+    private List<Wood> woods;
+    private List<Bomb> bombs;
+    private List<Explosion> explosions;
 
     public Arena(int width, int height) {
         this.width = width;
@@ -92,6 +97,8 @@ public class Arena {
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
+        if(bombs != null) for (Bomb bomb : bombs) bomb.draw(graphics, "#000000", "1");
+        if(explosions != null) for (Explosion explosion : explosions) explosion.draw(graphics, "#FFA500", "2");
     }
 
 }

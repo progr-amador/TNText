@@ -53,7 +53,7 @@ public class Options {
 
     }
 
-    public void nextState() throws IOException {
+    public void toggleUpgrade() throws IOException {
         if(current == 0) ;
         else if (current == 1) ;
         else if (current == 2) ;
@@ -69,7 +69,7 @@ public class Options {
 
             case ArrowDown -> current = (current + 1) % entries;
 
-            case Enter -> { nextState(); return false;}
+            case Enter -> { toggleUpgrade(); return false;}
 
             case EOF -> {
                 return true;

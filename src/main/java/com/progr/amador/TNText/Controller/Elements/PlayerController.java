@@ -45,9 +45,13 @@ public class PlayerController extends GameController{
 
             case ArrowDown -> movePlayer(player2, player2.getPosition().getDown());
 
+            //case
+
             case EOF -> {
                 return true;
             }
+
+
         }
         return false;
     }
