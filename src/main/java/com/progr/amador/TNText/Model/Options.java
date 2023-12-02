@@ -6,25 +6,25 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
+import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Elements.Element;
 import com.progr.amador.TNText.State.GameState;
-import com.progr.amador.TNText.Application;
+import com.progr.amador.TNText.State.MenuState;
 import com.progr.amador.TNText.State.OptionsState;
-
 
 import java.io.IOException;
 
 import static com.progr.amador.TNText.Application.getTerminal;
 
-public class Menu {
+public class Options {
     private final int width;
     private final int height;
     private int current = 0;
-    private final int entries = 3;
+    private final int entries = 6;
 
     private Application app;
 
-    public Menu(int width, int height){
+    public Options(int width, int height){
         this.width = width;
         this.height = height;
     }
@@ -33,23 +33,33 @@ public class Menu {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
-        new Element(1, 1).draw(graphics, "#9C929A", "Welcome");
+        if(current == 0) new Element(1, 1).draw(graphics, "#6B93C5", "Power 1");
+        else new Element(1, 1).draw(graphics, "#9C929A", "Power 1");
 
-        if(current == 0) new Element(1, 2).draw(graphics, "#6B93C5", "Game");
-        else new Element(1, 2).draw(graphics, "#9C929A", "Game");
+        if(current == 1) new Element(1, 2).draw(graphics, "#6B93C5", "Power 2");
+        else new Element(1, 2).draw(graphics, "#9C929A", "Power 2");
 
-        if(current == 1) new Element(1, 3).draw(graphics, "#6B93C5", "Options");
-        else new Element(1, 3).draw(graphics, "#9C929A", "Options");
+        if(current == 2) new Element(1, 3).draw(graphics, "#6B93C5", "Power 3");
+        else new Element(1, 3).draw(graphics, "#9C929A", "Power 3");
 
-        if(current == 2) new Element(1, 4).draw(graphics, "#6B93C5", "Exit");
-        else new Element(1, 4).draw(graphics, "#9C929A", "Exit");
+        if(current == 3) new Element(1, 4).draw(graphics, "#6B93C5", "Power 4");
+        else new Element(1, 4).draw(graphics, "#9C929A", "Power 4");
+
+        if(current == 4) new Element(1, 5).draw(graphics, "#6B93C5", "Power 5");
+        else new Element(1, 5).draw(graphics, "#9C929A", "Power 5");
+
+        if(current == 5) new Element(1, 6).draw(graphics, "#6B93C5", "Menu");
+        else new Element(1, 6).draw(graphics, "#9C929A", "Menu");
 
     }
 
     public void nextState() throws IOException {
-        if(current == 0) app.setState(new GameState());
-        else if (current == 1) app.setState(new OptionsState());
-        else if (current == 2) { getTerminal().getScreen().close(); }
+        if(current == 0) ;
+        else if (current == 1) ;
+        else if (current == 2) ;
+        else if (current == 3) ;
+        else if (current == 4) ;
+        else if (current == 5) app.setState(new MenuState());
     }
 
 

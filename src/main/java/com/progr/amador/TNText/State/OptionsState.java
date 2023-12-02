@@ -1,8 +1,39 @@
 package com.progr.amador.TNText.State;
 
-public class OptionsState /*extends State*/{
+import com.googlecode.lanterna.input.KeyStroke;
+import com.progr.amador.TNText.Model.Menu;
+import com.progr.amador.TNText.Model.Options;
 
-    /*public OptionsState(TerminalCreator terminal) {
-        super(terminal);
-    }*/
+import java.io.IOException;
+
+import static com.progr.amador.TNText.Application.getTerminal;
+
+public class OptionsState extends State{
+
+    private Options options = new Options(15, 15);
+
+    public OptionsState() throws IOException {
+        run();
+    }
+
+    public void draw() throws IOException {
+        getTerminal().getScreen().clear();
+        options.draw(getTerminal().getScreen().newTextGraphics());
+        getTerminal().getScreen().refresh();
+    }
+
+    public void run() throws IOException {
+        while(true){
+            try {
+                draw(); // Call the private draw method within the Game class
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            boolean over;
+            KeyStroke key = getTerminal().getScreen().readInput();
+            over = options.processKey(key, getTerminal().getScreen());
+            if (over) break;
+        }
+    }
 }

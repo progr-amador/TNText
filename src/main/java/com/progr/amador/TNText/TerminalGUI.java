@@ -31,6 +31,7 @@ public class TerminalGUI {
 
     public Font getFont() throws IOException, FontFormatException {
         File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
+        //File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
         Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
