@@ -87,8 +87,8 @@ public class Arena {
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-        player1.draw(graphics, "#FFFFFF", "1");
-        player2.draw(graphics, "#F27379", "2");
+        player1.draw(graphics, "#FFFFFF", "\u0081");
+        player2.draw(graphics, "#F27379", "\u0082");
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
