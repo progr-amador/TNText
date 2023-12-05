@@ -65,7 +65,6 @@ public class Arena {
                     if (can_right.getClass() == Wood.class) {
                         explosions.add(new Explosion(right.getX(), right.getY()));
                         woods.remove(can_right);
-                        // TODO: remove from woods
                     }
                     e_right = false;
                 }
@@ -79,7 +78,6 @@ public class Arena {
                     if (can_left.getClass() == Wood.class) {
                         explosions.add(new Explosion(left.getX(), left.getY()));
                         woods.remove(can_left);
-                        // TODO: remove from woods
                     }
                     e_left = false;
                 }
@@ -93,7 +91,6 @@ public class Arena {
                     if (can_down.getClass() == Wood.class) {
                         explosions.add(new Explosion(down.getX(), down.getY()));
                         woods.remove(can_down);
-                        // TODO: remove from woods
                     }
                     e_down = false;
                 }
@@ -107,7 +104,6 @@ public class Arena {
                     if (can_up.getClass() == Wood.class) {
                         explosions.add(new Explosion(up.getX(), up.getY()));
                         woods.remove(can_up);
-                        // TODO: remove from woods
                     }
                     e_up = false;
                 }
@@ -116,6 +112,8 @@ public class Arena {
 
             if(!(e_right || e_left || e_down || e_up)) break;
         }
+
+        //TODO: AFTER 1.5 SECONDS REMOVE THESE EXPLOSIONS
     }
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
