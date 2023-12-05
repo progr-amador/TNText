@@ -7,6 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.progr.amador.TNText.Model.Elements.Element;
+import com.progr.amador.TNText.Model.Elements.Text;
 import com.progr.amador.TNText.State.GameState;
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.State.OptionsState;
@@ -33,16 +34,13 @@ public class Menu {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
-        new Element(1, 1).draw(graphics, "#9C929A", "Welcome");
+        new Text(1, 1).draw(graphics, "Welcome", false);
 
-        if(current == 0) new Element(1, 2).draw(graphics, "#6B93C5", "Game");
-        else new Element(1, 2).draw(graphics, "#9C929A", "Game");
+        new Text(1, 2).draw(graphics, "Game", current == 0);
 
-        if(current == 1) new Element(1, 3).draw(graphics, "#6B93C5", "Options");
-        else new Element(1, 3).draw(graphics, "#9C929A", "Options");
+        new Text(1, 3).draw(graphics, "Options", current == 1);
 
-        if(current == 2) new Element(1, 4).draw(graphics, "#6B93C5", "Exit");
-        else new Element(1, 4).draw(graphics, "#9C929A", "Exit");
+        new Text(1, 4).draw(graphics, "Exit", current == 2);
 
     }
 

@@ -8,6 +8,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Elements.Element;
+import com.progr.amador.TNText.Model.Elements.Text;
 import com.progr.amador.TNText.State.GameState;
 import com.progr.amador.TNText.State.MenuState;
 import com.progr.amador.TNText.State.OptionsState;
@@ -33,33 +34,22 @@ public class Options {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
-        if(current == 0) new Element(1, 1).draw(graphics, "#6B93C5", "Power 1");
-        else new Element(1, 1).draw(graphics, "#9C929A", "Power 1");
-
-        if(current == 1) new Element(1, 2).draw(graphics, "#6B93C5", "Power 2");
-        else new Element(1, 2).draw(graphics, "#9C929A", "Power 2");
-
-        if(current == 2) new Element(1, 3).draw(graphics, "#6B93C5", "Power 3");
-        else new Element(1, 3).draw(graphics, "#9C929A", "Power 3");
-
-        if(current == 3) new Element(1, 4).draw(graphics, "#6B93C5", "Power 4");
-        else new Element(1, 4).draw(graphics, "#9C929A", "Power 4");
-
-        if(current == 4) new Element(1, 5).draw(graphics, "#6B93C5", "Power 5");
-        else new Element(1, 5).draw(graphics, "#9C929A", "Power 5");
-
-        if(current == 5) new Element(1, 6).draw(graphics, "#6B93C5", "Menu");
-        else new Element(1, 6).draw(graphics, "#9C929A", "Menu");
+        new Text(1, 1).draw(graphics, "Power 1", current == 0);
+        new Text(1, 2).draw(graphics, "Power 2", current == 1);
+        new Text(1, 3).draw(graphics, "Power 3", current == 2);
+        new Text(1, 4).draw(graphics, "Power 4", current == 3);
+        new Text(1, 5).draw(graphics, "Power 5", current == 4);
+        new Text(1, 6).draw(graphics, "Menu", current == 5);
 
     }
 
     public void toggleUpgrade() throws IOException {
-        if(current == 0) ;
+        /*if(current == 0) ;
         else if (current == 1) ;
         else if (current == 2) ;
         else if (current == 3) ;
         else if (current == 4) ;
-        else if (current == 5) app.setState(new MenuState());
+        else */if (current == 5) app.setState(new MenuState());
     }
 
 
