@@ -8,7 +8,11 @@ public class Bomb extends Element{
         this.radius = radius;
     }
 
-    
+    public int getTime() { return time; }
+
+    public int getRadius() {
+        return radius;
+    }
 
 
 }

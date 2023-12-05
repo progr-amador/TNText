@@ -4,11 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.progr.amador.TNText.Model.Elements.Bomb;
-import com.progr.amador.TNText.Model.Elements.Brick;
-import com.progr.amador.TNText.Model.Elements.Player;
-import com.progr.amador.TNText.Model.Elements.Wood;
-import com.progr.amador.TNText.Model.Elements.Explosion;
+import com.progr.amador.TNText.Model.Elements.*;
 
 
 import java.util.ArrayList;
@@ -30,6 +26,8 @@ public class Arena {
         this.height = height;
         this.bricks = createBricks();
         this.woods = createWoods();
+        this.explosions = new ArrayList<>();
+        this.bombs = new ArrayList<>();
     }
 
     public List<Brick> getBricks() {
@@ -46,6 +44,88 @@ public class Arena {
 
     public Player getPlayer2() {
         return player2;
+    }
+
+    public void addBomb(Bomb bomb) {
+        bombs.add(bomb);
+        explosionPlanner(bomb);
+    }
+
+    public void explosionPlanner(Bomb bomb) {
+        //TODO: wait 3 seconds
+        explosions.add(new Explosion(bomb.getX(), bomb.getY())); //BOMB CENTER
+        boolean e_right = true, e_left = true, e_up = true, e_down = true;
+
+        for(int i = 1; i <= bomb.getRadius(); i++){
+
+            if(e_right) { //EXPAND RIGHT
+                Position right = new Position(bomb.getX() + i, bomb.getY());
+                Element can_right = canElementMove(right);
+                if (can_right != null) {
+                    if (can_right.getClass() == Wood.class) {
+                        explosions.add(new Explosion(right.getX(), right.getY()));
+                        woods.remove(can_right);
+                        // TODO: remove from woods
+                    }
+                    e_right = false;
+                }
+                else explosions.add(new Explosion(right.getX(), right.getY()));
+            }
+
+            if(e_left) { //EXPAND LEFT
+                Position left = new Position(bomb.getX() - i, bomb.getY());
+                Element can_left = canElementMove(left);
+                if (can_left != null) {
+                    if (can_left.getClass() == Wood.class) {
+                        explosions.add(new Explosion(left.getX(), left.getY()));
+                        woods.remove(can_left);
+                        // TODO: remove from woods
+                    }
+                    e_left = false;
+                }
+                else explosions.add(new Explosion(left.getX(), left.getY()));
+            }
+
+            if(e_down) { //EXPAND DOWN
+                Position down = new Position(bomb.getX(), bomb.getY() + i);
+                Element can_down = canElementMove(down);
+                if (can_down != null) {
+                    if (can_down.getClass() == Wood.class) {
+                        explosions.add(new Explosion(down.getX(), down.getY()));
+                        woods.remove(can_down);
+                        // TODO: remove from woods
+                    }
+                    e_down = false;
+                }
+                else explosions.add(new Explosion(down.getX(), down.getY()));
+            }
+
+            if(e_up) { //EXPAND UP
+                Position up = new Position(bomb.getX(), bomb.getY() - i);
+                Element can_up = canElementMove(up);
+                if (can_up != null) {
+                    if (can_up.getClass() == Wood.class) {
+                        explosions.add(new Explosion(up.getX(), up.getY()));
+                        woods.remove(can_up);
+                        // TODO: remove from woods
+                    }
+                    e_up = false;
+                }
+                else explosions.add(new Explosion(up.getX(), up.getY()));
+            }
+
+            if(!(e_right || e_left || e_down || e_up)) break;
+        }
+    }
+
+    private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
+        for (Brick brick : bricks) {
+            if (brick.getPosition().equals(position)) return brick;
+        }
+        for (Wood wood : woods) {
+            if (wood.getPosition().equals(position)) return wood;
+        }
+        return null;
     }
 
     private List<Brick> createBricks() {
@@ -85,7 +165,7 @@ public class Arena {
     private boolean shouldAddWood() {
         Random random = new Random();
         // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.3; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        double spawnRate = 0.1; // Adjust this value (0.0 to 1.0) for your desired spawn rate
         return random.nextDouble() < spawnRate;
     }
 
@@ -97,8 +177,8 @@ public class Arena {
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
-        if(bombs != null) for (Bomb bomb : bombs) bomb.draw(graphics, "#000000", "1");
-        if(explosions != null) for (Explosion explosion : explosions) explosion.draw(graphics, "#FFA500", "2");
+        for (Bomb bomb : bombs) bomb.draw(graphics, "#000000", "\u0083");
+        for (Explosion explosion : explosions) explosion.draw(graphics, "#FFA500", "\u0085");
     }
 
 }
