@@ -13,8 +13,65 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class GameState extends State {
     ArenaController arenaController = new ArenaController(new Arena(15,15));
+    private boolean isRunning = true;
 
     public GameState() throws IOException {
+        run();
+    }
+
+    public void draw() throws IOException {
+        getTerminal().getScreen().clear();
+        arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
+        getTerminal().getScreen().refresh();
+    }
+
+    public void run() throws IOException {
+        while (true) {
+            draw(); // Call the private draw method within the Game class
+            // Check if input is available before reading
+
+            KeyStroke key = getTerminal().getScreen().pollInput();
+            if (key != null) {
+                boolean over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
+                if (over) break;
+            }
+
+
+            if(arenaController.getPlayerController().getModel().whoExploded() != null) isRunning = false;
+
+            // Insert a small delay if no input is available to prevent tight looping
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+//TODO: WORKING
+/*
+public GameState() throws IOException {
+        run();
+    }
+
+    public void draw() throws IOException {
+        getTerminal().getScreen().clear();
+        arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
+        getTerminal().getScreen().refresh();
+    }
+
+    public void run() throws IOException {
+        while(true){
+            draw(); // Call the private draw method within the Game class
+            boolean over;
+            KeyStroke key = getTerminal().getScreen().readInput();
+            over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen()) ;
+            if (over) break;
+        }
+    }
+ */
+//TODO: BUGGY
+/*public GameState() throws IOException {
         Thread drawThread = new Thread(() -> {
             try {
                 draw();
@@ -57,27 +114,4 @@ public class GameState extends State {
             over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen()) ;
             if (over) break;
         }
-    }
-}
-
-/*
-public GameState() throws IOException {
-        run();
-    }
-
-    public void draw() throws IOException {
-        getTerminal().getScreen().clear();
-        arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
-        getTerminal().getScreen().refresh();
-    }
-
-    public void run() throws IOException {
-        while(true){
-            draw(); // Call the private draw method within the Game class
-            boolean over;
-            KeyStroke key = getTerminal().getScreen().readInput();
-            over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen()) ;
-            if (over) break;
-        }
-    }
- */
+    }*/

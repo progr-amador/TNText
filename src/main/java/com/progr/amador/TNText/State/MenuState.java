@@ -23,15 +23,11 @@ public class MenuState extends State{
 
     public void run() throws IOException {
         while(true){
-            try {
-                draw(); // Call the private draw method within the Game class
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            draw(); // Call the private draw method within the menu class
 
             boolean over;
             KeyStroke key = getTerminal().getScreen().readInput();
-            over = menu.processKey(key, getTerminal().getScreen());
+            over = menu.processKey(key);
             if (over) break;
         }
     }

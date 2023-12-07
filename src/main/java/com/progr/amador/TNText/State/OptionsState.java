@@ -24,15 +24,11 @@ public class OptionsState extends State{
 
     public void run() throws IOException {
         while(true){
-            try {
-                draw(); // Call the private draw method within the Game class
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            draw(); // Call the private draw method within the Game class
 
             boolean over;
             KeyStroke key = getTerminal().getScreen().readInput();
-            over = options.processKey(key, getTerminal().getScreen());
+            over = options.processKey(key);
             if (over) break;
         }
     }

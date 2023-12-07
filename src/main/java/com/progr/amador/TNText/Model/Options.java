@@ -23,8 +23,6 @@ public class Options {
     private int current = 0;
     private final int entries = 6;
 
-    private Application app;
-
     public Options(int width, int height){
         this.width = width;
         this.height = height;
@@ -49,11 +47,11 @@ public class Options {
         else if (current == 2) ;
         else if (current == 3) ;
         else if (current == 4) ;
-        else */if (current == 5) app.setState(new MenuState());
+        else */if (current == 5) Application.getInstance().setState(new MenuState());
     }
 
 
-    public boolean processKey(KeyStroke key, Screen screen) throws IOException {
+    public boolean processKey(KeyStroke key) throws IOException {
         switch (key.getKeyType()) {
             case ArrowUp -> current = (current - 1 + entries) % entries;
 

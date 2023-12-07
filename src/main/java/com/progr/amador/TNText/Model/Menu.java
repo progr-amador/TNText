@@ -23,9 +23,7 @@ public class Menu {
     private int current = 0;
     private final int entries = 3;
 
-    private Application app;
-
-    public Menu(int width, int height){
+    public Menu(int width, int height) throws IOException {
         this.width = width;
         this.height = height;
     }
@@ -45,13 +43,13 @@ public class Menu {
     }
 
     public void nextState() throws IOException {
-        if(current == 0) app.setState(new GameState());
-        else if (current == 1) app.setState(new OptionsState());
+        if(current == 0) Application.getInstance().setState(new GameState());
+        else if (current == 1) Application.getInstance().setState(new OptionsState());
         else if (current == 2) { getTerminal().getScreen().close(); }
     }
 
 
-    public boolean processKey(KeyStroke key, Screen screen) throws IOException {
+    public boolean processKey(KeyStroke key) throws IOException {
         switch (key.getKeyType()) {
             case ArrowUp -> current = (current - 1 + entries) % entries;
 

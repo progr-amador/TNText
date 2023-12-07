@@ -5,6 +5,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Elements.Element;
 
 public class Player extends Element {
+
+    private boolean alive = true;
     private int lifes;
     private int power = 2;
 
@@ -16,5 +18,9 @@ public class Player extends Element {
 
     public int getPower() { return power; }
     public void incrementPower() { power++; }
+
+    public boolean getStatus() {return alive;}
+
+    public void kill() {alive = false;}
 
 }

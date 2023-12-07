@@ -41,9 +41,7 @@ public class Arena {
         return woods;
     }
 
-    public Player getPlayer1() {
-        return player1;
-    }
+    public Player getPlayer1() { return player1; }
 
     public Player getPlayer2() {
         return player2;
@@ -203,20 +201,51 @@ public class Arena {
     private boolean shouldAddWood() {
         Random random = new Random();
         // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.1; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        double spawnRate = 0.4; // Adjust this value (0.0 to 1.0) for your desired spawn rate
         return random.nextDouble() < spawnRate;
     }
 
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-        player1.draw(graphics, "#FFFFFF", "\u0081");
-        player2.draw(graphics, "#F27379", "\u0082");
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
         for (Bomb bomb : bombs) bomb.draw(graphics, "#000000", "\u0083");
         for (Explosion explosion : explosions) explosion.draw(graphics, "#FFA500", "\u0085");
+
+        if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
+        else{
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+            player2.setPosition(new Position(3, 7));
+            player2.draw(graphics, "#F27379", "\u0082");
+        }
+        if(player2.getStatus()) player2.draw(graphics, "#F27379", "\u0082");
+        else {
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+            player1.setPosition(new Position(3, 7));
+            player1.draw(graphics, "#FFFFFF", "\u0081");
+        }
+    }
+
+    public Player whoExploded() {  // devia ser passado para o game controller talvez
+        for (Explosion explosion : explosions) {
+            if (explosion.getPosition().equals(player1.getPosition())) {
+                player1.kill();
+                player2.kill();
+                return player1;
+            }
+            if (explosion.getPosition().equals(player2.getPosition())) {
+                player1.kill();
+                player2.kill();
+                return player2;
+            }
+        }
+        return null;
     }
 
 }

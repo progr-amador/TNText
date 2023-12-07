@@ -2,12 +2,14 @@ package com.progr.amador.TNText.Controller.Elements;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
+import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Wood;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Position;
+import com.progr.amador.TNText.State.MenuState;
 
 import java.io.IOException;
 
@@ -36,17 +38,17 @@ public class PlayerController extends GameController{
     }*/
 
 
-    public boolean processKey(Player player1, Player player2, KeyStroke key, Screen screen) throws IOException {
+    public boolean processKey(Player player1, Player player2, KeyStroke key, Screen screen, boolean isRunning) throws IOException {
         switch (key.getKeyType()) {
             case Character -> {
-                if      (key.getCharacter() == 'w' || key.getCharacter() == 'W') movePlayer(player1, player1.getPosition().getUp());
-                else if (key.getCharacter() == 'a' || key.getCharacter() == 'A') movePlayer(player1, player1.getPosition().getLeft());
-                else if (key.getCharacter() == 's' || key.getCharacter() == 'S') movePlayer(player1, player1.getPosition().getDown());
-                else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') movePlayer(player1, player1.getPosition().getRight());
-                else if (key.getCharacter() == ' ') arena.addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
+                if      ((key.getCharacter() == 'w' || key.getCharacter() == 'W') && isRunning) movePlayer(player1, player1.getPosition().getUp());
+                else if ((key.getCharacter() == 'a' || key.getCharacter() == 'A') && isRunning) movePlayer(player1, player1.getPosition().getLeft());
+                else if ((key.getCharacter() == 's' || key.getCharacter() == 'S') && isRunning) movePlayer(player1, player1.getPosition().getDown());
+                else if ((key.getCharacter() == 'd' || key.getCharacter() == 'D') && isRunning) movePlayer(player1, player1.getPosition().getRight());
+                else if (key.getCharacter() == ' ' && isRunning) arena.addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
 
                 else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
-                // m should go back to menu.
+                else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') Application.getInstance().setState(new MenuState());
             }
 
             case ArrowLeft -> movePlayer(player2, player2.getPosition().getLeft());
