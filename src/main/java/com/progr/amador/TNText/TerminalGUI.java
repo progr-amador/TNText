@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.progr.amador.TNText.Model.Position;
 
 import java.awt.*;
 import java.io.File;
@@ -52,6 +53,10 @@ public class TerminalGUI {
         return factory.createTerminal();
     }
 
+    public void clear() { screen.clear();}
+
+    public void drawWood(Position position) {}
+    public void refresh() throws IOException { screen.refresh();}
     public Screen getScreen() {
         return screen;
     }

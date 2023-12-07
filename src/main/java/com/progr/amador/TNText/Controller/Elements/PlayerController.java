@@ -32,7 +32,7 @@ public class PlayerController extends GameController{
     // assumindo que o element passa a ter um can element move, maybe no game controller?
     /*
     public void _movePlayer(Player player, Position position) {
-        if (canElementMove(position)) player.setPosition(position);
+        if (canElementMove(position) == null) player.setPosition(position);
     }*/
 
 

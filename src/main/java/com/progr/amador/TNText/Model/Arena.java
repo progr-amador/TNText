@@ -6,6 +6,9 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Elements.*;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,69 +54,106 @@ public class Arena {
         explosionPlanner(bomb);
     }
 
-    public void explosionPlanner(Bomb bomb) {
-        //TODO: wait 3 seconds
-        explosions.add(new Explosion(bomb.getX(), bomb.getY())); //BOMB CENTER
-        boolean e_right = true, e_left = true, e_up = true, e_down = true;
 
-        for(int i = 1; i <= bomb.getRadius(); i++){
+    private void explosionPlanner(Bomb bomb) {
+        List<Explosion> blastzone = new ArrayList<>();
 
-            if(e_right) { //EXPAND RIGHT
-                Position right = new Position(bomb.getX() + i, bomb.getY());
-                Element can_right = canElementMove(right);
-                if (can_right != null) {
-                    if (can_right.getClass() == Wood.class) {
-                        explosions.add(new Explosion(right.getX(), right.getY()));
-                        woods.remove(can_right);
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(bomb.getTime()); // Wait for 3 seconds
+
+                Explosion center = new Explosion(bomb.getX(), bomb.getY());
+                explosions.add(center); //BOMB CENTER
+                blastzone.add(center);
+                boolean e_right = true, e_left = true, e_up = true, e_down = true;
+
+                for(int i = 1; i <= bomb.getRadius(); i++){
+                    if(!(e_right || e_left || e_down || e_up)) break;
+
+                    if(e_right) { //EXPAND RIGHT
+                        Position right = new Position(bomb.getX() + i, bomb.getY());
+                        Element can_right = canElementMove(right);
+                        Explosion explode_right = new Explosion(right.getX(), right.getY());
+                        if (can_right != null) {
+                            if (can_right.getClass() == Wood.class) {
+                                explosions.add(explode_right);
+                                blastzone.add(explode_right);
+                                woods.remove(can_right);
+                            }
+                            e_right = false;
+                        }
+                        else {
+                            explosions.add(explode_right);
+                            blastzone.add(explode_right);
+                        }
                     }
-                    e_right = false;
-                }
-                else explosions.add(new Explosion(right.getX(), right.getY()));
-            }
 
-            if(e_left) { //EXPAND LEFT
-                Position left = new Position(bomb.getX() - i, bomb.getY());
-                Element can_left = canElementMove(left);
-                if (can_left != null) {
-                    if (can_left.getClass() == Wood.class) {
-                        explosions.add(new Explosion(left.getX(), left.getY()));
-                        woods.remove(can_left);
+                    if(e_left) { //EXPAND LEFT
+                        Position left = new Position(bomb.getX() - i, bomb.getY());
+                        Element can_left = canElementMove(left);
+                        Explosion explode_left = new Explosion(left.getX(), left.getY());
+                        if (can_left != null) {
+                            if (can_left.getClass() == Wood.class) {
+                                explosions.add(explode_left);
+                                blastzone.add(explode_left);
+                                woods.remove(can_left);
+                            }
+                            e_left = false;
+                        }
+                        else {
+                            explosions.add(explode_left);
+                            blastzone.add(explode_left);
+                        }
                     }
-                    e_left = false;
-                }
-                else explosions.add(new Explosion(left.getX(), left.getY()));
-            }
 
-            if(e_down) { //EXPAND DOWN
-                Position down = new Position(bomb.getX(), bomb.getY() + i);
-                Element can_down = canElementMove(down);
-                if (can_down != null) {
-                    if (can_down.getClass() == Wood.class) {
-                        explosions.add(new Explosion(down.getX(), down.getY()));
-                        woods.remove(can_down);
+                    if(e_down) { //EXPAND DOWN
+                        Position down = new Position(bomb.getX(), bomb.getY() + i);
+                        Element can_down = canElementMove(down);
+                        Explosion explode_down = new Explosion(down.getX(), down.getY());
+                        if (can_down != null) {
+                            if (can_down.getClass() == Wood.class) {
+                                explosions.add(explode_down);
+                                blastzone.add(explode_down);
+                                woods.remove(can_down);
+                            }
+                            e_down = false;
+                        }
+                        else {
+                            explosions.add(explode_down);
+                            blastzone.add(explode_down);
+                        }
                     }
-                    e_down = false;
-                }
-                else explosions.add(new Explosion(down.getX(), down.getY()));
-            }
 
-            if(e_up) { //EXPAND UP
-                Position up = new Position(bomb.getX(), bomb.getY() - i);
-                Element can_up = canElementMove(up);
-                if (can_up != null) {
-                    if (can_up.getClass() == Wood.class) {
-                        explosions.add(new Explosion(up.getX(), up.getY()));
-                        woods.remove(can_up);
+                    if(e_up) { //EXPAND UP
+                        Position up = new Position(bomb.getX(), bomb.getY() - i);
+                        Element can_up = canElementMove(up);
+                        Explosion explode_up = new Explosion(up.getX(), up.getY());
+                        if (can_up != null) {
+                            if (can_up.getClass() == Wood.class) {
+                                explosions.add(explode_up);
+                                blastzone.add(explode_up);
+                                woods.remove(can_up);
+                            }
+                            e_up = false;
+                        }
+                        else {
+                            explosions.add(explode_up);
+                            blastzone.add(explode_up);
+                        }
                     }
-                    e_up = false;
                 }
-                else explosions.add(new Explosion(up.getX(), up.getY()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            if(!(e_right || e_left || e_down || e_up)) break;
-        }
-
-        //TODO: AFTER 1.5 SECONDS REMOVE THESE EXPLOSIONS
+        }).thenRun(() -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
+                for(Explosion blast: blastzone) explosions.remove(blast);
+                bombs.remove(bomb);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
