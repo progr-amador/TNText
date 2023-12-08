@@ -21,5 +21,10 @@ public class  Element {
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), symbol);
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 
 }

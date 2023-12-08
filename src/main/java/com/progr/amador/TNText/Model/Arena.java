@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.util.Collections.addAll;
+
 public class Arena {
 
     private int width, height;
@@ -49,101 +51,125 @@ public class Arena {
 
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
-        explosionPlanner(bomb);
+        //explosionPlanner(bomb);
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(3000); // Wait for additional 1.5 seconds
+                if(!bomb.getHasExploded()) explosionPlanner(bomb);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 
     private void explosionPlanner(Bomb bomb) {
         List<Explosion> blastzone = new ArrayList<>();
 
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(bomb.getTime()); // Wait for 3 seconds
+        bomb.setHasExploded();
+        Explosion center = new Explosion(bomb.getX(), bomb.getY());
+        explosions.add(center); //BOMB CENTER
+        blastzone.add(center);
+        boolean e_right = true, e_left = true, e_up = true, e_down = true;
 
-                Explosion center = new Explosion(bomb.getX(), bomb.getY());
-                explosions.add(center); //BOMB CENTER
-                blastzone.add(center);
-                boolean e_right = true, e_left = true, e_up = true, e_down = true;
+        for(int i = 1; i <= bomb.getRadius(); i++){
+            if(!(e_right || e_left || e_down || e_up)) break;
 
-                for(int i = 1; i <= bomb.getRadius(); i++){
-                    if(!(e_right || e_left || e_down || e_up)) break;
-
-                    if(e_right) { //EXPAND RIGHT
-                        Position right = new Position(bomb.getX() + i, bomb.getY());
-                        Element can_right = canElementMove(right);
-                        Explosion explode_right = new Explosion(right.getX(), right.getY());
-                        if (can_right != null) {
-                            if (can_right.getClass() == Wood.class) {
-                                explosions.add(explode_right);
-                                blastzone.add(explode_right);
-                                woods.remove(can_right);
-                            }
-                            e_right = false;
-                        }
-                        else {
-                            explosions.add(explode_right);
-                            blastzone.add(explode_right);
-                        }
+            if(e_right) { //EXPAND RIGHT
+                Position right = new Position(bomb.getX() + i, bomb.getY());
+                Element can_right = canElementMove(right);
+                Explosion explode_right = new Explosion(right.getX(), right.getY());
+                if (can_right != null) {
+                    if (can_right.getClass() == Wood.class) {
+                        explosions.add(explode_right);
+                        blastzone.add(explode_right);
+                        woods.remove(can_right);
+                        e_right = false;
                     }
-
-                    if(e_left) { //EXPAND LEFT
-                        Position left = new Position(bomb.getX() - i, bomb.getY());
-                        Element can_left = canElementMove(left);
-                        Explosion explode_left = new Explosion(left.getX(), left.getY());
-                        if (can_left != null) {
-                            if (can_left.getClass() == Wood.class) {
-                                explosions.add(explode_left);
-                                blastzone.add(explode_left);
-                                woods.remove(can_left);
-                            }
-                            e_left = false;
-                        }
-                        else {
-                            explosions.add(explode_left);
-                            blastzone.add(explode_left);
-                        }
-                    }
-
-                    if(e_down) { //EXPAND DOWN
-                        Position down = new Position(bomb.getX(), bomb.getY() + i);
-                        Element can_down = canElementMove(down);
-                        Explosion explode_down = new Explosion(down.getX(), down.getY());
-                        if (can_down != null) {
-                            if (can_down.getClass() == Wood.class) {
-                                explosions.add(explode_down);
-                                blastzone.add(explode_down);
-                                woods.remove(can_down);
-                            }
-                            e_down = false;
-                        }
-                        else {
-                            explosions.add(explode_down);
-                            blastzone.add(explode_down);
-                        }
-                    }
-
-                    if(e_up) { //EXPAND UP
-                        Position up = new Position(bomb.getX(), bomb.getY() - i);
-                        Element can_up = canElementMove(up);
-                        Explosion explode_up = new Explosion(up.getX(), up.getY());
-                        if (can_up != null) {
-                            if (can_up.getClass() == Wood.class) {
-                                explosions.add(explode_up);
-                                blastzone.add(explode_up);
-                                woods.remove(can_up);
-                            }
-                            e_up = false;
-                        }
-                        else {
-                            explosions.add(explode_up);
-                            blastzone.add(explode_up);
-                        }
+                    else if( can_right.getClass() == Brick.class) e_right = false;
+                    else {
+                        Bomb idk = (Bomb) can_right;
+                        if(!idk.getHasExploded()) explosionPlanner(idk);
                     }
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                else {
+                    explosions.add(explode_right);
+                    blastzone.add(explode_right);
+                }
             }
-        }).thenRun(() -> {
+
+            if(e_left) { //EXPAND LEFT
+                Position left = new Position(bomb.getX() - i, bomb.getY());
+                Element can_left = canElementMove(left);
+                Explosion explode_left = new Explosion(left.getX(), left.getY());
+                if (can_left != null) {
+                    if (can_left.getClass() == Wood.class) {
+                        explosions.add(explode_left);
+                        blastzone.add(explode_left);
+                        woods.remove(can_left);
+                        e_left = false;
+                    }
+                    else if( can_left.getClass() == Brick.class) e_left = false;
+                    else {
+                        Bomb idk = (Bomb) can_left;
+                        if(!idk.getHasExploded()) explosionPlanner(idk);
+                    }
+                }
+                else {
+                    explosions.add(explode_left);
+                    blastzone.add(explode_left);
+                }
+            }
+
+            if(e_down) { //EXPAND DOWN
+                Position down = new Position(bomb.getX(), bomb.getY() + i);
+                Element can_down = canElementMove(down);
+                Explosion explode_down = new Explosion(down.getX(), down.getY());
+                if (can_down != null) {
+                    if (can_down.getClass() == Wood.class) {
+                        explosions.add(explode_down);
+                        blastzone.add(explode_down);
+                        woods.remove(can_down);
+                        e_down = false;
+                    }
+                    else if( can_down.getClass() == Brick.class) e_down = false;
+                    else {
+                        Bomb idk = (Bomb) can_down;
+                        if(!idk.getHasExploded()) explosionPlanner(idk);
+                    }
+                }
+                else {
+                    explosions.add(explode_down);
+                    blastzone.add(explode_down);
+                }
+            }
+
+            if(e_up) { //EXPAND UP
+                Position up = new Position(bomb.getX(), bomb.getY() - i);
+                Element can_up = canElementMove(up);
+                Explosion explode_up = new Explosion(up.getX(), up.getY());
+                if (can_up != null) {
+                    if (can_up.getClass() == Wood.class) {
+                        explosions.add(explode_up);
+                        blastzone.add(explode_up);
+                        woods.remove(can_up);
+                        e_up = false;
+                    }
+                    else if( can_up.getClass() == Brick.class) e_up = false;
+                    else {
+                        Bomb idk = (Bomb) can_up;
+                        if(!idk.getHasExploded()) explosionPlanner(idk);
+                    }
+                }
+                else {
+                    explosions.add(explode_up);
+                    blastzone.add(explode_up);
+                }
+            }
+        }
+
+
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
                 for(Explosion blast: blastzone) explosions.remove(blast);
@@ -160,6 +186,9 @@ public class Arena {
         }
         for (Wood wood : woods) {
             if (wood.getPosition().equals(position)) return wood;
+        }
+        for (Bomb bomb : bombs) {
+            if (bomb.getPosition().equals(position)) return bomb;
         }
         return null;
     }
@@ -205,14 +234,17 @@ public class Arena {
         return random.nextDouble() < spawnRate;
     }
 
-    public void draw(TextGraphics graphics) {
+    public void draw(TextGraphics graphics) throws CloneNotSupportedException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
-        for (Wood wood : woods) wood.draw(graphics, "#9C929A", "#");
-        for (Bomb bomb : bombs) bomb.draw(graphics, "#000000", "\u0083");
-        for (Explosion explosion : explosions) explosion.draw(graphics, "#FFA500", "\u0085");
+        List<Wood> woods_copy = new ArrayList<Wood>(woods);
+        for (Wood wood : woods_copy) wood.draw(graphics, "#9C929A", "#");
+        List<Bomb> bombs_copy = new ArrayList<Bomb>(bombs);
+        for (Bomb bomb : bombs_copy) bomb.draw(graphics, "#000000", "\u0083");
+        List<Explosion> explosions_copy = new ArrayList<Explosion>(explosions);
+        for (Explosion explosion : explosions_copy) explosion.draw(graphics, "#FFA500", "\u0085");
 
         if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
         else{
@@ -224,9 +256,24 @@ public class Arena {
         }
         if(player2.getStatus()) player2.draw(graphics, "#F27379", "\u0082");
         else {
+            /*new Text(1, 1).draw(graphics, "             ", false);
+            new Text(1, 2).draw(graphics, "             ", false);
+            new Text(1, 3).draw(graphics, "             ", false);
+            new Text(1, 4).draw(graphics, "             ", false);
+            new Text(1, 5).draw(graphics, "             ", false);
             new Text(1, 6).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
             new Text(1, 8).draw(graphics, "             ", false);
+            new Text(1, 9).draw(graphics, "             ", false);
+            new Text(1, 10).draw(graphics, "             ", false);
+            new Text(1, 11).draw(graphics, "             ", false);
+            new Text(1, 12).draw(graphics, "             ", false);
+            new Text(1, 13).draw(graphics, "             ", false);*/
+
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+
             player1.setPosition(new Position(3, 7));
             player1.draw(graphics, "#FFFFFF", "\u0081");
         }
@@ -236,11 +283,9 @@ public class Arena {
         for (Explosion explosion : explosions) {
             if (explosion.getPosition().equals(player1.getPosition())) {
                 player1.kill();
-                player2.kill();
                 return player1;
             }
             if (explosion.getPosition().equals(player2.getPosition())) {
-                player1.kill();
                 player2.kill();
                 return player2;
             }

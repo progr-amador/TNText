@@ -21,7 +21,6 @@ public class Options {
     private final int width;
     private final int height;
     private int current = 0;
-    private final int entries = 6;
 
     public Options(int width, int height){
         this.width = width;
@@ -47,11 +46,19 @@ public class Options {
         else if (current == 2) ;
         else if (current == 3) ;
         else if (current == 4) ;
-        else */if (current == 5) Application.getInstance().setState(new MenuState());
+        else */if (current == 5) Application.getInstance().setState(new MenuState(new Menu(15, 15)));
     }
 
+    public int getCurrent() {
+        return current;
+    }
 
-    public boolean processKey(KeyStroke key) throws IOException {
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    /*public boolean processKey(KeyStroke key) throws IOException {
+        int entries = 6;
         switch (key.getKeyType()) {
             case ArrowUp -> current = (current - 1 + entries) % entries;
 
@@ -64,5 +71,5 @@ public class Options {
             }
         }
         return false;
-    }
+    }*/
 }

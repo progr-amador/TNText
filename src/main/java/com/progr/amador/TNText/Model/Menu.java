@@ -21,11 +21,18 @@ public class Menu {
     private final int width;
     private final int height;
     private int current = 0;
-    private final int entries = 3;
 
     public Menu(int width, int height) throws IOException {
         this.width = width;
         this.height = height;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
     }
 
     public void draw(TextGraphics graphics) {
@@ -43,13 +50,14 @@ public class Menu {
     }
 
     public void nextState() throws IOException {
-        if(current == 0) Application.getInstance().setState(new GameState());
-        else if (current == 1) Application.getInstance().setState(new OptionsState());
+        if(current == 0) Application.getInstance().setState(new GameState(new Arena(15, 15)));
+        else if (current == 1) Application.getInstance().setState(new OptionsState(new Options(15, 15)));
         else if (current == 2) { getTerminal().getScreen().close(); }
     }
 
 
-    public boolean processKey(KeyStroke key) throws IOException {
+    /*public boolean processKey(KeyStroke key) throws IOException {
+        int entries = 3;
         switch (key.getKeyType()) {
             case ArrowUp -> current = (current - 1 + entries) % entries;
 
@@ -62,5 +70,5 @@ public class Menu {
             }
         }
         return false;
-    }
+    } */
 }

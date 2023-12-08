@@ -2,6 +2,7 @@ package com.progr.amador.TNText.Model.Elements;
 
 public class Bomb extends Element{
     private int radius, time = 3;
+    private boolean hasExploded = false;
 
     public Bomb(int x, int y, int radius) {
         super(x, y);
@@ -13,6 +14,9 @@ public class Bomb extends Element{
     public int getRadius() {
         return radius;
     }
+
+    public boolean getHasExploded() { return hasExploded; }
+    public void setHasExploded() { hasExploded = true; }
 
 
 }

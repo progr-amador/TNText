@@ -8,6 +8,7 @@ import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Wood;
 import com.progr.amador.TNText.Model.Elements.Bomb;
+import com.progr.amador.TNText.Model.Menu;
 import com.progr.amador.TNText.Model.Position;
 import com.progr.amador.TNText.State.MenuState;
 
@@ -15,11 +16,7 @@ import java.io.IOException;
 
 public class PlayerController extends GameController{
 
-    private Arena arena; // se alguém encontrar uma maneira melhor (acho que qualquer coisa é melhor) de
-                         // extrair o arena que é utilizado no construtor para poder usar no processkey
-                         // ou talvez uma maneira de mudar o addBomb de sitio para não ter de ser um método da arena
-
-    public PlayerController(Arena arena) { super(arena); this.arena = arena; /* PARTNER IN CRIME */ }
+    public PlayerController(Arena arena) { super(arena);}
 
     public void movePlayer(Player player, Position position) {
         for (Brick brick : this.getModel().getBricks()) {
@@ -45,21 +42,28 @@ public class PlayerController extends GameController{
                 else if ((key.getCharacter() == 'a' || key.getCharacter() == 'A') && isRunning) movePlayer(player1, player1.getPosition().getLeft());
                 else if ((key.getCharacter() == 's' || key.getCharacter() == 'S') && isRunning) movePlayer(player1, player1.getPosition().getDown());
                 else if ((key.getCharacter() == 'd' || key.getCharacter() == 'D') && isRunning) movePlayer(player1, player1.getPosition().getRight());
-                else if (key.getCharacter() == ' ' && isRunning) arena.addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
+                else if (key.getCharacter() == ' ' && isRunning) this.getModel().addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
 
                 else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
-                else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') Application.getInstance().setState(new MenuState());
+                else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') Application.getInstance().setState(new MenuState(new Menu(15, 15)));
             }
 
-            case ArrowLeft -> movePlayer(player2, player2.getPosition().getLeft());
+            case ArrowLeft -> { if(isRunning) movePlayer(player2, player2.getPosition().getLeft()); }
 
-            case ArrowRight -> movePlayer(player2, player2.getPosition().getRight());
+            case ArrowRight -> {if(isRunning) movePlayer(player2, player2.getPosition().getRight()); }
 
-            case ArrowUp -> movePlayer(player2, player2.getPosition().getUp());
+            case ArrowUp -> {
+                if (isRunning) movePlayer(player2, player2.getPosition().getUp());
+            }
 
-            case ArrowDown -> movePlayer(player2, player2.getPosition().getDown());
+            case ArrowDown -> {
+                if (isRunning) movePlayer(player2, player2.getPosition().getDown());
+            }
 
-            case Enter -> arena.addBomb(new Bomb(player2.getPosition().getX(), player2.getPosition().getY(), player2.getPower()));
+            case Enter -> {
+                if (isRunning)
+                    this.getModel().addBomb(new Bomb(player2.getPosition().getX(), player2.getPosition().getY(), player2.getPower()));
+            }
 
             case EOF -> { return true; }
 

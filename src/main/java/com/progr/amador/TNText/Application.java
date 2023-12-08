@@ -17,7 +17,7 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         getInstance();
-        instance.state = new MenuState();
+        instance.state = new MenuState(new Menu(15, 15));
     }
 
     public void setState(State state) {
