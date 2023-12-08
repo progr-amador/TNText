@@ -14,7 +14,7 @@ public class OptionsController extends Controller<Options> {
     }
 
 
-    public boolean processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) throws IOException {
         int entries = 6;
         switch (key.getKeyType()) {
             case ArrowUp -> this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries);
@@ -23,10 +23,7 @@ public class OptionsController extends Controller<Options> {
 
             case Enter -> this.getModel().toggleUpgrade();
 
-            case EOF -> {
-                return true;
-            }
+            case EOF -> System.exit(0);
         }
-        return false;
     }
 }

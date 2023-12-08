@@ -50,8 +50,14 @@ public class Menu {
     }
 
     public void nextState() throws IOException {
-        if(current == 0) Application.getInstance().setState(new GameState(new Arena(15, 15)));
-        else if (current == 1) Application.getInstance().setState(new OptionsState(new Options(15, 15)));
+        if(current == 0) {
+            Application.getInstance().setState(new GameState(new Arena(15, 15)));
+            Application.getInstance().getState().run();
+        }
+        else if (current == 1) {
+            Application.getInstance().setState(new OptionsState(new Options(15, 15)));
+            Application.getInstance().getState().run();
+        }
         else if (current == 2) { getTerminal().getScreen().close(); }
     }
 

@@ -35,17 +35,20 @@ public class PlayerController extends GameController{
     }*/
 
 
-    public boolean processKey(Player player1, Player player2, KeyStroke key, Screen screen, boolean isRunning) throws IOException {
+    public void processKey(Player player1, Player player2, KeyStroke key, Screen screen, boolean isRunning) throws IOException {
         switch (key.getKeyType()) {
             case Character -> {
                 if      ((key.getCharacter() == 'w' || key.getCharacter() == 'W') && isRunning) movePlayer(player1, player1.getPosition().getUp());
                 else if ((key.getCharacter() == 'a' || key.getCharacter() == 'A') && isRunning) movePlayer(player1, player1.getPosition().getLeft());
                 else if ((key.getCharacter() == 's' || key.getCharacter() == 'S') && isRunning) movePlayer(player1, player1.getPosition().getDown());
                 else if ((key.getCharacter() == 'd' || key.getCharacter() == 'D') && isRunning) movePlayer(player1, player1.getPosition().getRight());
-                else if (key.getCharacter() == ' ' && isRunning) this.getModel().addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
+                else if (key.getCharacter() == ' ' && isRunning) getModel().addBomb(new Bomb(player1.getPosition().getX(), player1.getPosition().getY(), player1.getPower()));
 
                 else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
-                else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') Application.getInstance().setState(new MenuState(new Menu(15, 15)));
+                else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') {
+                    Application.getInstance().setState(new MenuState(new Menu(15, 15)));
+                    Application.getInstance().getState().run();
+                }
             }
 
             case ArrowLeft -> { if(isRunning) movePlayer(player2, player2.getPosition().getLeft()); }
@@ -61,14 +64,12 @@ public class PlayerController extends GameController{
             }
 
             case Enter -> {
-                if (isRunning)
-                    this.getModel().addBomb(new Bomb(player2.getPosition().getX(), player2.getPosition().getY(), player2.getPower()));
+                if (isRunning) getModel().addBomb(new Bomb(player2.getPosition().getX(), player2.getPosition().getY(), player2.getPower()));
             }
 
-            case EOF -> { return true; }
+            case EOF -> System.exit(0);
 
         }
-        return false;
     }
 
 }

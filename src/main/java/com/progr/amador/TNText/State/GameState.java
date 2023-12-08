@@ -2,13 +2,17 @@ package com.progr.amador.TNText.State;
 
 
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.ArenaController;
 import com.progr.amador.TNText.Model.Arena;
+import com.progr.amador.TNText.Model.Elements.Explosion;
 import com.progr.amador.TNText.TerminalGUI;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import static com.progr.amador.TNText.Application.getTerminal;
 
@@ -28,11 +32,7 @@ public class GameState extends State<Arena> {
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        try {
-            arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+        arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
         getTerminal().getScreen().refresh();
     }
 
@@ -41,12 +41,10 @@ public class GameState extends State<Arena> {
             draw(); // Call the private draw method within the Game class
             // Check if input is available before reading
 
-            KeyStroke key = getTerminal().getScreen().pollInput();
-            if (key != null) {
-                boolean over = arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
-                if (over) break;
+            KeyStroke player1_key = getTerminal().getScreen().pollInput();
+            if (player1_key != null) {
+                arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), player1_key, getTerminal().getScreen(), isRunning);
             }
-
 
             if(arenaController.getPlayerController().getModel().whoExploded() != null) isRunning = false;
 
@@ -58,4 +56,6 @@ public class GameState extends State<Arena> {
             }
         }
     }
+
+
 }

@@ -216,17 +216,16 @@ public class Arena {
         List<Wood> woods = new ArrayList<>();
         for (int x = 1; x < width-1; x++) {
             for (int y = 1; y < height-1; y++) {
-                if ((x%2!=0 || y%2!=0) &
-                        !(x==1 & y==1) & !(x==1 & y==2) & !(x==2 & y==1) &
-                        !(x==13 & y==13) & !(x==13 & y==12) & !(x==12 & y==13)) {
-                    if (shouldAddWood()) {
-                        woods.add(new Wood(x, y));
-                    }
+                if ((x % 2 != 0 || y % 2 != 0) &
+                    !(x == 1 & y == 1) & !(x == 1 & y == 2) & !(x == 2 & y == 1) &
+                    !(x == width - 2 & y == height - 2) & !(x == width - 2 & y == height - 3) & !(x == width - 3 & y == height - 2)) {
+                    if (shouldAddWood()) woods.add(new Wood(x, y));
                 }
             }
         }
         return woods;
     }
+
     private boolean shouldAddWood() {
         Random random = new Random();
         // Adjust the spawn rate by modifying the probability
@@ -234,7 +233,7 @@ public class Arena {
         return random.nextDouble() < spawnRate;
     }
 
-    public void draw(TextGraphics graphics) throws CloneNotSupportedException {
+    public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
@@ -260,11 +259,11 @@ public class Arena {
             new Text(1, 2).draw(graphics, "             ", false);
             new Text(1, 3).draw(graphics, "             ", false);
             new Text(1, 4).draw(graphics, "             ", false);
-            new Text(1, 5).draw(graphics, "             ", false);
+            new Text(1, 5).draw(graphics, "#############", false);
             new Text(1, 6).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
             new Text(1, 8).draw(graphics, "             ", false);
-            new Text(1, 9).draw(graphics, "             ", false);
+            new Text(1, 9).draw(graphics, "#############", false);
             new Text(1, 10).draw(graphics, "             ", false);
             new Text(1, 11).draw(graphics, "             ", false);
             new Text(1, 12).draw(graphics, "             ", false);

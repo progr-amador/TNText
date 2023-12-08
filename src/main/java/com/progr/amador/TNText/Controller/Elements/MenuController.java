@@ -12,7 +12,7 @@ public class MenuController extends Controller<Menu> {
         super(menu);
     }
 
-    public boolean processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) throws IOException {
         int entries = 3;
         switch (key.getKeyType()) {
             case ArrowUp -> this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries);
@@ -21,11 +21,8 @@ public class MenuController extends Controller<Menu> {
 
             case Enter -> this.getModel().nextState();
 
-            case EOF -> {
-                return true;
-            }
+            case EOF -> System.exit(0);
         }
-        return false;
     }
 
 

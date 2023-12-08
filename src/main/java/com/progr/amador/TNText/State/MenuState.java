@@ -13,13 +13,14 @@ public class MenuState extends State<Menu>{
 
     public MenuState(Menu menu) throws IOException {
         super(menu);
+    }
+
+    public void run() throws IOException {
         while(true){
             draw(); // Call the private draw method within the menu class
 
-            boolean over;
             KeyStroke key = getTerminal().getScreen().readInput();
-            over = this.getController().processKey(key);
-            if (over) break;
+            this.getController().processKey(key);
         }
     }
 
@@ -30,7 +31,7 @@ public class MenuState extends State<Menu>{
     }
 
 
-    public MenuController getController() {
+    public Controller<Menu> getController() {
         return new MenuController(getModel());
     }
 

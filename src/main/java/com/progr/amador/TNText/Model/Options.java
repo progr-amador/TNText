@@ -46,7 +46,10 @@ public class Options {
         else if (current == 2) ;
         else if (current == 3) ;
         else if (current == 4) ;
-        else */if (current == 5) Application.getInstance().setState(new MenuState(new Menu(15, 15)));
+        else */if (current == 5) {
+            Application.getInstance().setState(new MenuState(new Menu(15, 15)));
+            Application.getInstance().getState().run();
+        }
     }
 
     public int getCurrent() {

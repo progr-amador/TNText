@@ -28,4 +28,6 @@ public abstract class State<T>{
 
     public void draw() throws IOException {
     }
+
+    public abstract void run() throws IOException;
 }

@@ -12,20 +12,21 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class OptionsState extends State<Options>{
 
-    public OptionsState(Options options) throws IOException {
+    public OptionsState(Options options){
         super(options);
+    }
+
+    public void run() throws IOException {
         while(true){
             draw(); // Call the private draw method within the Game class
 
-            boolean over;
             KeyStroke key = getTerminal().getScreen().readInput();
-            over = getController().processKey(key);
-            if (over) break;
+            getController().processKey(key);
         }
     }
 
     @Override
-    protected OptionsController getController() {
+    protected Controller<Options> getController() {
         return new OptionsController(getModel());
     }
 
