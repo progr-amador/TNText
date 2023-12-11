@@ -19,7 +19,6 @@ public abstract class State<T>{
         this.controller = getController();
     }
 
-
     protected abstract Controller<T> getController();
 
     public T getModel() {

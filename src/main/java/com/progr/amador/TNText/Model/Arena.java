@@ -52,7 +52,7 @@ public class Arena {
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
         //explosionPlanner(bomb);
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(3000); // Wait for additional 1.5 seconds
                 if(!bomb.getHasExploded()) explosionPlanner(bomb);
@@ -62,118 +62,45 @@ public class Arena {
         });
     }
 
+    private boolean expandDirection(Position direction, List<Explosion> blastzone){
+        Element can_it_move = canElementMove(direction);
+        Explosion explode = new Explosion(direction.getX(), direction.getY());
+
+        if(can_it_move == null){
+            blastzone.add(explode);
+            return true;
+        }
+        else if (can_it_move.getClass() == Wood.class){
+            blastzone.add(explode);
+            woods.remove(can_it_move);
+        }
+        else if (can_it_move.getClass() == Bomb.class){
+            Bomb close_bomb = (Bomb) can_it_move;
+            if(!close_bomb.getHasExploded()) explosionPlanner(close_bomb);
+        }
+
+        return false;
+    }
 
     private void explosionPlanner(Bomb bomb) {
         List<Explosion> blastzone = new ArrayList<>();
-
         bomb.setHasExploded();
-        Explosion center = new Explosion(bomb.getX(), bomb.getY());
-        explosions.add(center); //BOMB CENTER
-        blastzone.add(center);
+        blastzone.add(new Explosion(bomb.getX(), bomb.getY()));
         boolean e_right = true, e_left = true, e_up = true, e_down = true;
 
         for(int i = 1; i <= bomb.getRadius(); i++){
-            if(!(e_right || e_left || e_down || e_up)) break;
-
-            if(e_right) { //EXPAND RIGHT
-                Position right = new Position(bomb.getX() + i, bomb.getY());
-                Element can_right = canElementMove(right);
-                Explosion explode_right = new Explosion(right.getX(), right.getY());
-                if (can_right != null) {
-                    if (can_right.getClass() == Wood.class) {
-                        explosions.add(explode_right);
-                        blastzone.add(explode_right);
-                        woods.remove(can_right);
-                        e_right = false;
-                    }
-                    else if( can_right.getClass() == Brick.class) e_right = false;
-                    else {
-                        Bomb idk = (Bomb) can_right;
-                        if(!idk.getHasExploded()) explosionPlanner(idk);
-                    }
-                }
-                else {
-                    explosions.add(explode_right);
-                    blastzone.add(explode_right);
-                }
-            }
-
-            if(e_left) { //EXPAND LEFT
-                Position left = new Position(bomb.getX() - i, bomb.getY());
-                Element can_left = canElementMove(left);
-                Explosion explode_left = new Explosion(left.getX(), left.getY());
-                if (can_left != null) {
-                    if (can_left.getClass() == Wood.class) {
-                        explosions.add(explode_left);
-                        blastzone.add(explode_left);
-                        woods.remove(can_left);
-                        e_left = false;
-                    }
-                    else if( can_left.getClass() == Brick.class) e_left = false;
-                    else {
-                        Bomb idk = (Bomb) can_left;
-                        if(!idk.getHasExploded()) explosionPlanner(idk);
-                    }
-                }
-                else {
-                    explosions.add(explode_left);
-                    blastzone.add(explode_left);
-                }
-            }
-
-            if(e_down) { //EXPAND DOWN
-                Position down = new Position(bomb.getX(), bomb.getY() + i);
-                Element can_down = canElementMove(down);
-                Explosion explode_down = new Explosion(down.getX(), down.getY());
-                if (can_down != null) {
-                    if (can_down.getClass() == Wood.class) {
-                        explosions.add(explode_down);
-                        blastzone.add(explode_down);
-                        woods.remove(can_down);
-                        e_down = false;
-                    }
-                    else if( can_down.getClass() == Brick.class) e_down = false;
-                    else {
-                        Bomb idk = (Bomb) can_down;
-                        if(!idk.getHasExploded()) explosionPlanner(idk);
-                    }
-                }
-                else {
-                    explosions.add(explode_down);
-                    blastzone.add(explode_down);
-                }
-            }
-
-            if(e_up) { //EXPAND UP
-                Position up = new Position(bomb.getX(), bomb.getY() - i);
-                Element can_up = canElementMove(up);
-                Explosion explode_up = new Explosion(up.getX(), up.getY());
-                if (can_up != null) {
-                    if (can_up.getClass() == Wood.class) {
-                        explosions.add(explode_up);
-                        blastzone.add(explode_up);
-                        woods.remove(can_up);
-                        e_up = false;
-                    }
-                    else if( can_up.getClass() == Brick.class) e_up = false;
-                    else {
-                        Bomb idk = (Bomb) can_up;
-                        if(!idk.getHasExploded()) explosionPlanner(idk);
-                    }
-                }
-                else {
-                    explosions.add(explode_up);
-                    blastzone.add(explode_up);
-                }
-            }
+            if(e_right) e_right = expandDirection(new Position(bomb.getX() + i, bomb.getY()), blastzone);
+            if(e_left) e_left = expandDirection(new Position(bomb.getX() - i, bomb.getY()), blastzone);
+            if(e_down) e_down = expandDirection(new Position(bomb.getX(), bomb.getY() + i), blastzone);
+            if(e_up) e_up = expandDirection(new Position(bomb.getX(), bomb.getY() - i), blastzone);
         }
+        explosions.addAll(blastzone);
+        bombs.remove(bomb);
 
-
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
-                for(Explosion blast: blastzone) explosions.remove(blast);
-                bombs.remove(bomb);
+                explosions.removeAll(blastzone);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -208,7 +135,6 @@ public class Arena {
                 bricks.add(new Brick(x, y));
             }
         }
-
         return bricks;
     }
 
@@ -229,7 +155,7 @@ public class Arena {
     private boolean shouldAddWood() {
         Random random = new Random();
         // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.4; // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        double spawnRate = 0.1; // Adjust this value (0.0 to 1.0) for your desired spawn rate
         return random.nextDouble() < spawnRate;
     }
 
@@ -238,14 +164,39 @@ public class Arena {
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
-        List<Wood> woods_copy = new ArrayList<Wood>(woods);
-        for (Wood wood : woods_copy) wood.draw(graphics, "#9C929A", "#");
-        List<Bomb> bombs_copy = new ArrayList<Bomb>(bombs);
-        for (Bomb bomb : bombs_copy) bomb.draw(graphics, "#000000", "\u0083");
-        List<Explosion> explosions_copy = new ArrayList<Explosion>(explosions);
-        for (Explosion explosion : explosions_copy) explosion.draw(graphics, "#FFA500", "\u0085");
+        List<Wood> woods_copy = new ArrayList<>(woods);
+        for (Wood wood : woods_copy) if(wood != null) wood.draw(graphics, "#9C929A", "#");
+        List<Bomb> bombs_copy = new ArrayList<>(bombs);
+        for (Bomb bomb : bombs_copy) if(bomb != null) bomb.draw(graphics, "#000000", "\u0083");
+        List<Explosion> explosions_copy = new ArrayList<>(explosions);
+        for (Explosion explosion : explosions_copy) if(explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
 
-        if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
+        if (whoWon() == -1){
+            player1.draw(graphics, "#FFFFFF", "\u0081");
+            player2.draw(graphics, "#F27379", "\u0082");
+        }
+        else if (whoWon() == 1){
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+            player1.setPosition(new Position(3, 7));
+            player1.draw(graphics, "#FFFFFF", "\u0081");
+
+        }
+        else if (whoWon() == 2) {
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+            player2.setPosition(new Position(3, 7));
+            player2.draw(graphics, "#F27379", "\u0082");
+        }
+        else if (whoWon() == 0) {
+            new Text(1, 6).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
+            new Text(1, 8).draw(graphics, "             ", false);
+        }
+
+        /*if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
         else{
             new Text(1, 6).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
@@ -255,7 +206,7 @@ public class Arena {
         }
         if(player2.getStatus()) player2.draw(graphics, "#F27379", "\u0082");
         else {
-            /*new Text(1, 1).draw(graphics, "             ", false);
+            new Text(1, 1).draw(graphics, "             ", false);
             new Text(1, 2).draw(graphics, "             ", false);
             new Text(1, 3).draw(graphics, "             ", false);
             new Text(1, 4).draw(graphics, "             ", false);
@@ -267,7 +218,7 @@ public class Arena {
             new Text(1, 10).draw(graphics, "             ", false);
             new Text(1, 11).draw(graphics, "             ", false);
             new Text(1, 12).draw(graphics, "             ", false);
-            new Text(1, 13).draw(graphics, "             ", false);*/
+            new Text(1, 13).draw(graphics, "             ", false);
 
             new Text(1, 6).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
@@ -275,21 +226,31 @@ public class Arena {
 
             player1.setPosition(new Position(3, 7));
             player1.draw(graphics, "#FFFFFF", "\u0081");
-        }
+        }*/
     }
 
-    public Player whoExploded() {  // devia ser passado para o game controller talvez
-        for (Explosion explosion : explosions) {
-            if (explosion.getPosition().equals(player1.getPosition())) {
+    public int whoWon() {  // devia ser passado para o game controller talvez
+        List<Explosion> explosions_copy = new ArrayList<>(explosions);
+        boolean player1_dead = false, player2_dead = false;
+        for (Explosion explosion : explosions_copy) {
+            if (explosion != null && explosion.getPosition().equals(player1.getPosition())) {
+                player1_dead = true;
+            }
+            if (explosion != null && explosion.getPosition().equals(player2.getPosition())) {
+                player2_dead = true;
+            }
+            if(player1_dead && player2_dead) return 0;
+            else if (player1_dead){
                 player1.kill();
-                return player1;
+                return 2;
             }
-            if (explosion.getPosition().equals(player2.getPosition())) {
+            else if (player2_dead){
                 player2.kill();
-                return player2;
+                return 1;
             }
+
         }
-        return null;
+        return -1;
     }
 
 }

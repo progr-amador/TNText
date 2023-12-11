@@ -11,7 +11,7 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class MenuState extends State<Menu>{
 
-    public MenuState(Menu menu) throws IOException {
+    public MenuState(Menu menu) {
         super(menu);
     }
 

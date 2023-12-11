@@ -20,9 +20,8 @@ public class GameState extends State<Arena> {
     ArenaController arenaController = new ArenaController(new Arena(15,15));
     private boolean isRunning = true;
 
-    public GameState(Arena arena) throws IOException {
+    public GameState(Arena arena)  {
         super(arena);
-        run();
     }
 
     @Override
@@ -32,7 +31,7 @@ public class GameState extends State<Arena> {
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        arenaController.getPlayerController().getModel().draw(getTerminal().getScreen().newTextGraphics());
+        arenaController.getModel().draw(getTerminal().getScreen().newTextGraphics());
         getTerminal().getScreen().refresh();
     }
 
@@ -41,19 +40,20 @@ public class GameState extends State<Arena> {
             draw(); // Call the private draw method within the Game class
             // Check if input is available before reading
 
-            KeyStroke player1_key = getTerminal().getScreen().pollInput();
-            if (player1_key != null) {
-                arenaController.getPlayerController().processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), player1_key, getTerminal().getScreen(), isRunning);
+            KeyStroke key = getTerminal().getScreen().pollInput();
+            if (key != null) {
+                arenaController.processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
             }
 
-            if(arenaController.getPlayerController().getModel().whoExploded() != null) isRunning = false;
+            if(arenaController.getModel().whoWon() != -1) isRunning = false;
 
             // Insert a small delay if no input is available to prevent tight looping
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
+
         }
     }
 

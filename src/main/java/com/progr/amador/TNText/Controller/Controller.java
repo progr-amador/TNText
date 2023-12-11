@@ -12,6 +12,7 @@ public abstract class Controller<T> {
         this.model = model;
     }
 
+
     public T getModel() {
         return model;
     }
