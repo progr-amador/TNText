@@ -38,8 +38,8 @@ public class GameState extends State<Arena> {
     public void run() throws IOException {
         while (true) {
             if(isRunning) {
-                draw(); // Call the private draw method within the Game class
                 arenaController.getModel().whoWon();
+                draw(); // Call the private draw method within the Game class
             }
             // Check if input is available before reading
 
