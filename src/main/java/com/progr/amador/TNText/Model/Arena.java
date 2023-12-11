@@ -18,7 +18,7 @@ import static java.util.Collections.addAll;
 
 public class Arena {
 
-    private int width, height;
+    private int width, height, victor = -1;
     private Player player1 = new Player(1, 1);
     private Player player2 = new Player(13, 13);
     private List<Brick> bricks;
@@ -48,6 +48,8 @@ public class Arena {
     public Player getPlayer2() {
         return player2;
     }
+
+    public int getVictor() { return victor; }
 
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
@@ -171,29 +173,29 @@ public class Arena {
         List<Explosion> explosions_copy = new ArrayList<>(explosions);
         for (Explosion explosion : explosions_copy) if(explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
 
-        if (whoWon() == -1){
+        if (victor == -1) {
             player1.draw(graphics, "#FFFFFF", "\u0081");
             player2.draw(graphics, "#F27379", "\u0082");
-        }
-        else if (whoWon() == 1){
-            new Text(1, 6).draw(graphics, "             ", false);
+        } else if (victor == 0) {
+            for(int i = 1; i <= 13; i++)
+                new Text(1, i).draw(graphics, "             ", false);
+            new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
+            player1.setPosition(new Position(7, 7));
+            player1.draw(graphics, "#FFFFFF", "\u0081");
+            player2.setPosition(new Position(12, 7));
+            player2.draw(graphics, "#F27379", "\u0082");
+        } else if (victor == 1) {
+            for(int i = 1; i <= 13; i++)
+                new Text(1, i).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
-            new Text(1, 8).draw(graphics, "             ", false);
             player1.setPosition(new Position(3, 7));
             player1.draw(graphics, "#FFFFFF", "\u0081");
-
-        }
-        else if (whoWon() == 2) {
-            new Text(1, 6).draw(graphics, "             ", false);
+        } else if (victor == 2) {
+            for(int i = 1; i <= 13; i++)
+                new Text(1, i).draw(graphics, "             ", false);
             new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
-            new Text(1, 8).draw(graphics, "             ", false);
             player2.setPosition(new Position(3, 7));
             player2.draw(graphics, "#F27379", "\u0082");
-        }
-        else if (whoWon() == 0) {
-            new Text(1, 6).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
-            new Text(1, 8).draw(graphics, "             ", false);
         }
 
         /*if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
@@ -229,28 +231,19 @@ public class Arena {
         }*/
     }
 
-    public int whoWon() {  // devia ser passado para o game controller talvez
+    public void whoWon() {  // devia ser passado para o game controller talvez
         List<Explosion> explosions_copy = new ArrayList<>(explosions);
+        Position player1_pos = player1.getPosition();
+        Position player2_pos = player2.getPosition();
         boolean player1_dead = false, player2_dead = false;
         for (Explosion explosion : explosions_copy) {
-            if (explosion != null && explosion.getPosition().equals(player1.getPosition())) {
-                player1_dead = true;
-            }
-            if (explosion != null && explosion.getPosition().equals(player2.getPosition())) {
-                player2_dead = true;
-            }
-            if(player1_dead && player2_dead) return 0;
-            else if (player1_dead){
-                player1.kill();
-                return 2;
-            }
-            else if (player2_dead){
-                player2.kill();
-                return 1;
-            }
-
+            if (explosion.getPosition().equals(player1_pos)) player1_dead = true;
+            if (explosion.getPosition().equals(player2_pos)) player2_dead = true;
+            if (player1_dead && player2_dead) break;
         }
-        return -1;
+        if (player1_dead && player2_dead) victor = 0;
+        else if (player1_dead) { player1.kill(); victor = 2; }
+        else if (player2_dead) { player2.kill(); victor = 1; }
     }
 
 }

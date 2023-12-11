@@ -37,7 +37,10 @@ public class GameState extends State<Arena> {
 
     public void run() throws IOException {
         while (true) {
-            draw(); // Call the private draw method within the Game class
+            if(isRunning) {
+                draw(); // Call the private draw method within the Game class
+                arenaController.getModel().whoWon();
+            }
             // Check if input is available before reading
 
             KeyStroke key = getTerminal().getScreen().pollInput();
@@ -45,7 +48,7 @@ public class GameState extends State<Arena> {
                 arenaController.processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
             }
 
-            if(arenaController.getModel().whoWon() != -1) isRunning = false;
+            if((arenaController.getModel().getVictor() != -1) && isRunning) isRunning = false;
 
             // Insert a small delay if no input is available to prevent tight looping
             try {
