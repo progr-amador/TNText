@@ -16,6 +16,6 @@ public abstract class Controller<T> {
         return model;
     }
 
-    public abstract void processKey(KeyStroke key) throws IOException;
+    public void processKey(KeyStroke key) throws IOException {}
 
 }

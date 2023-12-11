@@ -197,38 +197,6 @@ public class Arena {
             player2.setPosition(new Position(3, 7));
             player2.draw(graphics, "#F27379", "\u0082");
         }
-
-        /*if(player1.getStatus()) player1.draw(graphics, "#FFFFFF", "\u0081");
-        else{
-            new Text(1, 6).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
-            new Text(1, 8).draw(graphics, "             ", false);
-            player2.setPosition(new Position(3, 7));
-            player2.draw(graphics, "#F27379", "\u0082");
-        }
-        if(player2.getStatus()) player2.draw(graphics, "#F27379", "\u0082");
-        else {
-            new Text(1, 1).draw(graphics, "             ", false);
-            new Text(1, 2).draw(graphics, "             ", false);
-            new Text(1, 3).draw(graphics, "             ", false);
-            new Text(1, 4).draw(graphics, "             ", false);
-            new Text(1, 5).draw(graphics, "#############", false);
-            new Text(1, 6).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
-            new Text(1, 8).draw(graphics, "             ", false);
-            new Text(1, 9).draw(graphics, "#############", false);
-            new Text(1, 10).draw(graphics, "             ", false);
-            new Text(1, 11).draw(graphics, "             ", false);
-            new Text(1, 12).draw(graphics, "             ", false);
-            new Text(1, 13).draw(graphics, "             ", false);
-
-            new Text(1, 6).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
-            new Text(1, 8).draw(graphics, "             ", false);
-
-            player1.setPosition(new Position(3, 7));
-            player1.draw(graphics, "#FFFFFF", "\u0081");
-        }*/
     }
 
     public void whoWon() {  // devia ser passado para o game controller talvez
