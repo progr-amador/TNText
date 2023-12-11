@@ -12,6 +12,8 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class OptionsState extends State<Options>{
 
+    private final OptionsController optionsController = new OptionsController(getModel());
+
     public OptionsState(Options options){
         super(options);
     }
@@ -21,13 +23,13 @@ public class OptionsState extends State<Options>{
             draw(); // Call the private draw method within the Game class
 
             KeyStroke key = getTerminal().getScreen().readInput();
-            getController().processKey(key);
+            optionsController.processKey(key);
         }
     }
 
     @Override
     protected Controller<Options> getController() {
-        return new OptionsController(getModel());
+        return optionsController;
     }
 
     public void draw() throws IOException {

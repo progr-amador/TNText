@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import static com.progr.amador.TNText.Application.getTerminal;
 
 public class GameState extends State<Arena> {
-    ArenaController arenaController = new ArenaController(new Arena(15,15));
+    private final ArenaController arenaController = new ArenaController(getModel());
     private boolean isRunning = true;
 
     public GameState(Arena arena)  {
@@ -26,29 +26,27 @@ public class GameState extends State<Arena> {
 
     @Override
     protected Controller<Arena> getController() {
-        return new ArenaController(getModel());
+        return arenaController;
     }
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        arenaController.getModel().draw(getTerminal().getScreen().newTextGraphics());
+        getModel().draw(getTerminal().getScreen().newTextGraphics());
         getTerminal().getScreen().refresh();
     }
 
     public void run() throws IOException {
         while (true) {
             if(isRunning) {
-                arenaController.getModel().whoWon();
+                getModel().whoWon();
                 draw(); // Call the private draw method within the Game class
             }
+
             // Check if input is available before reading
-
             KeyStroke key = getTerminal().getScreen().pollInput();
-            if (key != null) {
-                arenaController.processKey(arenaController.getModel().getPlayer1(), arenaController.getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
-            }
+            if (key != null) arenaController.processKey(getModel().getPlayer1(), getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
 
-            if((arenaController.getModel().getVictor() != -1) && isRunning) isRunning = false;
+            if((getModel().getVictor() != -1) && isRunning) isRunning = false;
 
             // Insert a small delay if no input is available to prevent tight looping
             try {
@@ -56,7 +54,6 @@ public class GameState extends State<Arena> {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         }
     }
 

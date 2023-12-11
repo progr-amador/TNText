@@ -22,11 +22,11 @@ public class Application {
     }
 
     public void setState(State state) {
-        this.state = state;
+        instance.state = state;
     }
 
     public State getState() {
-        return this.state;
+        return instance.state;
     }
 
     public static TerminalGUI getTerminal() {

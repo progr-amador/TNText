@@ -12,11 +12,10 @@ public abstract class Controller<T> {
         this.model = model;
     }
 
-
     public T getModel() {
         return model;
     }
 
-    public void processKey(KeyStroke key) throws IOException{}
+    public abstract void processKey(KeyStroke key) throws IOException;
 
 }

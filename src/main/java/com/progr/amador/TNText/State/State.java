@@ -13,7 +13,6 @@ public abstract class State<T>{
     private final T model;
     private final Controller<T> controller;
 
-
     public State(T model) {
         this.model = model;
         this.controller = getController();
@@ -21,12 +20,9 @@ public abstract class State<T>{
 
     protected abstract Controller<T> getController();
 
-    public T getModel() {
-        return model;
-    }
+    public T getModel() { return model; }
 
-    public void draw() throws IOException {
-    }
+    public abstract void draw() throws IOException;
 
     public abstract void run() throws IOException;
 }

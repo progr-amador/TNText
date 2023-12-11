@@ -11,6 +11,8 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class MenuState extends State<Menu>{
 
+    private final MenuController menuController = new MenuController(getModel());
+
     public MenuState(Menu menu) {
         super(menu);
     }
@@ -18,9 +20,8 @@ public class MenuState extends State<Menu>{
     public void run() throws IOException {
         while(true){
             draw(); // Call the private draw method within the menu class
-
             KeyStroke key = getTerminal().getScreen().readInput();
-            this.getController().processKey(key);
+            menuController.processKey(key);
         }
     }
 
@@ -32,7 +33,7 @@ public class MenuState extends State<Menu>{
 
 
     public Controller<Menu> getController() {
-        return new MenuController(getModel());
+        return menuController;
     }
 
 
