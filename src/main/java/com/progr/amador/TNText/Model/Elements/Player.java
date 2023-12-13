@@ -18,7 +18,7 @@ public class Player extends Element {
     public int getLifes() {return lifes;}
 
     public int getPower() { return power; }
-    public void incrementPower() { power++; }
+    public void plusPower() { power++; }
 
     public boolean getStatus() {return alive;}
 

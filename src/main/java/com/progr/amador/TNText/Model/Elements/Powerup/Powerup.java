@@ -9,4 +9,6 @@ public abstract class Powerup extends Element {
     }
 
     public abstract void draw(TextGraphics graphics, String color);
+
+    //public
 }

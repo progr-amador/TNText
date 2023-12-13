@@ -4,22 +4,42 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
+import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
+import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
+import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import com.progr.amador.TNText.Model.Elements.Wood;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Position;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Player1Controller extends GameController{
 
     public Player1Controller(Arena arena) {super (arena);}
 
     public void movePlayer(Player player, Position position) {
-        for (Brick brick : this.getModel().getBricks()) {
+        for (Brick brick : getModel().getBricks()) {
             if (brick.getPosition().equals(position)) return;
         }
-        for (Wood wood : this.getModel().getWoods()) {
+        for (Wood wood : getModel().getWoods()) {
             if (wood.getPosition().equals(position)) return;
+        }
+
+        Iterator<Powerup> iterator = getModel().getPowerups().iterator();
+        while (iterator.hasNext()) {
+            Powerup powerup = iterator.next();
+            if (powerup.getPosition().equals(position)) {
+                if (powerup instanceof PlusBomb) {
+                    player.plusBag();
+                }
+                if (powerup instanceof PlusPower) {
+                    player.plusPower();
+                }
+                iterator.remove();
+            }
         }
         player.setPosition(position);
     }

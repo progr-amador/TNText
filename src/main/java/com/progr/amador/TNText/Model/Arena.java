@@ -48,6 +48,14 @@ public class Arena {
         return woods;
     }
 
+    public List<Powerup> getPowerups() {
+        return powerups;
+    }
+
+    public void setPowerups(List<Powerup> powerups) {
+        this.powerups = powerups;
+    }
+
     public Player getPlayer1() { return player1; }
 
     public Player getPlayer2() {
@@ -104,18 +112,16 @@ public class Arena {
             blastzone.add(explode);
             return true;
         }
-        else if (can_it_move.getClass() == Wood.class){
+        else if (can_it_move instanceof Wood){
             blastzone.add(explode);
             woods.remove(can_it_move);
         }
-        else if (can_it_move.getClass() == Bomb.class){
-            Bomb close_bomb = (Bomb) can_it_move;
+        else if (can_it_move instanceof Bomb close_bomb){
             if(!close_bomb.getHasExploded()) explosionPlanner(close_bomb);
         }
 
         return false;
     }
-
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
         for (Brick brick : bricks) {
