@@ -50,11 +50,11 @@ public class Menu {
         new Text(0, 6).draw(graphics, " \u0081 CONTROLS \u0082", true);
 
 
-        new Element(1, 9).draw(graphics, "#6B93C5", "W   goUP   W");
-        new Element(1, 10).draw(graphics, "#6B93C5", "S   goDO   S");
-        new Element(1, 11).draw(graphics, "#6B93C5", "A   goLF   A");
-        new Element(1, 12).draw(graphics, "#6B93C5", "D   goRG   D");
-        new Element(1, 13).draw(graphics, "#6B93C5", "B   bomb   C");
+        new Element(1, 9).draw(graphics, "#6B93C5", "W   goUP   \u008A");
+        new Element(1, 10).draw(graphics, "#6B93C5", "S   goDO   \u008B");
+        new Element(1, 11).draw(graphics, "#6B93C5", "A   goLF   \u0088");
+        new Element(1, 12).draw(graphics, "#6B93C5", "D   goRG   \u0089");
+        new Element(1, 13).draw(graphics, "#6B93C5", "\u0087   bomb   \u008C");
 
 
     }
