@@ -57,14 +57,41 @@ public class Arena {
     public int getVictor() { return victor; }
 
     public void addBomb(Bomb bomb) {
+        if(bomb.getPlayer().getBag() == 0) return;
         bombs.add(bomb);
-        //explosionPlanner(bomb);
+        bomb.getPlayer().lessBag();
         CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(3000); // Wait for additional 1.5 seconds
                 if(!bomb.getHasExploded()) explosionPlanner(bomb);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void explosionPlanner(Bomb bomb) {
+        List<Explosion> blastzone = new ArrayList<>();
+        bomb.setHasExploded();
+        blastzone.add(new Explosion(bomb.getX(), bomb.getY()));
+        boolean e_right = true, e_left = true, e_up = true, e_down = true;
+
+        for(int i = 1; i <= bomb.getRadius(); i++){
+            if(e_right) e_right = expandDirection(new Position(bomb.getX() + i, bomb.getY()), blastzone);
+            if(e_left) e_left = expandDirection(new Position(bomb.getX() - i, bomb.getY()), blastzone);
+            if(e_down) e_down = expandDirection(new Position(bomb.getX(), bomb.getY() + i), blastzone);
+            if(e_up) e_up = expandDirection(new Position(bomb.getX(), bomb.getY() - i), blastzone);
+        }
+        explosions.addAll(blastzone);
+        bombs.remove(bomb);
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
+                explosions.removeAll(blastzone);
+                bomb.getPlayer().plusBag();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
     }
@@ -89,30 +116,6 @@ public class Arena {
         return false;
     }
 
-    private void explosionPlanner(Bomb bomb) {
-        List<Explosion> blastzone = new ArrayList<>();
-        bomb.setHasExploded();
-        blastzone.add(new Explosion(bomb.getX(), bomb.getY()));
-        boolean e_right = true, e_left = true, e_up = true, e_down = true;
-
-        for(int i = 1; i <= bomb.getRadius(); i++){
-            if(e_right) e_right = expandDirection(new Position(bomb.getX() + i, bomb.getY()), blastzone);
-            if(e_left) e_left = expandDirection(new Position(bomb.getX() - i, bomb.getY()), blastzone);
-            if(e_down) e_down = expandDirection(new Position(bomb.getX(), bomb.getY() + i), blastzone);
-            if(e_up) e_up = expandDirection(new Position(bomb.getX(), bomb.getY() - i), blastzone);
-        }
-        explosions.addAll(blastzone);
-        bombs.remove(bomb);
-
-        CompletableFuture.runAsync(() -> {
-            try {
-                TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
-                explosions.removeAll(blastzone);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
         for (Brick brick : bricks) {

@@ -9,6 +9,7 @@ public class Player extends Element {
     private boolean alive = true;
     private int lifes;
     private int power = 2;
+    private int bag = 1;
 
     public Player(int x, int y) {super(x,y); this.lifes=1;}
 
@@ -22,5 +23,9 @@ public class Player extends Element {
     public boolean getStatus() {return alive;}
 
     public void kill() {alive = false;}
+
+    public int getBag() {return bag;}
+    public void plusBag() {bag++;}
+    public void lessBag() {bag--;}
 
 }
