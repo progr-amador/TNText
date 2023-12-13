@@ -18,7 +18,6 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class GameState extends State<Arena> {
     private final ArenaController arenaController = new ArenaController(getModel());
-    private boolean isRunning = true;
 
     public GameState(Arena arena)  {
         super(arena);
@@ -37,16 +36,14 @@ public class GameState extends State<Arena> {
 
     public void run() throws IOException {
         while (true) {
-            if(isRunning) {
+            if(getModel().getVictor() == -1) {
                 getModel().whoWon();
                 draw(); // Call the private draw method within the Game class
             }
 
             // Check if input is available before reading
             KeyStroke key = getTerminal().getScreen().pollInput();
-            if (key != null) arenaController.processKey(getModel().getPlayer1(), getModel().getPlayer2(), key, getTerminal().getScreen(), isRunning);
-
-            if((getModel().getVictor() != -1) && isRunning) isRunning = false;
+            if (key != null) arenaController.processKey(getModel().getPlayer1(), getModel().getPlayer2(), key, getTerminal().getScreen(), getModel().getVictor());
 
             // Insert a small delay if no input is available to prevent tight looping
             try {

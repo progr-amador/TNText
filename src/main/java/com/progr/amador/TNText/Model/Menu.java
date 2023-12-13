@@ -39,13 +39,23 @@ public class Menu {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
-        new Text(1, 1).draw(graphics, "Welcome", false);
+        new Text(0, 1).draw(graphics, "    TNTEXT   ", false);
 
-        new Text(1, 2).draw(graphics, "Game", current == 0);
+        new Text(0, 2).draw(graphics, "     GAME    ", current == 0);
 
-        new Text(1, 3).draw(graphics, "Options", current == 1);
+        new Text(0, 3).draw(graphics, "   SETTINGS   ", current == 1);
 
-        new Text(1, 4).draw(graphics, "Exit", current == 2);
+        new Text(0, 4).draw(graphics, "     EXIT    " , current == 2);
+
+        new Text(0, 6).draw(graphics, " \u0081 CONTROLS \u0082", true);
+
+
+        new Element(1, 9).draw(graphics, "#6B93C5", "W   goUP   W");
+        new Element(1, 10).draw(graphics, "#6B93C5", "S   goDO   S");
+        new Element(1, 11).draw(graphics, "#6B93C5", "A   goLF   A");
+        new Element(1, 12).draw(graphics, "#6B93C5", "D   goRG   D");
+        new Element(1, 13).draw(graphics, "#6B93C5", "B   bomb   C");
+
 
     }
 

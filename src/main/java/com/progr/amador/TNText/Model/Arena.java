@@ -5,6 +5,9 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Elements.*;
+import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
+import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
+import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -19,20 +22,22 @@ import static java.util.Collections.addAll;
 public class Arena {
 
     private int width, height, victor = -1;
-    private Player player1 = new Player(1, 1);
-    private Player player2 = new Player(13, 13);
-    private List<Brick> bricks;
-    private List<Wood> woods;
-    private List<Bomb> bombs;
-    private List<Explosion> explosions;
+    private Player player1;
+    private Player player2;
+    private final List<Brick> bricks;
+    private List<Wood> woods = new ArrayList<>();
+    private List<Bomb> bombs = new ArrayList<>();
+    private List<Explosion> explosions = new ArrayList<>();
+    private List<Powerup> powerups = new ArrayList<>();
+
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         this.bricks = createBricks();
         this.woods = createWoods();
-        this.explosions = new ArrayList<>();
-        this.bombs = new ArrayList<>();
+        this.player1 = new Player(1, 1);
+        this.player2 = new Player(width-2, height-2);
     }
 
     public List<Brick> getBricks() {
@@ -141,37 +146,48 @@ public class Arena {
     }
 
     private List<Wood> createWoods() {
-        List<Wood> woods = new ArrayList<>();
         for (int x = 1; x < width-1; x++) {
             for (int y = 1; y < height-1; y++) {
                 if ((x % 2 != 0 || y % 2 != 0) &
                     !(x == 1 & y == 1) & !(x == 1 & y == 2) & !(x == 2 & y == 1) &
                     !(x == width - 2 & y == height - 2) & !(x == width - 2 & y == height - 3) & !(x == width - 3 & y == height - 2)) {
-                    if (shouldAddWood()) woods.add(new Wood(x, y));
+                    shouldAddWood(x, y);
                 }
             }
         }
         return woods;
     }
 
-    private boolean shouldAddWood() {
-        Random random = new Random();
-        // Adjust the spawn rate by modifying the probability
-        double spawnRate = 0.1; // Adjust this value (0.0 to 1.0) for your desired spawn rate
-        return random.nextDouble() < spawnRate;
+    private void shouldAddWood(int x, int y) {
+        if(new Random().nextDouble() < 0.3) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
+            woods.add(new Wood(x, y));
+            shouldAddUpgrade(x, y);
+        }
+    }
+
+    private void shouldAddUpgrade(int x, int y) {
+        if(new Random().nextDouble() < 0.27) whichUpgrade(x, y);
+    }
+
+    private void whichUpgrade(int x, int y) {
+        if(new Random().nextDouble() < 0.5) powerups.add(new PlusBomb(x, y));
+        else powerups.add(new PlusPower(x, y));
     }
 
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
 
+        List<Powerup> powerups_copy = new ArrayList<>(powerups);
+        for (Powerup powerup : powerups_copy) if (powerup != null) powerup.draw(graphics, "#9C929A");
+
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         List<Wood> woods_copy = new ArrayList<>(woods);
-        for (Wood wood : woods_copy) if(wood != null) wood.draw(graphics, "#9C929A", "#");
+        for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "#");
         List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb bomb : bombs_copy) if(bomb != null) bomb.draw(graphics, "#000000", "\u0083");
+        for (Bomb bomb : bombs_copy) if (bomb != null) bomb.draw(graphics, "#000000", "\u0083");
         List<Explosion> explosions_copy = new ArrayList<>(explosions);
-        for (Explosion explosion : explosions_copy) if(explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
+        for (Explosion explosion : explosions_copy) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
 
         if (victor == -1) {
             player1.draw(graphics, "#FFFFFF", "\u0081");
@@ -205,9 +221,11 @@ public class Arena {
         Position player2_pos = player2.getPosition();
         boolean player1_dead = false, player2_dead = false;
         for (Explosion explosion : explosions_copy) {
-            if (explosion.getPosition().equals(player1_pos)) player1_dead = true;
-            if (explosion.getPosition().equals(player2_pos)) player2_dead = true;
-            if (player1_dead && player2_dead) break;
+            if (explosion != null) {
+                if (explosion.getPosition().equals(player1_pos)) player1_dead = true;
+                if (explosion.getPosition().equals(player2_pos)) player2_dead = true;
+                if (player1_dead && player2_dead) break;
+            }
         }
         if (player1_dead && player2_dead) victor = 0;
         else if (player1_dead) { player1.kill(); victor = 2; }
