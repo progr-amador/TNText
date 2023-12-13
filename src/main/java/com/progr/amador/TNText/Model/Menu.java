@@ -8,6 +8,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.progr.amador.TNText.Model.Elements.Element;
 import com.progr.amador.TNText.Model.Elements.Text;
+import com.progr.amador.TNText.Sound;
 import com.progr.amador.TNText.State.GameState;
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.State.OptionsState;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import static com.progr.amador.TNText.Application.getTerminal;
 
 public class Menu {
+
+    Sound sound = new Sound();
     private final int width;
     private final int height;
     private int current = 0;
@@ -71,20 +74,10 @@ public class Menu {
         else if (current == 2) { getTerminal().getScreen().close(); }
     }
 
+    public void OptionChoosingMusic() {
+        sound.setFile(0);
+        sound.play();
+        sound.stop();
 
-    /*public boolean processKey(KeyStroke key) throws IOException {
-        int entries = 3;
-        switch (key.getKeyType()) {
-            case ArrowUp -> current = (current - 1 + entries) % entries;
-
-            case ArrowDown -> current = (current + 1) % entries;
-
-            case Enter -> { nextState(); return false;}
-
-            case EOF -> {
-                return true;
-            }
-        }
-        return false;
-    } */
+    }
 }

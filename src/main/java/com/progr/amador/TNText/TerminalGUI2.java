@@ -6,28 +6,26 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import com.progr.amador.TNText.Model.Position;
+import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class TerminalGUI {
+public class TerminalGUI2 {
     Screen screen;
-    //Sound sound = new Sound();
 
-    public TerminalGUI() {
+    public TerminalGUI2() {
         try {
-            Terminal terminal = getTerminal();
-
+            SwingTerminal terminal = new SwingTerminal();
+            terminal.setFont(new Font("src/main/resources/fonts/Square-Regular.ttf", Font.PLAIN, 50));
+            //terminal.
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -52,14 +50,5 @@ public class TerminalGUI {
         factory.setTerminalEmulatorTitle("TNText");
 
         return factory.createTerminal();
-    }
-
-
-    public void clear() { screen.clear();}
-
-    //public void drawWood(Position position) {}
-    public void refresh() throws IOException { screen.refresh();}
-    public Screen getScreen() {
-        return screen;
     }
 }

@@ -14,14 +14,16 @@ public class MenuController extends Controller<Menu> {
         super(menu);
     }
 
+
     public void processKey(KeyStroke key) throws IOException {
         int entries = 3;
         switch (key.getKeyType()) {
             case Character -> { if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') getTerminal().getScreen().close(); }
 
-            case ArrowUp -> this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries);
+            case ArrowUp -> {this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries);
+                getModel().OptionChoosingMusic(); }
 
-            case ArrowDown -> this.getModel().setCurrent((this.getModel().getCurrent() + 1) % entries);
+            case ArrowDown -> {this.getModel().setCurrent((this.getModel().getCurrent() + 1) % entries); getModel().OptionChoosingMusic();}
 
             case Enter -> this.getModel().nextState();
 
