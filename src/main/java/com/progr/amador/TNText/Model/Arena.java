@@ -192,9 +192,9 @@ public class Arena {
 
         for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
         List<Wood> woods_copy = new ArrayList<>(woods);
-        for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "#");
+        for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
         List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb bomb : bombs_copy) if (bomb != null) bomb.draw(graphics, "#000000", "\u0083");
+        for (Bomb bomb : bombs_copy) if (bomb != null) bomb.draw(graphics, "#000000", "\u008D");
         List<Explosion> explosions_copy = new ArrayList<>(explosions);
         for (Explosion explosion : explosions_copy) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
 

@@ -8,6 +8,6 @@ public class PlusBomb extends Powerup{
     }
 
     public void draw(TextGraphics graphics, String color) {
-        super.draw(graphics, color, "\u0084");
+        super.draw(graphics, color, "\u0091");
     }
 }
