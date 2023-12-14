@@ -2,18 +2,12 @@ package com.progr.amador.TNText.State;
 
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.ArenaController;
 import com.progr.amador.TNText.Model.Arena;
-import com.progr.amador.TNText.Model.Elements.Explosion;
-import com.progr.amador.TNText.TerminalGUI;
 import com.progr.amador.TNText.Viewer.ArenaViewer;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 import static com.progr.amador.TNText.Application.getTerminal;
 

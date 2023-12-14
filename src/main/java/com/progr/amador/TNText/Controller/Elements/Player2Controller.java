@@ -1,8 +1,6 @@
 package com.progr.amador.TNText.Controller.Elements;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Elements.Brick;
@@ -11,9 +9,7 @@ import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import com.progr.amador.TNText.Model.Elements.Wood;
-import com.progr.amador.TNText.Model.Menu;
 import com.progr.amador.TNText.Model.Position;
-import com.progr.amador.TNText.State.MenuState;
 
 import java.io.IOException;
 import java.util.Iterator;

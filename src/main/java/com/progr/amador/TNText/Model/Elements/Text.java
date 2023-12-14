@@ -1,7 +1,6 @@
 package com.progr.amador.TNText.Model.Elements;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-
 public class Text extends Element{
 
     public Text(int x, int y) {

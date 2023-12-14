@@ -3,7 +3,6 @@ package com.progr.amador.TNText.State;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.OptionsController;
-import com.progr.amador.TNText.Model.Menu;
 import com.progr.amador.TNText.Model.Options;
 import com.progr.amador.TNText.Viewer.OptionsViewer;
 

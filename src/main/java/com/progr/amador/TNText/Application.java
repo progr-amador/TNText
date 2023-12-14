@@ -4,7 +4,6 @@ import com.progr.amador.TNText.Model.Menu;
 import com.progr.amador.TNText.State.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Application {
     private static Application instance;

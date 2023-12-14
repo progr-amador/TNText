@@ -1,13 +1,5 @@
 package com.progr.amador.TNText.Model;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.progr.amador.TNText.Model.Elements.Element;
-import com.progr.amador.TNText.Model.Elements.Text;
 import com.progr.amador.TNText.Sound;
 import com.progr.amador.TNText.State.GameState;
 import com.progr.amador.TNText.Application;

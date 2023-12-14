@@ -1,21 +1,10 @@
 package com.progr.amador.TNText.Model;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
 import com.progr.amador.TNText.Application;
-import com.progr.amador.TNText.Model.Elements.Element;
-import com.progr.amador.TNText.Model.Elements.Text;
-import com.progr.amador.TNText.State.GameState;
 import com.progr.amador.TNText.State.MenuState;
-import com.progr.amador.TNText.State.OptionsState;
 
 import java.io.IOException;
 
-import static com.progr.amador.TNText.Application.getTerminal;
 
 public class Options {
 

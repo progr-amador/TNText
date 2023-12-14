@@ -1,9 +1,5 @@
 package com.progr.amador.TNText.Model;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Elements.*;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
@@ -13,12 +9,9 @@ import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static java.util.Collections.addAll;
 
 public class Arena {
 

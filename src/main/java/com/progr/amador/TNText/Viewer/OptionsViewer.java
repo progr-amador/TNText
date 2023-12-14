@@ -28,7 +28,7 @@ public class OptionsViewer extends Viewer<Options> {
         if(Application.getInstance().checkPlusPower()) new Text(11, 2).draw(graphics, "ON", getModel().getCurrent() == 1);
         else new Text(11, 2).draw(graphics, "OFF", getModel().getCurrent() == 1);
 
-        int nsei = 1;
+        int nsei = 3    ;
 
 
         if(nsei == 1){

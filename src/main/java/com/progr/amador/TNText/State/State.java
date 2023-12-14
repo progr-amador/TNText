@@ -1,10 +1,6 @@
 package com.progr.amador.TNText.State;
 
-import com.googlecode.lanterna.screen.Screen;
-import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Controller.Controller;
-import com.progr.amador.TNText.TerminalGUI;
-import com.progr.amador.TNText.Viewer.Viewer;
 
 import java.io.IOException;
 
