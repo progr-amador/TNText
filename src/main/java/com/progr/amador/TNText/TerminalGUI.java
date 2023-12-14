@@ -31,17 +31,6 @@ public class TerminalGUI {
         }
     }
 
-    public Font getFont() throws IOException, FontFormatException {
-        File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
-        //File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
-        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(font);
-
-        return font.deriveFont(Font.PLAIN, 50);
-    }
-
     public Terminal getTerminal() throws IOException, FontFormatException {
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
@@ -54,11 +43,16 @@ public class TerminalGUI {
         return factory.createTerminal();
     }
 
+    public Font getFont() throws IOException, FontFormatException {
+        File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
+        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
-    public void clear() { screen.clear();}
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(font);
 
-    //public void drawWood(Position position) {}
-    public void refresh() throws IOException { screen.refresh();}
+        return font.deriveFont(Font.PLAIN, 50);
+    }
+
     public Screen getScreen() {
         return screen;
     }

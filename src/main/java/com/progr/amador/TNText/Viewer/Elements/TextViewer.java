@@ -1,11 +1,12 @@
-package com.progr.amador.TNText.Model.Elements;
+package com.progr.amador.TNText.Viewer.Elements;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Model.Elements.Element;
 
-public class Text extends Element{
+public class TextViewer extends ElementViewer{
 
-    public Text(int x, int y) {
-        super(x, y);
+    public TextViewer(Element model) {
+        super(model);
     }
 
     public void draw(TextGraphics graphics, String symbol, boolean selected) {
@@ -15,8 +16,4 @@ public class Text extends Element{
         else super.draw(graphics, color_unselected, symbol);
     }
 
-    @Override
-    public void draw(TextGraphics graphics, String color, String symbol) {
-        super.draw(graphics, color, symbol);
-    }
 }

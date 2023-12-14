@@ -33,33 +33,15 @@ public class Menu {
     public int getCurrent() {
         return current;
     }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
 
     public void setCurrent(int current) {
         this.current = current;
-    }
-
-    public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
-        graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-
-        new Text(0, 1).draw(graphics, "    TNTEXT   ", false);
-
-        new Text(0, 2).draw(graphics, "     GAME    ", current == 0);
-
-        new Text(0, 3).draw(graphics, "   SETTINGS   ", current == 1);
-
-        new Text(0, 4).draw(graphics, "     EXIT    " , current == 2);
-
-        new Text(0, 6).draw(graphics, " \u0081 CONTROLS \u0082", true);
-
-
-        new Element(1, 9).draw(graphics, "#6B93C5", "W   goUP   \u008A");
-        new Element(1, 10).draw(graphics, "#6B93C5", "S   goDO   \u008B");
-        new Element(1, 11).draw(graphics, "#6B93C5", "A   goLF   \u0088");
-        new Element(1, 12).draw(graphics, "#6B93C5", "D   goRG   \u0089");
-        new Element(1, 13).draw(graphics, "#6B93C5", "\u0087   bomb   \u008C");
-
-
     }
 
     public void nextState() throws IOException {
@@ -77,7 +59,7 @@ public class Menu {
     public void OptionChoosingMusic() {
         sound.setFile(0);
         sound.play();
-        sound.stop();
+        //sound.stop();
 
     }
 }

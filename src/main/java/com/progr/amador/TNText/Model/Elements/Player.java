@@ -6,7 +6,6 @@ import com.progr.amador.TNText.Model.Elements.Element;
 
 public class Player extends Element {
 
-    private boolean alive = true;
     private int lifes;
     private int power = 2;
     private int bag = 1;
@@ -19,10 +18,6 @@ public class Player extends Element {
 
     public int getPower() { return power; }
     public void plusPower() { power++; }
-
-    public boolean getStatus() {return alive;}
-
-    public void kill() {alive = false;}
 
     public int getBag() {return bag;}
     public void plusBag() {bag++;}

@@ -14,7 +14,6 @@ public class ArenaController extends GameController {
     private final Player1Controller player1Controller;
     private final Player2Controller player2Controller;
 
-
     public ArenaController(Arena arena) {
         super(arena);
         this.player1Controller = new Player1Controller(arena);

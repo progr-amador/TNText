@@ -12,7 +12,7 @@ public class Sound {
 
     public Sound() {
 
-        soundURL[0] = getClass().getResource("src/main/resources/sounds/snd_se_menu_00000017.wav");
+        soundURL[0] = getClass().getResource("/sounds/snd_se_menu_00000017.wav");
     }
 
     public void setFile(int i) {

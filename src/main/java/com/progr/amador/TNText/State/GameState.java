@@ -9,6 +9,7 @@ import com.progr.amador.TNText.Controller.Elements.ArenaController;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.Explosion;
 import com.progr.amador.TNText.TerminalGUI;
+import com.progr.amador.TNText.Viewer.ArenaViewer;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -18,6 +19,8 @@ import static com.progr.amador.TNText.Application.getTerminal;
 
 public class GameState extends State<Arena> {
     private final ArenaController arenaController = new ArenaController(getModel());
+    private final ArenaViewer arenaViewer = new ArenaViewer(getModel());
+
 
     public GameState(Arena arena)  {
         super(arena);
@@ -30,7 +33,7 @@ public class GameState extends State<Arena> {
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        getModel().draw(getTerminal().getScreen().newTextGraphics());
+        arenaViewer.draw(getTerminal().getScreen().newTextGraphics());
         getTerminal().getScreen().refresh();
     }
 

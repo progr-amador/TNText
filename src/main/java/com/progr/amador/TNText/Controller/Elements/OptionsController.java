@@ -6,6 +6,8 @@ import com.progr.amador.TNText.Model.Options;
 
 import java.io.IOException;
 
+import static com.progr.amador.TNText.Application.getTerminal;
+
 public class OptionsController extends Controller<Options> {
 
 
@@ -15,13 +17,15 @@ public class OptionsController extends Controller<Options> {
 
 
     public void processKey(KeyStroke key) throws IOException {
-        int entries = 6;
+        int entries = 3;
         switch (key.getKeyType()) {
             case ArrowUp -> this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries);
 
             case ArrowDown -> this.getModel().setCurrent((this.getModel().getCurrent() + 1) % entries);
 
             case Enter -> this.getModel().toggleUpgrade();
+
+            case Character -> { if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') getTerminal().getScreen().close(); }
 
             case EOF -> System.exit(0);
         }

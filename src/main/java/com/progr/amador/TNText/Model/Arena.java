@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Elements.*;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
@@ -21,56 +22,57 @@ import static java.util.Collections.addAll;
 
 public class Arena {
 
-    private int width, height, victor = -1;
-    private Player player1;
-    private Player player2;
-    private final List<Brick> bricks;
-    private List<Wood> woods = new ArrayList<>();
-    private List<Bomb> bombs = new ArrayList<>();
-    private List<Explosion> explosions = new ArrayList<>();
-    private List<Powerup> powerups = new ArrayList<>();
+    private final int width;
+    private final int height;
+    private int victor = -1;
+    private final Player player1;
+    private final Player player2;
+    private final List<Brick> bricks = new ArrayList<>();
+    private final List<Wood> woods = new ArrayList<>();
+    private final List<Bomb> bombs = new ArrayList<>();
+    private final List<Explosion> explosions = new ArrayList<>();
+    private final List<Powerup> powerups = new ArrayList<>();
 
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.bricks = createBricks();
-        this.woods = createWoods();
         this.player1 = new Player(1, 1);
         this.player2 = new Player(width-2, height-2);
+        createBricks();
+        createWoods();
     }
 
+    public int getWidth() {return width;}
+    public int getHeight() {return height;}
     public List<Brick> getBricks() {
         return bricks;
     }
-
     public List<Wood> getWoods() {
         return woods;
     }
-
+    public List<Bomb> getBombs() {return bombs;}
+    public List<Explosion> getExplosions() {return explosions;}
     public List<Powerup> getPowerups() {
         return powerups;
     }
-
-    public void setPowerups(List<Powerup> powerups) {
-        this.powerups = powerups;
-    }
-
     public Player getPlayer1() { return player1; }
-
     public Player getPlayer2() {
         return player2;
     }
-
     public int getVictor() { return victor; }
 
     public void addBomb(Bomb bomb) {
         if(bomb.getPlayer().getBag() == 0) return;
+
+        List<Bomb> bombs_copy = new ArrayList<>(bombs);
+        for (Bomb other_bomb : bombs_copy) if (other_bomb != null && other_bomb.getPosition().equals(bomb.getPosition())) return;
+
         bombs.add(bomb);
         bomb.getPlayer().lessBag();
         CompletableFuture.runAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(3000); // Wait for additional 1.5 seconds
+                TimeUnit.MILLISECONDS.sleep(bomb.getTimeMs()); // Wait for additional 1.5 seconds
                 if(!bomb.getHasExploded()) explosionPlanner(bomb);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -124,20 +126,22 @@ public class Arena {
     }
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
-        for (Brick brick : bricks) {
+        List<Brick> bricks_copy = new ArrayList<>(bricks);
+        for (Brick brick : bricks_copy) {
             if (brick.getPosition().equals(position)) return brick;
         }
-        for (Wood wood : woods) {
+        List<Wood> woods_copy = new ArrayList<>(woods);
+        for (Wood wood : woods_copy) {
             if (wood.getPosition().equals(position)) return wood;
         }
-        for (Bomb bomb : bombs) {
+        List<Bomb> bombs_copy = new ArrayList<>(bombs);
+        for (Bomb bomb : bombs_copy) {
             if (bomb.getPosition().equals(position)) return bomb;
         }
         return null;
     }
 
-    private List<Brick> createBricks() {
-        List<Brick> bricks = new ArrayList<>();
+    private void createBricks() {
         for (int c = 0; c < width; c++) {
             bricks.add(new Brick(c, 0));
             bricks.add(new Brick(c, height - 1));
@@ -151,10 +155,9 @@ public class Arena {
                 bricks.add(new Brick(x, y));
             }
         }
-        return bricks;
     }
 
-    private List<Wood> createWoods() {
+    private void createWoods() {
         for (int x = 1; x < width-1; x++) {
             for (int y = 1; y < height-1; y++) {
                 if ((x % 2 != 0 || y % 2 != 0) &
@@ -164,64 +167,26 @@ public class Arena {
                 }
             }
         }
-        return woods;
     }
 
     private void shouldAddWood(int x, int y) {
         if(new Random().nextDouble() < 0.3) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
             woods.add(new Wood(x, y));
-            shouldAddUpgrade(x, y);
+            shouldAddPowerup(x, y);
         }
     }
 
-    private void shouldAddUpgrade(int x, int y) {
-        if(new Random().nextDouble() < 0.27) whichUpgrade(x, y);
+    private void shouldAddPowerup(int x, int y) {
+        if(new Random().nextDouble() < 0.25) whichPowerup(x, y);
     }
 
-    private void whichUpgrade(int x, int y) {
-        if(new Random().nextDouble() < 0.5) powerups.add(new PlusBomb(x, y));
-        else powerups.add(new PlusPower(x, y));
-    }
-
-    public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
-        graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(width, height), ' ');
-
-        List<Powerup> powerups_copy = new ArrayList<>(powerups);
-        for (Powerup powerup : powerups_copy) if (powerup != null) powerup.draw(graphics, "#9C929A");
-
-        for (Brick brick : bricks) brick.draw(graphics, "#6B93C5", "\u0080");
-        List<Wood> woods_copy = new ArrayList<>(woods);
-        for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
-        List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb bomb : bombs_copy) if (bomb != null) bomb.draw(graphics, "#000000", "\u008D");
-        List<Explosion> explosions_copy = new ArrayList<>(explosions);
-        for (Explosion explosion : explosions_copy) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
-
-        if (victor == -1) {
-            player1.draw(graphics, "#FFFFFF", "\u0081");
-            player2.draw(graphics, "#F27379", "\u0082");
-        } else if (victor == 0) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
-            player1.setPosition(new Position(7, 7));
-            player1.draw(graphics, "#FFFFFF", "\u0081");
-            player2.setPosition(new Position(12, 7));
-            player2.draw(graphics, "#F27379", "\u0082");
-        } else if (victor == 1) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
-            player1.setPosition(new Position(3, 7));
-            player1.draw(graphics, "#FFFFFF", "\u0081");
-        } else if (victor == 2) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
-            player2.setPosition(new Position(3, 7));
-            player2.draw(graphics, "#F27379", "\u0082");
+    private void whichPowerup(int x, int y) {
+        if(Application.getInstance().checkPlusPower() && Application.getInstance().checkPlusBomb()) {
+            if (new Random().nextDouble() < 0.5) powerups.add(new PlusBomb(x, y));
+            else powerups.add(new PlusPower(x, y));
         }
+        else if (Application.getInstance().checkPlusPower()) powerups.add(new PlusPower(x, y));
+        else if (Application.getInstance().checkPlusBomb()) powerups.add(new PlusBomb(x, y));
     }
 
     public void whoWon() {  // devia ser passado para o game controller talvez
@@ -237,8 +202,8 @@ public class Arena {
             }
         }
         if (player1_dead && player2_dead) victor = 0;
-        else if (player1_dead) { player1.kill(); victor = 2; }
-        else if (player2_dead) { player2.kill(); victor = 1; }
+        else if (player1_dead) victor = 2;
+        else if (player2_dead) victor = 1;
     }
 
 }

@@ -4,11 +4,14 @@ import com.progr.amador.TNText.Model.Menu;
 import com.progr.amador.TNText.State.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Application {
     private static Application instance;
     private State state;
     private final static TerminalGUI terminal = new TerminalGUI();
+
+    private boolean[] powerupsToggle = {true, true};
 
     public static Application getInstance() {
         if (instance == null) instance = new Application();
@@ -33,6 +36,10 @@ public class Application {
         return terminal;
     }
 
+    public boolean checkPlusBomb() {return powerupsToggle[0];}
+    public boolean checkPlusPower() {return powerupsToggle[1];}
+    public void togglePlusBomb() {powerupsToggle[0] = !powerupsToggle[0];}
+    public void togglePlusPower() {powerupsToggle[1] = !powerupsToggle[1];}
 
 }
 

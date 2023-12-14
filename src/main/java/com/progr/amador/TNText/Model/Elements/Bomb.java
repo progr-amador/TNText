@@ -1,7 +1,12 @@
 package com.progr.amador.TNText.Model.Elements;
 
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
 public class Bomb extends Element{
-    private int radius, time = 3;
+    private int radius, timems = 3000;
     private boolean hasExploded = false;
     private Player player;
 
@@ -18,7 +23,7 @@ public class Bomb extends Element{
 
     public Player getPlayer() {return player; }
 
-    public int getTime() { return time; }
+    public int getTimeMs() { return timems; }
 
     public int getRadius() {
         return radius;
@@ -27,5 +32,9 @@ public class Bomb extends Element{
     public boolean getHasExploded() { return hasExploded; }
     public void setHasExploded() { hasExploded = true; }
 
-
+    @Override
+    public void draw(TextGraphics graphics, String color, String symbol) {
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.putString(new TerminalPosition(getX(), getY()), symbol, SGR.BLINK);
+    }
 }

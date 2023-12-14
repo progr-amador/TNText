@@ -4,6 +4,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.MenuController;
 import com.progr.amador.TNText.Model.Menu;
+import com.progr.amador.TNText.Viewer.MenuViewer;
 
 import java.io.IOException;
 
@@ -12,6 +13,7 @@ import static com.progr.amador.TNText.Application.getTerminal;
 public class MenuState extends State<Menu>{
 
     private final MenuController menuController = new MenuController(getModel());
+    private final MenuViewer menuViewer = new MenuViewer(getModel());
 
     public MenuState(Menu menu) {
         super(menu);
@@ -27,7 +29,7 @@ public class MenuState extends State<Menu>{
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        getModel().draw(getTerminal().getScreen().newTextGraphics());
+        menuViewer.draw(getTerminal().getScreen().newTextGraphics());
         getTerminal().getScreen().refresh();
     }
 
