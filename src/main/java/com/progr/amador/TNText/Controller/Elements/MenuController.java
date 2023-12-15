@@ -21,9 +21,9 @@ public class MenuController extends Controller<Menu> {
             case Character -> { if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') getTerminal().getScreen().close(); }
 
             case ArrowUp -> {this.getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries);
-                getModel().OptionChoosingMusic(); }
+                getModel().MenuChoosingMusic(); }
 
-            case ArrowDown -> {this.getModel().setCurrent((getModel().getCurrent() + 1) % entries); getModel().OptionChoosingMusic();}
+            case ArrowDown -> {this.getModel().setCurrent((getModel().getCurrent() + 1) % entries); getModel().MenuChoosingMusic();}
 
             case Enter -> this.getModel().nextState();
 

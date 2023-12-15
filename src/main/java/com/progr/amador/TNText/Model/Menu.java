@@ -48,7 +48,7 @@ public class Menu {
         else if (current == 2) { getTerminal().getScreen().close(); }
     }
 
-    public void OptionChoosingMusic() {
+    public void MenuChoosingMusic() {
         sound.setFile(0);
         sound.play();
         //sound.stop();

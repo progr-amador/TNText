@@ -35,6 +35,6 @@ public class Bomb extends Element{
     @Override
     public void draw(TextGraphics graphics, String color, String symbol) {
         graphics.setForegroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(getX(), getY()), symbol, SGR.BLINK);
+        graphics.putString(new TerminalPosition(getX(), getY()), symbol/*, SGR.BLINK*/);
     }
 }

@@ -29,12 +29,14 @@ public class ArenaController extends GameController {
                     key.getCharacter() == 'd' || key.getCharacter() == 'D' ||
                     key.getCharacter() == ' ') && victor == -1) player1Controller.processKey(player1, key);
 
-                else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
+                //else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
                 else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') {
                     Application.getInstance().setState(new MenuState(new Menu(15, 15)));
                     Application.getInstance().getState().run();
                 }
             }
+
+            case Escape -> screen.close();
 
             case ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Enter -> {if(victor == -1) player2Controller.processKey(player2, key); }
 

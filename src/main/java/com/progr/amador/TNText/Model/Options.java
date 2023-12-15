@@ -1,12 +1,15 @@
 package com.progr.amador.TNText.Model;
 
 import com.progr.amador.TNText.Application;
+import com.progr.amador.TNText.Sound;
 import com.progr.amador.TNText.State.MenuState;
 
 import java.io.IOException;
 
 
 public class Options {
+
+    Sound sound = new Sound();
 
     private final int width;
     private final int height;
@@ -34,6 +37,13 @@ public class Options {
             Application.getInstance().setState(new MenuState(new Menu(15, 15)));
             Application.getInstance().getState().run();
         }
+    }
+
+    public void OptionChoosingMusic() {
+        sound.setFile(0);
+        sound.play();
+        //sound.stop();
+
     }
 
 }
