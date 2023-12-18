@@ -1,6 +1,5 @@
 package com.progr.amador.TNText.Model.Elements;
 
-import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -29,8 +28,8 @@ public class Bomb extends Element{
         return radius;
     }
 
-    public boolean getHasExploded() { return hasExploded; }
-    public void setHasExploded() { hasExploded = true; }
+    public boolean hasExploded() { return hasExploded; }
+    public void explode() { hasExploded = true; }
 
     @Override
     public void draw(TextGraphics graphics, String color, String symbol) {

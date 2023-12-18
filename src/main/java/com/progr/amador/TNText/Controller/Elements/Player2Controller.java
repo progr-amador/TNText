@@ -49,7 +49,7 @@ public class Player2Controller extends GameController{
     }*/
 
 
-    public void processKey(Player player2, KeyStroke key) throws IOException {
+    public void processKey(Player player2, KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowLeft -> movePlayer(player2, player2.getPosition().getLeft());
 

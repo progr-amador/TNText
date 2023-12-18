@@ -56,17 +56,18 @@ public class Arena {
     public int getVictor() { return victor; }
 
     public void addBomb(Bomb bomb) {
-        if(bomb.getPlayer().getBag() == 0) return;
+        if (bomb.getPlayer().getBag() <= 0) return;
 
         List<Bomb> bombs_copy = new ArrayList<>(bombs);
         for (Bomb other_bomb : bombs_copy) if (other_bomb != null && other_bomb.getPosition().equals(bomb.getPosition())) return;
 
         bombs.add(bomb);
         bomb.getPlayer().lessBag();
+
         CompletableFuture.runAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(bomb.getTimeMs()); // Wait for additional 1.5 seconds
-                if(!bomb.getHasExploded()) explosionPlanner(bomb);
+                TimeUnit.MILLISECONDS.sleep(2000); // Wait for 3 seconds
+                if (!bomb.hasExploded()) explosionPlanner(bomb);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -75,22 +76,23 @@ public class Arena {
 
     private void explosionPlanner(Bomb bomb) {
         List<Explosion> blastzone = new ArrayList<>();
-        bomb.setHasExploded();
+        bomb.explode();
         blastzone.add(new Explosion(bomb.getX(), bomb.getY()));
         boolean e_right = true, e_left = true, e_up = true, e_down = true;
 
+        bombs.remove(bomb);
         for(int i = 1; i <= bomb.getRadius(); i++){
             if(e_right) e_right = expandDirection(new Position(bomb.getX() + i, bomb.getY()), blastzone);
             if(e_left) e_left = expandDirection(new Position(bomb.getX() - i, bomb.getY()), blastzone);
             if(e_down) e_down = expandDirection(new Position(bomb.getX(), bomb.getY() + i), blastzone);
             if(e_up) e_up = expandDirection(new Position(bomb.getX(), bomb.getY() - i), blastzone);
         }
+
         explosions.addAll(blastzone);
-        bombs.remove(bomb);
 
         CompletableFuture.runAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(1500); // Wait for additional 1.5 seconds
+                TimeUnit.MILLISECONDS.sleep(500); // Wait for additional 1.5 seconds
                 explosions.removeAll(blastzone);
                 bomb.getPlayer().plusBag();
             } catch (InterruptedException e) {
@@ -99,28 +101,53 @@ public class Arena {
         });
     }
 
-    private boolean expandDirection(Position direction, List<Explosion> blastzone){
-        Element can_it_move = canElementMove(direction);
+    /*private boolean expandDirection(Position direction, List<Explosion> blastzone){
         Explosion explode = new Explosion(direction.getX(), direction.getY());
 
-        if(can_it_move == null){
-            blastzone.add(explode);
+        for (Brick brick : bricks) {
+            if (brick.getPosition().equals(direction)) return false;
+        }
+
+        List<Wood> woods_copy = new ArrayList<>(woods);
+        for (Wood wood : woods_copy) {
+            if (wood.getPosition().equals(direction)){
+                blastzone.add(explode);
+                woods.remove(wood);
+                return false;
+            }
+        }
+
+        List<Bomb> bombs_copy = new ArrayList<>(bombs);
+        for (Bomb bomb : bombs_copy) {
+            if (bomb.getPosition().equals(direction)){
+                if(!bomb.getHasExploded()) explosionPlanner(bomb);
+                return false;
+            }
+        }
+
+        blastzone.add(explode);
+        return true;
+    }*/
+
+    private boolean expandDirection(Position direction, List<Explosion> blastzone){
+        Element can_it_move = canElementMove(direction);
+        Explosion explosion = new Explosion(direction.getX(), direction.getY());
+
+        if (can_it_move == null) {
+            blastzone.add(explosion);
             return true;
-        }
-        else if (can_it_move instanceof Wood){
-            blastzone.add(explode);
+        } else if (can_it_move instanceof Wood) {
+            blastzone.add(explosion);
             woods.remove(can_it_move);
-        }
-        else if (can_it_move instanceof Bomb close_bomb){
-            if(!close_bomb.getHasExploded()) explosionPlanner(close_bomb);
+        } else if (can_it_move instanceof Bomb close_bomb) {
+            if (!close_bomb.hasExploded()) explosionPlanner(close_bomb);
         }
 
         return false;
     }
 
     private Element canElementMove(Position position) {  // devia ser passado para o game controller talvez
-        List<Brick> bricks_copy = new ArrayList<>(bricks);
-        for (Brick brick : bricks_copy) {
+        for (Brick brick : bricks) {
             if (brick.getPosition().equals(position)) return brick;
         }
         List<Wood> woods_copy = new ArrayList<>(woods);
@@ -163,7 +190,7 @@ public class Arena {
     }
 
     private void shouldAddWood(int x, int y) {
-        if(new Random().nextDouble() < 0.3) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        if(new Random().nextDouble() < 0.0) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
             woods.add(new Wood(x, y));
             shouldAddPowerup(x, y);
         }

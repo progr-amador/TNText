@@ -49,7 +49,7 @@ public class Player1Controller extends GameController{
     }*/
 
 
-    public void processKey(Player player1, KeyStroke key) throws IOException {
+    public void processKey(Player player1, KeyStroke key) {
         switch (key.getKeyType()) {
             case Character -> {
                 if      (key.getCharacter() == 'w' || key.getCharacter() == 'W') movePlayer(player1, player1.getPosition().getUp());

@@ -4,7 +4,7 @@ public class Player extends Element {
 
     private int lifes;
     private int power = 2;
-    private int bag = 1;
+    private int bag = 7;
 
     public Player(int x, int y) {super(x,y); this.lifes=1;}
 
