@@ -10,6 +10,8 @@ import com.progr.amador.TNText.State.MenuState;
 
 import java.io.IOException;
 
+import static com.progr.amador.TNText.Application.getTerminal;
+
 public class ArenaController extends GameController {
     private final Player1Controller player1Controller;
     private final Player2Controller player2Controller;
@@ -20,25 +22,24 @@ public class ArenaController extends GameController {
         this.player2Controller = new Player2Controller(arena);
     }
 
-    public void processKey(Player player1, Player player2, KeyStroke key, Screen screen, int victor) throws IOException {
+    public void processKey(KeyStroke key, int victor) throws IOException {
         switch (key.getKeyType()) {
             case Character -> {
                 if ((key.getCharacter() == 'w' || key.getCharacter() == 'W' ||
                     key.getCharacter() == 'a' || key.getCharacter() == 'A' ||
                     key.getCharacter() == 's' || key.getCharacter() == 'S' ||
                     key.getCharacter() == 'd' || key.getCharacter() == 'D' ||
-                    key.getCharacter() == ' ') && victor == -1) player1Controller.processKey(player1, key);
+                    key.getCharacter() == ' ') && victor == -1) player1Controller.processKey(key);
 
-                //else if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') screen.close();
                 else if (key.getCharacter() == 'm' || key.getCharacter() == 'M') {
                     Application.getInstance().setState(new MenuState(new Menu(15, 15)));
                     Application.getInstance().getState().run();
                 }
             }
 
-            case Escape -> screen.close();
+            case Escape -> getTerminal().getScreen().close();
 
-            case ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Enter -> {if(victor == -1) player2Controller.processKey(player2, key); }
+            case ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Enter -> {if(victor == -1) player2Controller.processKey(key); }
 
             case EOF -> System.exit(0);
 

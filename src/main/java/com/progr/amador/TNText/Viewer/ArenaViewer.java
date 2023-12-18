@@ -24,7 +24,7 @@ public class ArenaViewer extends GameController {
 
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
-        graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(getModel().getWidth(), getModel().getHeight()), ' ');
+        graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(getModel().getWidth(), getModel().getHeight()+2), ' ');
 
 
 
@@ -66,5 +66,30 @@ public class ArenaViewer extends GameController {
             getModel().getPlayer2().setPosition(new Position(3, 7));
             getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
         }
+
+
+        new Text(5, 15).draw(graphics, "Bombs", false);
+        new Text(5, 16).draw(graphics, "Power", false);
+
+        new Text(1, 15).draw(graphics, "#FFFFFF", getModel().getPlayer1().getBagString());
+        new Text(1, 16).draw(graphics, "#FFFFFF", getModel().getPlayer1().getPowerString());
+
+        new Text(13, 15).draw(graphics, "#F27379", getModel().getPlayer2().getBagString());
+        new Text(13, 16).draw(graphics, "#F27379", getModel().getPlayer2().getPowerString());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

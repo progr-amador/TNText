@@ -36,7 +36,7 @@ public class TerminalGUI {
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(getFont());
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);
-        factory.setInitialTerminalSize(new TerminalSize(15, 15));
+        factory.setInitialTerminalSize(new TerminalSize(15, 17));
         factory.setTerminalEmulatorTitle("TNText");
 
         return factory.createTerminal();

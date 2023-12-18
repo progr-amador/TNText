@@ -19,13 +19,13 @@ public class OptionsController extends Controller<Options> {
     public void processKey(KeyStroke key) throws IOException {
         int entries = 3;
         switch (key.getKeyType()) {
-            case ArrowUp -> {this.getModel().setCurrent((this.getModel().getCurrent() - 1 + entries) % entries); getModel().OptionChoosingMusic();}
+            case ArrowUp -> {getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries); getModel().OptionChoosingMusic();}
 
-            case ArrowDown -> {this.getModel().setCurrent((this.getModel().getCurrent() + 1) % entries); getModel().OptionChoosingMusic(); }
+            case ArrowDown -> {getModel().setCurrent((getModel().getCurrent() + 1) % entries); getModel().OptionChoosingMusic(); }
 
-            case Enter -> this.getModel().toggleUpgrade();
+            case Enter -> getModel().toggleUpgrade();
 
-            case Character -> { if (key.getCharacter() == 'q' || key.getCharacter() == 'Q') getTerminal().getScreen().close(); }
+            case Escape -> getTerminal().getScreen().close();
 
             case EOF -> System.exit(0);
         }

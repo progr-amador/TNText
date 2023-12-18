@@ -22,7 +22,7 @@ public class Arena {
     private final Player player1;
     private final Player player2;
     private final List<Brick> bricks = new ArrayList<>();
-    private final CopyOnWriteArrayList<Wood> woods = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Wood> woods = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Bomb> bombs = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Explosion> explosions = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Powerup> powerups = new CopyOnWriteArrayList<>();
@@ -41,6 +41,7 @@ public class Arena {
     public int getHeight() {return height;}
     public List<Brick> getBricks() { return bricks; }
     public CopyOnWriteArrayList<Wood> getWoods() { return woods; }
+    public void setWoods(CopyOnWriteArrayList<Wood> woods) { this.woods = woods; }
     public CopyOnWriteArrayList<Bomb> getBombs() {return bombs;}
     public CopyOnWriteArrayList<Explosion> getExplosions() {return explosions;}
     public CopyOnWriteArrayList<Powerup> getPowerups() {
@@ -177,13 +178,11 @@ public class Arena {
     }
 
     public void whoWon() {  // devia ser passado para o game controller talvez
-        Position player1_pos = player1.getPosition();
-        Position player2_pos = player2.getPosition();
         boolean player1_dead = false, player2_dead = false;
         for (Explosion explosion : explosions) {
             if (explosion != null) {
-                if (explosion.getPosition().equals(player1_pos)) player1_dead = true;
-                if (explosion.getPosition().equals(player2_pos)) player2_dead = true;
+                if (explosion.getPosition().equals(player1.getPosition())) player1_dead = true;
+                if (explosion.getPosition().equals(player2.getPosition())) player2_dead = true;
                 if (player1_dead && player2_dead) break;
             }
         }

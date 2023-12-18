@@ -18,30 +18,6 @@ public class Player1Controller extends GameController{
 
     public Player1Controller(Arena arena) {super (arena);}
 
-    public void movePlayer(Player player, Position position) {
-        for (Brick brick : getModel().getBricks()) {
-            if (brick.getPosition().equals(position)) return;
-        }
-        for (Wood wood : getModel().getWoods()) {
-            if (wood.getPosition().equals(position)) return;
-        }
-
-        Iterator<Powerup> iterator = getModel().getPowerups().iterator();
-        while (iterator.hasNext()) {
-            Powerup powerup = iterator.next();
-            if (powerup.getPosition().equals(position)) {
-                if (powerup instanceof PlusBomb) {
-                    player.plusBag();
-                }
-                if (powerup instanceof PlusPower) {
-                    player.plusPower();
-                }
-                iterator.remove();
-            }
-        }
-        player.setPosition(position);
-    }
-
     // assumindo que o element passa a ter um can element move, maybe no game controller?
     /*
     public void _movePlayer(Player player, Position position) {
@@ -49,7 +25,8 @@ public class Player1Controller extends GameController{
     }*/
 
 
-    public void processKey(Player player1, KeyStroke key) {
+    public void processKey(KeyStroke key) {
+        Player player1 = getModel().getPlayer1();
         switch (key.getKeyType()) {
             case Character -> {
                 if      (key.getCharacter() == 'w' || key.getCharacter() == 'W') movePlayer(player1, player1.getPosition().getUp());

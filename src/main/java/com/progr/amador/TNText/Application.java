@@ -9,7 +9,6 @@ public class Application {
     private static Application instance;
     private State state;
     private final static TerminalGUI terminal = new TerminalGUI();
-
     private boolean[] powerupsToggle = {true, true};
 
     public static Application getInstance() {
@@ -19,7 +18,7 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         getInstance();
-        instance.state = new MenuState(new Menu(15, 15));
+        instance.state = new MenuState(new Menu(15, 18));
         instance.state.run();
     }
 

@@ -40,7 +40,7 @@ public class GameState extends State<Arena> {
 
             // Check if input is available before reading
             KeyStroke key = getTerminal().getScreen().pollInput();
-            if (key != null) arenaController.processKey(getModel().getPlayer1(), getModel().getPlayer2(), key, getTerminal().getScreen(), getModel().getVictor());
+            if (key != null) arenaController.processKey(key, getModel().getVictor());
 
             // Insert a small delay if no input is available to prevent tight looping
             try {
