@@ -26,10 +26,15 @@ public class ArenaViewer extends GameController {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(getModel().getWidth(), getModel().getHeight()), ' ');
 
+
+
         List<Powerup> powerups_copy = new ArrayList<>(getModel().getPowerups());
         for (Powerup powerup : powerups_copy) if (powerup != null) powerup.draw(graphics, "#9C929A");
 
         for (Brick brick : getModel().getBricks()) brick.draw(graphics, "#6B93C5", "\u0080");
+
+        //new Text(0,0).draw(graphics, "Bombs: ", false);
+
         List<Wood> woods_copy = new ArrayList<>(getModel().getWoods());
         for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
         List<Bomb> bombs_copy = new ArrayList<>(getModel().getBombs());

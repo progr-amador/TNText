@@ -7,6 +7,7 @@ import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -21,10 +22,10 @@ public class Arena {
     private final Player player1;
     private final Player player2;
     private final List<Brick> bricks = new ArrayList<>();
-    private final List<Wood> woods = new ArrayList<>();
-    private final List<Bomb> bombs = new ArrayList<>();
-    private final List<Explosion> explosions = new ArrayList<>();
-    private final List<Powerup> powerups = new ArrayList<>();
+    private final CopyOnWriteArrayList<Wood> woods = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Bomb> bombs = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Explosion> explosions = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Powerup> powerups = new CopyOnWriteArrayList<>();
 
 
     public Arena(int width, int height) {
@@ -38,15 +39,11 @@ public class Arena {
 
     public int getWidth() {return width;}
     public int getHeight() {return height;}
-    public List<Brick> getBricks() {
-        return bricks;
-    }
-    public List<Wood> getWoods() {
-        return woods;
-    }
-    public List<Bomb> getBombs() {return bombs;}
-    public List<Explosion> getExplosions() {return explosions;}
-    public List<Powerup> getPowerups() {
+    public List<Brick> getBricks() { return bricks; }
+    public CopyOnWriteArrayList<Wood> getWoods() { return woods; }
+    public CopyOnWriteArrayList<Bomb> getBombs() {return bombs;}
+    public CopyOnWriteArrayList<Explosion> getExplosions() {return explosions;}
+    public CopyOnWriteArrayList<Powerup> getPowerups() {
         return powerups;
     }
     public Player getPlayer1() { return player1; }
@@ -58,16 +55,16 @@ public class Arena {
     public void addBomb(Bomb bomb) {
         if (bomb.getPlayer().getBag() <= 0) return;
 
-        List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb other_bomb : bombs_copy) if (other_bomb != null && other_bomb.getPosition().equals(bomb.getPosition())) return;
+        for (Bomb other_bomb : bombs) if (other_bomb != null && other_bomb.getPosition().equals(bomb.getPosition())) return;
 
-        bombs.add(bomb);
         bomb.getPlayer().lessBag();
+        bombs.add(bomb);
 
         CompletableFuture.runAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(2000); // Wait for 3 seconds
+                TimeUnit.MILLISECONDS.sleep(2500); // Wait for 2.5 seconds
                 if (!bomb.hasExploded()) explosionPlanner(bomb);
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -92,42 +89,14 @@ public class Arena {
 
         CompletableFuture.runAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(500); // Wait for additional 1.5 seconds
-                explosions.removeAll(blastzone);
+                TimeUnit.MILLISECONDS.sleep(1000); // Wait for additional 1 second
                 bomb.getPlayer().plusBag();
+                explosions.removeAll(blastzone);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
     }
-
-    /*private boolean expandDirection(Position direction, List<Explosion> blastzone){
-        Explosion explode = new Explosion(direction.getX(), direction.getY());
-
-        for (Brick brick : bricks) {
-            if (brick.getPosition().equals(direction)) return false;
-        }
-
-        List<Wood> woods_copy = new ArrayList<>(woods);
-        for (Wood wood : woods_copy) {
-            if (wood.getPosition().equals(direction)){
-                blastzone.add(explode);
-                woods.remove(wood);
-                return false;
-            }
-        }
-
-        List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb bomb : bombs_copy) {
-            if (bomb.getPosition().equals(direction)){
-                if(!bomb.getHasExploded()) explosionPlanner(bomb);
-                return false;
-            }
-        }
-
-        blastzone.add(explode);
-        return true;
-    }*/
 
     private boolean expandDirection(Position direction, List<Explosion> blastzone){
         Element can_it_move = canElementMove(direction);
@@ -150,12 +119,10 @@ public class Arena {
         for (Brick brick : bricks) {
             if (brick.getPosition().equals(position)) return brick;
         }
-        List<Wood> woods_copy = new ArrayList<>(woods);
-        for (Wood wood : woods_copy) {
+        for (Wood wood : woods) {
             if (wood.getPosition().equals(position)) return wood;
         }
-        List<Bomb> bombs_copy = new ArrayList<>(bombs);
-        for (Bomb bomb : bombs_copy) {
+        for (Bomb bomb : bombs) {
             if (bomb.getPosition().equals(position)) return bomb;
         }
         return null;
@@ -190,7 +157,7 @@ public class Arena {
     }
 
     private void shouldAddWood(int x, int y) {
-        if(new Random().nextDouble() < 0.0) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        if(new Random().nextDouble() < 0.3) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
             woods.add(new Wood(x, y));
             shouldAddPowerup(x, y);
         }
@@ -210,11 +177,10 @@ public class Arena {
     }
 
     public void whoWon() {  // devia ser passado para o game controller talvez
-        List<Explosion> explosions_copy = new ArrayList<>(explosions);
         Position player1_pos = player1.getPosition();
         Position player2_pos = player2.getPosition();
         boolean player1_dead = false, player2_dead = false;
-        for (Explosion explosion : explosions_copy) {
+        for (Explosion explosion : explosions) {
             if (explosion != null) {
                 if (explosion.getPosition().equals(player1_pos)) player1_dead = true;
                 if (explosion.getPosition().equals(player2_pos)) player2_dead = true;

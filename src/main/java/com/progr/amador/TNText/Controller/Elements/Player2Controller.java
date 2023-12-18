@@ -25,9 +25,7 @@ public class Player2Controller extends GameController{
             if (wood.getPosition().equals(position)) return;
         }
 
-        Iterator<Powerup> iterator = getModel().getPowerups().iterator();
-        while (iterator.hasNext()) {
-            Powerup powerup = iterator.next();
+        for (Powerup powerup: getModel().getPowerups()){
             if (powerup.getPosition().equals(position)) {
                 if (powerup instanceof PlusBomb) {
                     player.plusBag();
@@ -35,7 +33,7 @@ public class Player2Controller extends GameController{
                 if (powerup instanceof PlusPower) {
                     player.plusPower();
                 }
-                iterator.remove();
+                getModel().getPowerups().remove(powerup);
             }
         }
 
