@@ -11,12 +11,22 @@ import java.io.IOException;
 import static com.progr.amador.TNText.Application.getTerminal;
 
 public class MenuState extends State<Menu>{
-
     private final MenuController menuController = new MenuController(getModel());
     private final MenuViewer menuViewer = new MenuViewer(getModel());
 
     public MenuState(Menu menu) {
         super(menu);
+    }
+
+    @Override
+    protected Controller<Menu> getController() {
+        return menuController;
+    }
+
+    public void draw() throws IOException {
+        getTerminal().getScreen().clear();
+        menuViewer.draw();
+        getTerminal().getScreen().refresh();
     }
 
     public void run() throws IOException {
@@ -26,18 +36,6 @@ public class MenuState extends State<Menu>{
             menuController.processKey(key);
         }
     }
-
-    public void draw() throws IOException {
-        getTerminal().getScreen().clear();
-        menuViewer.draw(getTerminal().getScreen().newTextGraphics());
-        getTerminal().getScreen().refresh();
-    }
-
-
-    public Controller<Menu> getController() {
-        return menuController;
-    }
-
 
 
 }

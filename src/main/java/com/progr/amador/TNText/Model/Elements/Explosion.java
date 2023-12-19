@@ -8,7 +8,7 @@ public class Explosion extends Element{
         super(x, y);
     }
 
-    public void draw(TextGraphics graphics) {
-        super.draw(graphics, "#FFA500", "\u0085");
+    public void draw() {
+        super.draw("#FFA500", "\u0085");
     }
 }

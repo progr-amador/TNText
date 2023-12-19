@@ -11,21 +11,11 @@ import java.io.IOException;
 import static com.progr.amador.TNText.Application.getTerminal;
 
 public class OptionsState extends State<Options>{
-
     private final OptionsController optionsController = new OptionsController(getModel());
     private final OptionsViewer optionsViewer = new OptionsViewer(getModel());
 
     public OptionsState(Options options){
         super(options);
-    }
-
-    public void run() throws IOException {
-        while(true){
-            draw(); // Call the private draw method within the Game class
-
-            KeyStroke key = getTerminal().getScreen().readInput();
-            optionsController.processKey(key);
-        }
     }
 
     @Override
@@ -35,8 +25,16 @@ public class OptionsState extends State<Options>{
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        optionsViewer.draw(getTerminal().getScreen().newTextGraphics());
+        optionsViewer.draw();
         getTerminal().getScreen().refresh();
+    }
+
+    public void run() throws IOException {
+        while(true){
+            draw(); // Call the private draw method within the Game class
+            KeyStroke key = getTerminal().getScreen().readInput();
+            optionsController.processKey(key);
+        }
     }
 
 

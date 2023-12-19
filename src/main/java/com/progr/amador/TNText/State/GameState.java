@@ -1,6 +1,5 @@
 package com.progr.amador.TNText.State;
 
-
 import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.ArenaController;
@@ -14,8 +13,7 @@ import static com.progr.amador.TNText.Application.getTerminal;
 public class GameState extends State<Arena> {
     private final ArenaController arenaController = new ArenaController(getModel());
     private final ArenaViewer arenaViewer = new ArenaViewer(getModel());
-
-
+    
     public GameState(Arena arena)  {
         super(arena);
     }
@@ -27,7 +25,7 @@ public class GameState extends State<Arena> {
 
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
-        arenaViewer.draw(getTerminal().getScreen().newTextGraphics());
+        arenaViewer.draw();
         getTerminal().getScreen().refresh();
     }
 

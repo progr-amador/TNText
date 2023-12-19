@@ -24,7 +24,7 @@ public class Bomb extends Element{
     public boolean hasExploded() { return hasExploded; }
     public void explode() { hasExploded = true; }
 
-    public void draw(TextGraphics graphics) {
-        super.draw(graphics, "#000000", "\u008D");
+    public void draw() {
+        super.draw("#000000", "\u008D");
     }
 }

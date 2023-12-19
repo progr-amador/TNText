@@ -5,6 +5,8 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Position;
 
+import static com.progr.amador.TNText.Application.getTerminal;
+
 public class  Element {
     private Position position;
 
@@ -16,9 +18,9 @@ public class  Element {
 
     public void setPosition(Position position) {this.position = position;}
 
-    public void draw(TextGraphics graphics, String color, String symbol) {
-        graphics.setForegroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), symbol);
+    public void draw(String color, String symbol) {
+        getTerminal().getGraphics().setForegroundColor(TextColor.Factory.fromString(color));
+        getTerminal().getGraphics().putString(new TerminalPosition(position.getX(), position.getY()), symbol);
     }
 
 

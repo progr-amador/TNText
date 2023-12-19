@@ -7,7 +7,7 @@ public class PlusBomb extends Powerup{
         super(x, y);
     }
 
-    public void draw(TextGraphics graphics) {
-        super.draw(graphics, "#9C929A", "\u0091");
+    public void draw() {
+        super.draw("#9C929A", "\u0091");
     }
 }

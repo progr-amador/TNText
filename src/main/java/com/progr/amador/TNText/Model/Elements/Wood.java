@@ -6,7 +6,7 @@ public class Wood extends Element {
     private int lifes;
     public Wood(int x, int y) {super(x, y);this.lifes=1;}
 
-    public void draw(TextGraphics graphics) {
-        super.draw(graphics, "#9C929A", "\u0090");
+    public void draw() {
+        super.draw("#9C929A", "\u0090");
     }
 }

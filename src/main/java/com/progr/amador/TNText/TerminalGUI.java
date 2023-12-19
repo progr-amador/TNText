@@ -1,6 +1,7 @@
 package com.progr.amador.TNText;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -15,6 +16,7 @@ public class TerminalGUI {
     Screen screen;
     //Sound sound = new Sound();
 
+    TextGraphics textGraphics;
 
     public TerminalGUI() {
         try {
@@ -24,6 +26,7 @@ public class TerminalGUI {
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
+            textGraphics = screen.newTextGraphics();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -56,4 +59,6 @@ public class TerminalGUI {
     public Screen getScreen() {
         return screen;
     }
+
+    public TextGraphics getGraphics() { return textGraphics; }
 }
