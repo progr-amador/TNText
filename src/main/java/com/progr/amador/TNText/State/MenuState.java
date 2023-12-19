@@ -15,7 +15,7 @@ public class MenuState extends State<Menu>{
     private final MenuViewer menuViewer = new MenuViewer(getModel());
 
     public MenuState(Menu menu) {
-        super(menu);
+        super(menu); getModel().playMusic();
     }
 
     @Override

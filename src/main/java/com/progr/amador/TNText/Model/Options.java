@@ -33,7 +33,8 @@ public class Options {
     public void toggleUpgrade() throws IOException {
         if(current == 0) Application.getInstance().togglePlusBomb();
         else if (current == 1) Application.getInstance().togglePlusPower();
-        else if (current == 2) {
+        else if (current == 2) Application.getInstance().toggleSound();
+        else if (current == 3) {
             Application.getInstance().setState(new MenuState(new Menu(15, 15)));
             Application.getInstance().getState().run();
         }
@@ -43,7 +44,6 @@ public class Options {
         sound.setFile(0);
         sound.play();
         //sound.stop();
-
     }
 
 }

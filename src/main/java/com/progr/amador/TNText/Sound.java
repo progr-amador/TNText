@@ -16,6 +16,8 @@ public class Sound {
     public Sound() {
 
         soundURL[0] = getClass().getResource("/sounds/snd_se_menu_00000017.wav");
+        soundURL[1] = getClass().getResource("/sounds/When_rushjet1_and_danooct1_get_bored_mp3cut.net2.wav");
+
     }
 
     public void setFile(int i) {

@@ -24,7 +24,7 @@ public class Player1Controller extends GameController{
                 else if (key.getCharacter() == 'a' || key.getCharacter() == 'A') movePlayer(player1, player1.getPosition().getLeft());
                 else if (key.getCharacter() == 's' || key.getCharacter() == 'S') movePlayer(player1, player1.getPosition().getDown());
                 else if (key.getCharacter() == 'd' || key.getCharacter() == 'D') movePlayer(player1, player1.getPosition().getRight());
-                else if (key.getCharacter() == ' ') getModel().addBomb(new Bomb(player1));
+                else if (key.getCharacter() == ' ') getArenaBuilder().addBomb(new Bomb(player1));
             }
             case EOF -> System.exit(0);
 

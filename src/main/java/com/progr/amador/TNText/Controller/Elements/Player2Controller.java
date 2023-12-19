@@ -27,7 +27,7 @@ public class Player2Controller extends GameController{
 
             case ArrowDown -> movePlayer(player2, player2.getPosition().getDown());
 
-            case Enter -> getModel().addBomb(new Bomb(player2));
+            case Enter -> getArenaBuilder().addBomb(new Bomb(player2));
 
             case EOF -> System.exit(0);
 

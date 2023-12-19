@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.progr.amador.TNText.Application.getTerminal;
 
-public class ArenaViewer extends GameController {
+public class ArenaViewer extends GameViewer {
     public ArenaViewer(Arena arena) {
         super(arena);
     }

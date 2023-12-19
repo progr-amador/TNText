@@ -4,6 +4,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Controller.Elements.ArenaController;
 import com.progr.amador.TNText.Model.Arena;
+import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Viewer.ArenaViewer;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ import static com.progr.amador.TNText.Application.getTerminal;
 public class GameState extends State<Arena> {
     private final ArenaController arenaController = new ArenaController(getModel());
     private final ArenaViewer arenaViewer = new ArenaViewer(getModel());
-
     public GameState(Arena arena)  {
         super(arena);
     }

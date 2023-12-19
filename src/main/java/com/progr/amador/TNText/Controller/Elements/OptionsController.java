@@ -17,7 +17,7 @@ public class OptionsController extends Controller<Options> {
 
 
     public void processKey(KeyStroke key) throws IOException {
-        int entries = 3;
+        int entries = 4;
         switch (key.getKeyType()) {
             case ArrowUp -> {getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries); getModel().OptionChoosingMusic();}
 

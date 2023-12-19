@@ -2,6 +2,7 @@ package com.progr.amador.TNText.Controller.Elements;
 
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Controller.Controller;
+import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
@@ -11,6 +12,9 @@ import com.progr.amador.TNText.Model.Elements.Wood;
 import com.progr.amador.TNText.Model.Position;
 
 public class GameController extends Controller<Arena> {
+
+    private final ArenaBuilder arenaBuilder = new ArenaBuilder(getModel());
+
     public GameController(Arena arena) {super(arena);}
 
     public void movePlayer(Player player, Position position) {
@@ -35,5 +39,7 @@ public class GameController extends Controller<Arena> {
 
         player.setPosition(position);
     }
+
+    public ArenaBuilder getArenaBuilder() { return arenaBuilder; }
 
 }

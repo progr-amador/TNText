@@ -54,4 +54,10 @@ public class Menu {
         //sound.stop();
 
     }
+
+    public void playMusic() {
+        sound.setFile(1);
+        sound.play();
+        sound.loop();
+    }
 }
