@@ -1,7 +1,6 @@
 package com.progr.amador.TNText;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.progr.amador.TNText.Controller.Elements.MenuController;
 import com.progr.amador.TNText.Model.Menu;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +11,7 @@ import java.io.IOException;
 
 import static com.googlecode.lanterna.input.KeyType.*;
 
-public class MenuControllertest {
+public class MenuControllerTest {
 
     MenuController menuController;
     Menu menu;

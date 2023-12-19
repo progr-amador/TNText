@@ -26,50 +26,49 @@ public class ArenaViewer extends GameController {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(getModel().getWidth(), getModel().getHeight()+2), ' ');
 
-
-
-        List<Powerup> powerups_copy = new ArrayList<>(getModel().getPowerups());
-        for (Powerup powerup : powerups_copy) if (powerup != null) powerup.draw(graphics, "#9C929A");
+        for (Powerup powerup : getModel().getPowerups()) if (powerup != null) powerup.draw(graphics, "#9C929A");
 
         for (Brick brick : getModel().getBricks()) brick.draw(graphics, "#6B93C5", "\u0080");
 
-        //new Text(0,0).draw(graphics, "Bombs: ", false);
+        for (Wood wood : getModel().getWoods()) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
+        for (Bomb bomb : getModel().getBombs()) if (bomb != null) bomb.draw(graphics, "#000000", "\u008D");
+        for (Explosion explosion : getModel().getExplosions()) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
 
-        List<Wood> woods_copy = new ArrayList<>(getModel().getWoods());
-        for (Wood wood : woods_copy) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
-        List<Bomb> bombs_copy = new ArrayList<>(getModel().getBombs());
-        for (Bomb bomb : bombs_copy) if (bomb != null) bomb.draw(graphics, "#000000", "\u008D");
-        List<Explosion> explosions_copy = new ArrayList<>(getModel().getExplosions());
-        for (Explosion explosion : explosions_copy) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
-
-        if (getModel().getVictor() == -1) {
-            getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
-            getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
-        } else if (getModel().getVictor() == 0) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
-            getModel().getPlayer1().setPosition(new Position(7, 7));
-            getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
-            getModel().getPlayer2().setPosition(new Position(12, 7));
-            getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
-        } else if (getModel().getVictor() == 1) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
-            getModel().getPlayer1().setPosition(new Position(3, 7));
-            getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
-        } else if (getModel().getVictor() == 2) {
-            for(int i = 1; i <= 13; i++)
-                new Text(1, i).draw(graphics, "             ", false);
-            new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
-            getModel().getPlayer2().setPosition(new Position(3, 7));
-            getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
+        switch (getModel().getVictor()){
+            case -1: {
+                getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
+                getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
+                break;
+            }
+            case 0: {
+                for(int i = 1; i <= 13; i++)
+                    new Text(1, i).draw(graphics, "             ", false);
+                new Text(1, 7).draw(graphics, "IT'S  A  DRAW", false);
+                getModel().getPlayer1().setPosition(new Position(7, 7));
+                getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
+                getModel().getPlayer2().setPosition(new Position(12, 7));
+                getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
+                break;
+            }
+            case 1: {
+                for(int i = 1; i <= 13; i++)
+                    new Text(1, i).draw(graphics, "             ", false);
+                new Text(1, 7).draw(graphics, "PLAYER 1 WON!", false);
+                getModel().getPlayer1().setPosition(new Position(3, 7));
+                getModel().getPlayer1().draw(graphics, "#FFFFFF", "\u0081");
+                break;
+            }
+            case 2: {
+                for(int i = 1; i <= 13; i++)
+                    new Text(1, i).draw(graphics, "             ", false);
+                new Text(1, 7).draw(graphics, "PLAYER 2 WON!", false);
+                getModel().getPlayer2().setPosition(new Position(3, 7));
+                getModel().getPlayer2().draw(graphics, "#F27379", "\u0082");
+            }
         }
 
-
-        new Text(5, 15).draw(graphics, "Bombs", false);
-        new Text(5, 16).draw(graphics, "Power", false);
+        new Text(5, 15).draw(graphics, "BOMBS", false);
+        new Text(5, 16).draw(graphics, "POWER", false);
 
         new Text(1, 15).draw(graphics, "#FFFFFF", getModel().getPlayer1().getBagString());
         new Text(1, 16).draw(graphics, "#FFFFFF", getModel().getPlayer1().getPowerString());

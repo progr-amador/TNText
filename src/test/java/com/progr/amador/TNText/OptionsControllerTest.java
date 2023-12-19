@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.googlecode.lanterna.input.KeyType.ArrowDown;
 import static com.googlecode.lanterna.input.KeyType.ArrowUp;
 
-public class OptionsControllertest {
+public class OptionsControllerTest {
     
     OptionsController optionsController;
     Options options;

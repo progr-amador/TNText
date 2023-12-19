@@ -5,7 +5,6 @@ import com.progr.amador.TNText.Controller.Elements.Player2Controller;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Elements.Explosion;
-import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Wood;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PlayerControllertest {
+public class PlayerControllerTest {
     Arena testzone;
     Player1Controller player1Controller;
     Player2Controller player2Controller;
