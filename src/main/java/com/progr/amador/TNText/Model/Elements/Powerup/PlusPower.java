@@ -7,7 +7,7 @@ public class PlusPower extends Powerup{
         super(x, y);
     }
 
-    public void draw(TextGraphics graphics, String color) {
-        super.draw(graphics, color, "\u0086");
+    public void draw(TextGraphics graphics) {
+        super.draw(graphics, "#9C929A", "\u0086");
     }
 }

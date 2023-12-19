@@ -15,6 +15,7 @@ public class TerminalGUI {
     Screen screen;
     //Sound sound = new Sound();
 
+
     public TerminalGUI() {
         try {
             Terminal terminal = getTerminal();

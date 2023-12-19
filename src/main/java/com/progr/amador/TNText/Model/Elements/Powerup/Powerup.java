@@ -8,7 +8,7 @@ public abstract class Powerup extends Element {
         super(x, y);
     }
 
-    public abstract void draw(TextGraphics graphics, String color);
+    public abstract void draw(TextGraphics graphics);
 
     //public
 }

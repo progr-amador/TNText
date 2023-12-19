@@ -26,13 +26,12 @@ public class ArenaViewer extends GameController {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#373F47"));
         graphics.fillRectangle(new TerminalPosition(0,0), new TerminalSize(getModel().getWidth(), getModel().getHeight()+2), ' ');
 
-        for (Powerup powerup : getModel().getPowerups()) if (powerup != null) powerup.draw(graphics, "#9C929A");
+        for (Powerup powerup : getModel().getPowerups()) if (powerup != null) powerup.draw(graphics);
 
-        for (Brick brick : getModel().getBricks()) brick.draw(graphics, "#6B93C5", "\u0080");
-
-        for (Wood wood : getModel().getWoods()) if (wood != null) wood.draw(graphics, "#9C929A", "\u0090");
-        for (Bomb bomb : getModel().getBombs()) if (bomb != null) bomb.draw(graphics, "#000000", "\u008D");
-        for (Explosion explosion : getModel().getExplosions()) if (explosion != null) explosion.draw(graphics, "#FFA500", "\u0085");
+        for (Brick brick : getModel().getBricks()) brick.draw(graphics);
+        for (Wood wood : getModel().getWoods()) if (wood != null) wood.draw(graphics);
+        for (Bomb bomb : getModel().getBombs()) if (bomb != null) bomb.draw(graphics);
+        for (Explosion explosion : getModel().getExplosions()) if (explosion != null) explosion.draw(graphics);
 
         switch (getModel().getVictor()){
             case -1: {
