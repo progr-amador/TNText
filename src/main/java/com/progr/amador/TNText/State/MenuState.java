@@ -15,12 +15,7 @@ public class MenuState extends State<Menu>{
     private final MenuViewer menuViewer = new MenuViewer(getModel());
 
     public MenuState(Menu menu) {
-        super(menu); getModel().playMusic();
-    }
-
-    @Override
-    protected Controller<Menu> getController() {
-        return menuController;
+        super(menu);
     }
 
     public void draw() throws IOException {

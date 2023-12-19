@@ -42,7 +42,7 @@ public class Options {
 
     public void OptionChoosingMusic() {
         sound.setFile(0);
-        sound.play();
+        if( Application.getInstance().checkSound()) sound.play();
         //sound.stop();
     }
 

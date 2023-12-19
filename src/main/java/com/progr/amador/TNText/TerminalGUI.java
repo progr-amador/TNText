@@ -11,6 +11,8 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class TerminalGUI {
     Screen screen;
@@ -29,12 +31,12 @@ public class TerminalGUI {
             textGraphics = screen.newTextGraphics();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (FontFormatException e) {
+        } catch (FontFormatException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Terminal getTerminal() throws IOException, FontFormatException {
+    public Terminal getTerminal() throws IOException, FontFormatException, URISyntaxException {
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(getFont());
@@ -46,8 +48,9 @@ public class TerminalGUI {
         return factory.createTerminal();
     }
 
-    public Font getFont() throws IOException, FontFormatException {
-        File fontFile = new File("src/main/resources/fonts/Square-Regular.ttf");
+    public Font getFont() throws IOException, FontFormatException, URISyntaxException {
+        URL resource = getClass().getClassLoader().getResource("fonts/Square-Regular.ttf");
+        File fontFile = new File(resource.toURI());
         Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

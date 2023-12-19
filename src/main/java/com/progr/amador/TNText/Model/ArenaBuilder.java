@@ -15,6 +15,9 @@ public class ArenaBuilder {
 
     public ArenaBuilder(Arena arena) {
         this.arena = arena;
+    }
+
+    public void run() {
         createBricks();
         createWoods();
     }

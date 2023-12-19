@@ -5,6 +5,7 @@ import com.progr.amador.TNText.Model.Elements.*;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
+import com.progr.amador.TNText.Sound;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -27,6 +28,7 @@ public class Arena {
     private final CopyOnWriteArrayList<Explosion> explosions = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Powerup> powerups = new CopyOnWriteArrayList<>();
 
+    Sound sound = new Sound();
 
     public Arena(int width, int height) {
         this.width = width;
@@ -51,6 +53,8 @@ public class Arena {
     }
     public int getVictor() { return victor; }
 
+    public Sound getSound() {return sound;}
+
     public void whoWon() {  // devia ser passado para o game controller talvez
         boolean player1_dead = false, player2_dead = false;
         for (Explosion explosion : explosions) {
@@ -63,6 +67,12 @@ public class Arena {
         if (player1_dead && player2_dead) victor = 0;
         else if (player1_dead) victor = 2;
         else if (player2_dead) victor = 1;
+    }
+
+    public void playMusic() {
+        sound.setFile(1);
+        if( Application.getInstance().checkSound()) sound.play();
+        sound.loop();
     }
 
 }

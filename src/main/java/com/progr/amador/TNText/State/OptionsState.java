@@ -18,11 +18,6 @@ public class OptionsState extends State<Options>{
         super(options);
     }
 
-    @Override
-    protected Controller<Options> getController() {
-        return optionsController;
-    }
-
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
         optionsViewer.draw();

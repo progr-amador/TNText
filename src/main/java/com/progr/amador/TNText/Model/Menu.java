@@ -50,14 +50,8 @@ public class Menu {
 
     public void MenuChoosingMusic() {
         sound.setFile(0);
-        sound.play();
+        if( Application.getInstance().checkSound()) sound.play();
         //sound.stop();
 
-    }
-
-    public void playMusic() {
-        sound.setFile(1);
-        sound.play();
-        sound.loop();
     }
 }

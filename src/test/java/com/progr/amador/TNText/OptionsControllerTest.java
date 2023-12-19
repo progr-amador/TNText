@@ -34,11 +34,12 @@ public class OptionsControllerTest {
     @Test
     public void ArrowUpPressing1() throws IOException {
         optionsController.processKey(keyup);
-        Assertions.assertEquals(2,options.getCurrent());
+        Assertions.assertEquals(3,options.getCurrent());
     }
 
     @Test
     public void ArrowUpPressing2() throws IOException {
+        optionsController.processKey(keyup);
         optionsController.processKey(keyup);
         optionsController.processKey(keyup);
         optionsController.processKey(keyup);
@@ -56,6 +57,7 @@ public class OptionsControllerTest {
 
     @Test
     public void ArrowDownPressing2() throws IOException {
+        optionsController.processKey(keydown);
         optionsController.processKey(keydown);
         optionsController.processKey(keydown);
         optionsController.processKey(keydown);
