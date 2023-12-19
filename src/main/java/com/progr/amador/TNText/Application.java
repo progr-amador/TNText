@@ -9,7 +9,7 @@ public class Application {
     private static Application instance;
     private State state;
     private final static TerminalGUI terminal = new TerminalGUI();
-    private boolean[] powerupsToggle = {true, true};
+    private final boolean[] powerupsToggle = {true, true};
 
     public static Application getInstance() {
         if (instance == null) instance = new Application();

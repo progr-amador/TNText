@@ -13,7 +13,7 @@ import static com.progr.amador.TNText.Application.getTerminal;
 public class GameState extends State<Arena> {
     private final ArenaController arenaController = new ArenaController(getModel());
     private final ArenaViewer arenaViewer = new ArenaViewer(getModel());
-    
+
     public GameState(Arena arena)  {
         super(arena);
     }

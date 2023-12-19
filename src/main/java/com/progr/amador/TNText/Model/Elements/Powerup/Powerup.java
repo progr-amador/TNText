@@ -1,6 +1,5 @@
 package com.progr.amador.TNText.Model.Elements.Powerup;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Elements.Element;
 
 public abstract class Powerup extends Element {

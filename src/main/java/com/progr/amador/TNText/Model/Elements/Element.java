@@ -1,14 +1,12 @@
 package com.progr.amador.TNText.Model.Elements;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Position;
-
-import static com.progr.amador.TNText.Application.getTerminal;
+import com.progr.amador.TNText.Viewer.Elements.ElementViewer;
 
 public class  Element {
     private Position position;
+
+    private final ElementViewer elementViewer = new ElementViewer(this);
 
     public Element(int x, int y) {this.position = new Position(x, y);}
 
@@ -19,8 +17,7 @@ public class  Element {
     public void setPosition(Position position) {this.position = position;}
 
     public void draw(String color, String symbol) {
-        getTerminal().getGraphics().setForegroundColor(TextColor.Factory.fromString(color));
-        getTerminal().getGraphics().putString(new TerminalPosition(position.getX(), position.getY()), symbol);
+        elementViewer.draw(color, symbol);
     }
 
 

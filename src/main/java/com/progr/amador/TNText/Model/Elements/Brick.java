@@ -1,11 +1,13 @@
 package com.progr.amador.TNText.Model.Elements;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Viewer.Elements.BrickViewer;
 
 public class Brick extends Element {
+
+    private final BrickViewer brickViewer = new BrickViewer(this);
     public Brick(int x, int y) {super(x,y);}
 
     public void draw() {
-        super.draw("#6B93C5", "\u0080");
+        brickViewer.draw();
     }
 }

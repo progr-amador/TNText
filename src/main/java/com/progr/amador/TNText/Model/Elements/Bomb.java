@@ -1,13 +1,13 @@
 package com.progr.amador.TNText.Model.Elements;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Viewer.Elements.BombViewer;
 
 public class Bomb extends Element{
-    private int radius;
+    private final int radius;
     private boolean hasExploded = false;
-    private Player player;
+    private final Player player;
+
+    private final BombViewer bombViewer = new BombViewer(this);
 
     public Bomb(Player owner) {
         super(owner.getPosition().getX(), owner.getPosition().getY());
@@ -25,6 +25,6 @@ public class Bomb extends Element{
     public void explode() { hasExploded = true; }
 
     public void draw() {
-        super.draw("#000000", "\u008D");
+        bombViewer.draw();
     }
 }

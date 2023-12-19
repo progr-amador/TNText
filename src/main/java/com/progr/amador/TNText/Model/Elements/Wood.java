@@ -1,12 +1,13 @@
 package com.progr.amador.TNText.Model.Elements;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.progr.amador.TNText.Viewer.Elements.WoodViewer;
 
 public class Wood extends Element {
-    private int lifes;
-    public Wood(int x, int y) {super(x, y);this.lifes=1;}
+
+    private final WoodViewer woodViewer = new WoodViewer(this);
+    public Wood(int x, int y) {super(x, y);}
 
     public void draw() {
-        super.draw("#9C929A", "\u0090");
+        woodViewer.draw();
     }
 }
