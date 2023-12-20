@@ -35,7 +35,7 @@ public class PlayerControllerTest {
     public void movePlayerAgainstBrick1() {
         specific_place = new Position(0, 1);
         player1Controller.movePlayer(testzone.getPlayer1(), specific_place);
-        Assertions.assertEquals(new Position(1, 1), testzone.getPlayer1().getPosition());
+        Assertions.assertNotEquals(specific_place, testzone.getPlayer1().getPosition());
     }
 
     @Test

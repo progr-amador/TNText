@@ -10,13 +10,6 @@ public class Player1Controller extends GameController{
 
     public Player1Controller(Arena arena) {super (arena);}
 
-    // assumindo que o element passa a ter um can element move, maybe no game controller?
-    /*
-    public void _movePlayer(Player player, Position position) {
-        if (canElementMove(position) == null) player.setPosition(position);
-    }*/
-
-
     public void processKey(KeyStroke key, ArenaBuilder arenaBuilder) {
         Player player1 = getModel().getPlayer1();
         switch (key.getKeyType()) {

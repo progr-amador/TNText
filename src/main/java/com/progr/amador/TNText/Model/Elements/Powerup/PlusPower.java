@@ -1,5 +1,6 @@
 package com.progr.amador.TNText.Model.Elements.Powerup;
 
+import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Viewer.Elements.PlusPowerViewer;
 
 public class PlusPower extends Powerup{
@@ -12,5 +13,10 @@ public class PlusPower extends Powerup{
 
     public void draw() {
         plusPowerViewer.draw();
+    }
+
+    @Override
+    public void execute(Player player) {
+        player.plusPower();
     }
 }

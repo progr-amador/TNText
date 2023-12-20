@@ -16,22 +16,18 @@ public class GameController extends Controller<Arena> {
     public GameController(Arena arena) {super(arena);}
 
     public void movePlayer(Player player, Position position) {
-        for (Brick brick : this.getModel().getBricks()) {
+        for (Brick brick : getModel().getBricks()) {
             if (brick.getPosition().equals(position)) return;
         }
-        for (Wood wood : this.getModel().getWoods()) {
+        for (Wood wood : getModel().getWoods()) {
             if (wood.getPosition().equals(position)) return;
         }
 
         for (Powerup powerup: getModel().getPowerups()){
             if (powerup.getPosition().equals(position)) {
-                if (powerup instanceof PlusBomb) {
-                    player.plusBag();
-                }
-                if (powerup instanceof PlusPower) {
-                    player.plusPower();
-                }
+                powerup.execute(player);
                 getModel().getPowerups().remove(powerup);
+                break;
             }
         }
 

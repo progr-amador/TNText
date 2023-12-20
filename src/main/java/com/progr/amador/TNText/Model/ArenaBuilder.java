@@ -122,7 +122,7 @@ public class ArenaBuilder {
     }
 
     private void shouldAddWood(int x, int y) {
-        if(new Random().nextDouble() < 0.3) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
+        if(new Random().nextDouble() < 0.4) { // Adjust this value (0.0 to 1.0) for your desired spawn rate
             arena.getWoods().add(new Wood(x, y));
             shouldAddPowerup(x, y);
         }
