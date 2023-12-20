@@ -1,7 +1,6 @@
 package com.progr.amador.TNText.Controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.progr.amador.TNText.Controller.Controller;
 import com.progr.amador.TNText.Model.Options;
 
 import java.io.IOException;

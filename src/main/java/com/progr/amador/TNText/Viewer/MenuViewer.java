@@ -3,8 +3,6 @@ package com.progr.amador.TNText.Viewer;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.progr.amador.TNText.Model.Elements.Element;
 import com.progr.amador.TNText.Model.Elements.Text;
 import com.progr.amador.TNText.Model.Menu;
 

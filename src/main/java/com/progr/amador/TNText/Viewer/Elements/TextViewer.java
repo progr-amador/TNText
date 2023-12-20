@@ -1,6 +1,5 @@
 package com.progr.amador.TNText.Viewer.Elements;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.progr.amador.TNText.Model.Elements.Element;
 
 public class TextViewer extends ElementViewer{

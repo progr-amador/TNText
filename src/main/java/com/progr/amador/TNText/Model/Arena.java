@@ -2,18 +2,13 @@ package com.progr.amador.TNText.Model;
 
 import com.progr.amador.TNText.Application;
 import com.progr.amador.TNText.Model.Elements.*;
-import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
-import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import com.progr.amador.TNText.Sound;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Arena {
 

@@ -7,7 +7,6 @@ import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 import com.progr.amador.TNText.Model.Elements.Player;
 
-
 public class Player2Controller extends GameController {
     public Player2Controller(Arena arena) { super(arena);}
 

@@ -1,7 +1,5 @@
 package com.progr.amador.TNText.Viewer;
 
-import com.progr.amador.TNText.TerminalGUI;
-
 import java.io.IOException;
 
 public abstract class Viewer<T>{

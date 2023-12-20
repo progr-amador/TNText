@@ -1,12 +1,8 @@
 package com.progr.amador.TNText.Controller;
 
 import com.progr.amador.TNText.Model.Arena;
-import com.progr.amador.TNText.Controller.Controller;
-import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Elements.Brick;
 import com.progr.amador.TNText.Model.Elements.Player;
-import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
-import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import com.progr.amador.TNText.Model.Elements.Wood;
 import com.progr.amador.TNText.Model.Position;
