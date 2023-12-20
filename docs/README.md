@@ -6,6 +6,8 @@
   
   This project was developed by *Afonso Castro* (*up202208026*@fe.up.pt) , *Alexandre Ramos* (*up202208028*@fe.up.pt) and *Francisco Afonso* (*up202208115*@fe.up.pt) for LDTS 2023/24.
 
+  For our game mockups check [here](../README.md)
+
 ## IMPLEMENTED FEATURES
 
 - **Movement** - The players can move around the maze.
@@ -15,10 +17,6 @@
 - **Live Stats** - Visible counters updated in real-time for the players to know information about their active power-ups, like the number of available bombs.
 - **Options Menu** - The players are able to turn on/off the spawn of each upgrade, and the background soundtrack.
 - **Soundtrack** - Music that brings more life to the game.
-
-
-
-![TNTextMapImage1](../docs/images/TNTextMapImage1.png)
 
 ## DESIGN
 
@@ -92,9 +90,13 @@ It helps in maintaining a constant frame rate for the game, which is a crucial a
 
 The following images display the organization of our classes:
 
-![TNTextFolderDistribution1](../docs/images/TNTextFolderDistribution1.png)
-![TNTextFolderDistribution2](../docs/images/TNTextFolderDistribution2.png)
-![TNTextFolderDistribution3](../docs/images/TNTextFolderDistribution3.png)
+<!-- Top image -->
+<img src="../docs/images/TNTextFolders1.png" alt="Image 1" style="display:block; margin:auto;">
+
+<!-- Text or content in between if needed -->
+
+<!-- Bottom image -->
+<img src="../docs/images/TNTextFolders2.png" alt="Image 2" style="display:block; margin:auto;">
 
 Some of the most important classes can be found in:
 
@@ -114,6 +116,14 @@ Some of the most important classes can be found in:
 ### UML CLASS DIAGRAM
 
 ![TNTextClassDiagram](../docs/images/TNTextFinalUML.png)
+
+### TESTING
+
+#### Screenshot of coverage report
+
+![Test Coverage](../docs/images/Test Coverage.png)
+
+HTML version available [here](../htmlReport/index.html)
 
 ### SELF-EVALUATION
 

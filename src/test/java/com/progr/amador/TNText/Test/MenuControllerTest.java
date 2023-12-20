@@ -18,7 +18,6 @@ import static com.googlecode.lanterna.input.KeyType.*;
 public class MenuControllerTest {
 
     MenuController menuController;
-    MenuState menuState;
     Menu menu;
     KeyStroke keyup;
     KeyStroke keydown;
