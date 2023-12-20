@@ -1,8 +1,12 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Test;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.progr.amador.TNText.Controller.Elements.MenuController;
+import com.progr.amador.TNText.Application;
+import com.progr.amador.TNText.Controller.MenuController;
 import com.progr.amador.TNText.Model.Menu;
+import com.progr.amador.TNText.State.GameState;
+import com.progr.amador.TNText.State.MenuState;
+import com.progr.amador.TNText.State.OptionsState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,10 +18,12 @@ import static com.googlecode.lanterna.input.KeyType.*;
 public class MenuControllerTest {
 
     MenuController menuController;
+    MenuState menuState;
     Menu menu;
-
     KeyStroke keyup;
     KeyStroke keydown;
+    KeyStroke enter;
+
 
     @BeforeEach
     public void helper() throws IOException {
@@ -25,6 +31,7 @@ public class MenuControllerTest {
         menuController = new MenuController(menu);
         keyup = new KeyStroke(ArrowUp);
         keydown = new KeyStroke(ArrowDown);
+        enter = new KeyStroke(Enter);
     }
 
     // KeyUp --------------------------------------------------------------------------------------------------

@@ -9,6 +9,6 @@ public abstract class Viewer<T>{
     public Viewer(T model) {this.model = model;}
     public T getModel() { return model;}
 
-    public void draw(TerminalGUI gui) throws IOException {}
+    public void draw() throws IOException {}
 
 }

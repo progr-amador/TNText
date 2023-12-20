@@ -1,12 +1,13 @@
 package com.progr.amador.TNText.Controller.Elements;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import com.progr.amador.TNText.Controller.GameController;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Elements.Player;
 import com.progr.amador.TNText.Model.Elements.Bomb;
 
-public class Player1Controller extends GameController{
+public class Player1Controller extends GameController {
 
     public Player1Controller(Arena arena) {super (arena);}
 

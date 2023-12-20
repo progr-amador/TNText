@@ -1,9 +1,11 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Test;
 
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.progr.amador.TNText.Controller.Elements.Player1Controller;
 import com.progr.amador.TNText.Controller.Elements.Player2Controller;
 import com.progr.amador.TNText.Model.Arena;
-import com.progr.amador.TNText.Model.Elements.Bomb;
+import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Elements.Explosion;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusBomb;
 import com.progr.amador.TNText.Model.Elements.Powerup.PlusPower;
@@ -13,8 +15,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.event.KeyEvent;
+
+import static com.googlecode.lanterna.input.KeyType.*;
+
 public class PlayerControllerTest {
     Arena testzone;
+    ArenaBuilder builder;
     Player1Controller player1Controller;
     Player2Controller player2Controller;
     Position specific_place;
@@ -24,6 +31,8 @@ public class PlayerControllerTest {
     @BeforeEach
     public void helper() {
         testzone = new Arena(15, 15);
+        builder = new ArenaBuilder(testzone);
+        builder.run();
         player1Controller = new Player1Controller(testzone);
         player2Controller = new Player2Controller(testzone);
     }
@@ -149,6 +158,46 @@ public class PlayerControllerTest {
 
     }
 
+    // ProcessKey -----------------------------------------------------------
 
+    @Test
+    public void processKeyPlayer2(){
+        specific_place = new Position(13, 12);
+        KeyStroke key = new KeyStroke(ArrowUp);
+
+        player2Controller.processKey(key, builder);
+
+        Assertions.assertEquals(specific_place, testzone.getPlayer2().getPosition());
+
+        specific_place = new Position(13, 13);
+        key = new KeyStroke(ArrowDown);
+
+        player2Controller.processKey(key, builder);
+
+        Assertions.assertEquals(specific_place, testzone.getPlayer2().getPosition());
+
+        specific_place = new Position(12, 13);
+        key = new KeyStroke(ArrowLeft);
+
+        player2Controller.processKey(key, builder);
+
+        Assertions.assertEquals(specific_place, testzone.getPlayer2().getPosition());
+
+        specific_place = new Position(13, 13);
+        key = new KeyStroke(ArrowRight);
+
+        player2Controller.processKey(key, builder);
+
+        Assertions.assertEquals(specific_place, testzone.getPlayer2().getPosition());
+    }
+
+    @Test
+    public void processKeyPlayer2Bomb(){
+        KeyStroke key = new KeyStroke(Enter);
+
+        player2Controller.processKey(key, builder);
+
+        Assertions.assertEquals(1, testzone.getBombs().size());
+    }
 
 }

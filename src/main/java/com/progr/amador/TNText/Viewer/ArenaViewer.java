@@ -3,15 +3,10 @@ package com.progr.amador.TNText.Viewer;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.progr.amador.TNText.Controller.Elements.GameController;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.Elements.*;
 import com.progr.amador.TNText.Model.Elements.Powerup.Powerup;
 import com.progr.amador.TNText.Model.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.progr.amador.TNText.Application.getTerminal;
 

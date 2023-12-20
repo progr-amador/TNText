@@ -32,6 +32,7 @@ public class Menu {
         return height;
     }
 
+
     public void setCurrent(int current) {
         this.current = current;
     }
@@ -51,7 +52,6 @@ public class Menu {
     public void MenuChoosingMusic() {
         sound.setFile(0);
         if( Application.getInstance().checkSound()) sound.play();
-        //sound.stop();
-
     }
+
 }

@@ -1,4 +1,4 @@
-package com.progr.amador.TNText.Controller.Elements;
+package com.progr.amador.TNText.Controller;
 
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Controller.Controller;

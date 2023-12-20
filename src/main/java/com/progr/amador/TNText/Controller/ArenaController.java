@@ -1,7 +1,9 @@
-package com.progr.amador.TNText.Controller.Elements;
+package com.progr.amador.TNText.Controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Application;
+import com.progr.amador.TNText.Controller.Elements.Player1Controller;
+import com.progr.amador.TNText.Controller.Elements.Player2Controller;
 import com.progr.amador.TNText.Model.Arena;
 import com.progr.amador.TNText.Model.ArenaBuilder;
 import com.progr.amador.TNText.Model.Menu;

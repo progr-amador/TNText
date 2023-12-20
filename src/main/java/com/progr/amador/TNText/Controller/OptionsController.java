@@ -1,4 +1,4 @@
-package com.progr.amador.TNText.Controller.Elements;
+package com.progr.amador.TNText.Controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
@@ -19,11 +19,20 @@ public class OptionsController extends Controller<Options> {
     public void processKey(KeyStroke key) throws IOException {
         int entries = 4;
         switch (key.getKeyType()) {
-            case ArrowUp -> {getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries); getModel().OptionChoosingMusic();}
+            case ArrowUp -> {
+                getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries);
+                getModel().OptionChoosingMusic();
+            }
 
-            case ArrowDown -> {getModel().setCurrent((getModel().getCurrent() + 1) % entries); getModel().OptionChoosingMusic(); }
+            case ArrowDown -> {
+                getModel().setCurrent((getModel().getCurrent() + 1) % entries);
+                getModel().OptionChoosingMusic();
+            }
 
-            case Enter -> getModel().toggleUpgrade();
+            case Enter -> {
+                getModel().toggleUpgrade();
+                getModel().OptionChoosingMusic();
+            }
 
             case Escape -> getTerminal().getScreen().close();
 

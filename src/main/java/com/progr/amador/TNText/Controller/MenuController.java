@@ -1,4 +1,4 @@
-package com.progr.amador.TNText.Controller.Elements;
+package com.progr.amador.TNText.Controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.progr.amador.TNText.Controller.Controller;
@@ -20,12 +20,18 @@ public class MenuController extends Controller<Menu> {
         switch (key.getKeyType()) {
             case Escape -> getTerminal().getScreen().close();
 
-            case ArrowUp -> {getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries);
-                getModel().MenuChoosingMusic(); }
+            case ArrowUp -> {
+                getModel().setCurrent((getModel().getCurrent() - 1 + entries) % entries);
+                getModel().MenuChoosingMusic();
+            }
 
-            case ArrowDown -> {getModel().setCurrent((getModel().getCurrent() + 1) % entries); getModel().MenuChoosingMusic();}
+            case ArrowDown -> {
+                getModel().setCurrent((getModel().getCurrent() + 1) % entries);
+                getModel().MenuChoosingMusic();
+            }
 
             case Enter -> getModel().nextState();
+
 
             case EOF -> System.exit(0);
         }

@@ -1,7 +1,7 @@
-package com.progr.amador.TNText;
+package com.progr.amador.TNText.Test;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.progr.amador.TNText.Controller.Elements.OptionsController;
+import com.progr.amador.TNText.Controller.OptionsController;
 import com.progr.amador.TNText.Model.Options;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

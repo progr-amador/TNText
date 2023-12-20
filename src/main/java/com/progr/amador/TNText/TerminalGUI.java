@@ -56,7 +56,7 @@ public class TerminalGUI {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        return font.deriveFont(Font.PLAIN, 45);
+        return font.deriveFont(Font.PLAIN, 60);
     }
 
     public Screen getScreen() {
