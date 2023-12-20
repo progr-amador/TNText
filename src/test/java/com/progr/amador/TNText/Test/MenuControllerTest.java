@@ -67,5 +67,4 @@ public class MenuControllerTest {
         Assertions.assertEquals(0,menu.getCurrent());
     }
 
-
 }

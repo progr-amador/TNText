@@ -74,25 +74,17 @@ The fact that it provides a global point of access to the instance, it allows th
 
 #### Problem in Context
 
-
+Given the fact that our game requires constant updates of the game state, frequent user input processing, constant game rendering, and time tracking, we had to find a way to make sure all of these requirements were efficiently implemented.
 
 #### The Pattern
 
+We implemented the Game Loop Pattern in the GameState, as it is the ideal solution for the problem given before.
+This pattern decouples progression of game time from user input and processor speed, and it's used in almost every game engine out there.
 
+#### Consequences
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+This pattern acts as a core mechanism that deals with the different components of the game, such as input processing, updating game state, and handling events.
+It helps in maintaining a constant frame rate for the game, which is a crucial aspect for creating a great gameplay experience.
 
 
 

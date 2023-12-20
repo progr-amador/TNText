@@ -24,7 +24,6 @@ public class Options {
         this.current = current;
     }
 
-
     public Options(int width, int height){
         this.width = width;
         this.height = height;
