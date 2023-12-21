@@ -49,14 +49,14 @@ public class TerminalGUI {
     }
 
     public Font getFont() throws IOException, FontFormatException, URISyntaxException {
-        URL resource = getClass().getClassLoader().getResource("fonts/Square-Regular.ttf");
+        URL resource = getClass().getClassLoader().getResource("fonts/SquareGameEdit.ttf");
         File fontFile = new File(resource.toURI());
         Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        return font.deriveFont(Font.PLAIN, 60);
+        return font.deriveFont(Font.PLAIN, 45);
     }
 
     public Screen getScreen() {

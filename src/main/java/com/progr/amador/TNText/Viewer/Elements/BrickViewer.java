@@ -9,5 +9,5 @@ public class BrickViewer extends ElementViewer{
 
     public void draw() {
         super.draw("#6B93C5", "\u0080");
-    };
+    }
 }

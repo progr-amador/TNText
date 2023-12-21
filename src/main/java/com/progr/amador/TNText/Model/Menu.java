@@ -17,7 +17,7 @@ public class Menu {
     private final int height;
     private int current = 0;
 
-    public Menu(int width, int height) throws IOException {
+    public Menu(int width, int height) {
         this.width = width;
         this.height = height;
     }

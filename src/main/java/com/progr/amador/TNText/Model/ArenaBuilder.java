@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class ArenaBuilder {
-    private Arena arena;
+    private final Arena arena;
 
     public ArenaBuilder(Arena arena) {
         this.arena = arena;

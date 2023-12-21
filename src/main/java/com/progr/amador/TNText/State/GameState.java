@@ -36,10 +36,6 @@ public class GameState extends State<Arena> {
         return arenaViewer;
     }
 
-    public ArenaBuilder getArenaBuilder() {
-        return arenaBuilder;
-    }
-
     public void draw() throws IOException {
         getTerminal().getScreen().clear();
         getViewer().draw();

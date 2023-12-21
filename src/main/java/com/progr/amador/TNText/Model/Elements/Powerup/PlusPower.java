@@ -5,7 +5,7 @@ import com.progr.amador.TNText.Viewer.Elements.PlusPowerViewer;
 
 public class PlusPower extends Powerup{
 
-    private PlusPowerViewer plusPowerViewer = new PlusPowerViewer(this);
+    private final PlusPowerViewer plusPowerViewer = new PlusPowerViewer(this);
 
     public PlusPower(int x, int y) {
         super(x, y);

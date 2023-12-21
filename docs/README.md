@@ -123,8 +123,6 @@ Some of the most important classes can be found in:
 
 ![Test Coverage](../docs/images/TestCoverage.png)
 
-HTML version available [here](../htmlReport/index.html)
-
 ### SELF-EVALUATION
 
 - Afonso Castro: 33.3%

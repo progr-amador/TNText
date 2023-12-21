@@ -18,7 +18,7 @@ public class Arena {
     private final Player player1;
     private final Player player2;
     private final List<Brick> bricks = new ArrayList<>();
-    private CopyOnWriteArrayList<Wood> woods = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Wood> woods = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Bomb> bombs = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Explosion> explosions = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<Powerup> powerups = new CopyOnWriteArrayList<>();
@@ -36,7 +36,6 @@ public class Arena {
     public int getHeight() {return height;}
     public List<Brick> getBricks() { return bricks; }
     public CopyOnWriteArrayList<Wood> getWoods() { return woods; }
-    public void setWoods(CopyOnWriteArrayList<Wood> woods) { this.woods = woods; }
     public CopyOnWriteArrayList<Bomb> getBombs() {return bombs;}
     public CopyOnWriteArrayList<Explosion> getExplosions() {return explosions;}
     public CopyOnWriteArrayList<Powerup> getPowerups() {
@@ -50,7 +49,7 @@ public class Arena {
 
     public Sound getSound() {return sound;}
 
-    public void whoWon() {  // devia ser passado para o game controller talvez
+    public void whoWon() {
         boolean player1_dead = false, player2_dead = false;
         for (Explosion explosion : explosions) {
             if (explosion != null) {

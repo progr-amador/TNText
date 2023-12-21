@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Player extends Element {
 
     private Integer power = 2;
-    private AtomicInteger bag = new AtomicInteger(1);
+    private final AtomicInteger bag = new AtomicInteger(1);
 
     public Player(int x, int y) {super(x,y);}
 
