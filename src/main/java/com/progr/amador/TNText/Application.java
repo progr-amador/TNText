@@ -17,7 +17,6 @@ public class Application {
         return instance;
     }
 
-
     public void setState(State state) {
         instance.state = state;
     }
