@@ -121,7 +121,7 @@ Some of the most important classes can be found in:
 
 #### Screenshot of coverage report
 
-![Test Coverage](../docs/images/Test Coverage.png)
+![Test Coverage](../docs/images/TestCoverage.png)
 
 HTML version available [here](../htmlReport/index.html)
 

@@ -22,7 +22,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 ![TNTextMapImage1](docs/images/PLAYER2WON.png)
 
 #### Draw Screen
-![TNTextMapImage1](docs/images/ITS A DRAW.png)
+![TNTextMapImage1](docs/images/ITSADRAW.png)
 
 #### Main Menu
 ![TNTextMapImage1](docs/images/MENU.png)
