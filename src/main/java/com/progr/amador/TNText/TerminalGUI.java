@@ -9,10 +9,10 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.InputStream;
+
 
 public class TerminalGUI {
     Screen screen;
@@ -45,13 +45,16 @@ public class TerminalGUI {
         factory.setInitialTerminalSize(new TerminalSize(15, 17));
         factory.setTerminalEmulatorTitle("TNText");
 
-        return factory.createTerminal();
+        return factory.createTerminalEmulator();
     }
 
-    public Font getFont() throws IOException, FontFormatException, URISyntaxException {
-        URL resource = getClass().getClassLoader().getResource("fonts/SquareGameEdit.ttf");
-        File fontFile = new File(resource.toURI());
-        Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
+    public Font getFont() throws IOException, FontFormatException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("fonts/SquareGameEdit.ttf");
+        if (inputStream == null) {
+            throw new IOException("Font file not found");
+        }
+
+        Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
