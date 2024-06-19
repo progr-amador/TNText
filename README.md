@@ -14,8 +14,8 @@ For a more detailed version of this description click [here](./docs/README.md).
 
 ### INSTALLATION PROCESS
 
-1. Download the latest .jar file from Releases
-2. run $ java -jar TNText.jar
+1. Download the .jar file from [latest release](https://github.com/progr-amador/TNText/releases/tag/v1.1)
+2. Run $ java -jar TNText.jar
 
 ### SCREENSHOTS
 |                  Arena                   |                Main Menu                 |                  Settings                   |
